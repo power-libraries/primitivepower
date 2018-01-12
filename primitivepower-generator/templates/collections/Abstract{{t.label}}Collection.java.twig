@@ -1,0 +1,57 @@
+package com.github.powerlibraries.primitive.collections;
+
+import java.util.Iterator;
+import java.util.function.IntFunction;
+
+import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
+
+public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.label}}Collection{{t.generic}} {
+	
+	@Override
+	public boolean contains(Object o) {
+		{{t.returnOnInvalidValue('o','false')}}
+		return contains{{t.label}}(({{t.boxed}})o);
+	}
+
+	@Override
+	public boolean add({{t.boxed}} e) {
+		return add{{t.label}}(e);
+	}
+
+	@Override
+	public boolean remove(Object o) {
+		{{t.returnOnInvalidValue('o','false')}}
+		return remove{{t.label}}(({{t.boxed}})o);
+	}
+
+	@Override
+	public {{t.boxed}}[] toArray(IntFunction<{{t.boxed}}[]> p) {
+		return toArray(p.apply(this.size()));
+	}
+	
+	/**
+     * Returns a string representation of this collection.  The string
+     * representation consists of a list of the collection's elements in the
+     * order they are returned by its iterator, enclosed in square brackets
+     * (<tt>"[]"</tt>).  Adjacent elements are separated by the characters
+     * <tt>", "</tt> (comma and space).  Elements are converted to strings as
+     * by {@link String#valueOf(Object)}.
+     *
+     * @return a string representation of this collection
+     */
+    public String toString() {
+        Iterator<{{t.label}}Pointer{{t.generic}}> it = primitiveIterable().iterator();
+        if (! it.hasNext())
+            return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (;;) {
+            {{t.label}}Pointer{{t.generic}} e = it.next();
+            sb.append(e.get());
+            if (! it.hasNext())
+                return sb.append(']').toString();
+            sb.append(',').append(' ');
+        }
+    }
+}
