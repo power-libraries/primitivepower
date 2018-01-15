@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.DoublePointer;
+
 public interface DoubleList extends List<Double>, DoubleCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<DoublePointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<DoublePointer> primitiveIterable(int index);
 }

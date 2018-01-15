@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.BooleanPointer;
+
 public interface BooleanList extends List<Boolean>, BooleanCollection {
 
 	//TODO
@@ -39,4 +41,10 @@ public interface BooleanList extends List<Boolean>, BooleanCollection {
 	BooleanList subList(int fromIndex, int toIndex);
 	
 	
+
+	default Iterable<BooleanPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<BooleanPointer> primitiveIterable(int index);
 }

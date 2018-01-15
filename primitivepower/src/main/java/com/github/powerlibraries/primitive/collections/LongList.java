@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.LongPointer;
+
 public interface LongList extends List<Long>, LongCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface LongList extends List<Long>, LongCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<LongPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<LongPointer> primitiveIterable(int index);
 }

@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.ObjectPointer;
+
 public interface ObjectList<E> extends List<E>, ObjectCollection<E> {
 
 	//TODO
@@ -39,4 +41,10 @@ public interface ObjectList<E> extends List<E>, ObjectCollection<E> {
 	ObjectList<E> subList(int fromIndex, int toIndex);
 	
 	
+
+	default Iterable<ObjectPointer<E>> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<ObjectPointer<E>> primitiveIterable(int index);
 }

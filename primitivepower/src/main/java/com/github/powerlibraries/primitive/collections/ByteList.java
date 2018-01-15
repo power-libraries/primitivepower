@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.BytePointer;
+
 public interface ByteList extends List<Byte>, ByteCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface ByteList extends List<Byte>, ByteCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<BytePointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<BytePointer> primitiveIterable(int index);
 }

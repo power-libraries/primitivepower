@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.FloatPointer;
+
 public interface FloatList extends List<Float>, FloatCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface FloatList extends List<Float>, FloatCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<FloatPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<FloatPointer> primitiveIterable(int index);
 }

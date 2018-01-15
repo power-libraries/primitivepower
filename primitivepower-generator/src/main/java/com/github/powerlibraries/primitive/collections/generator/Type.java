@@ -35,7 +35,7 @@ public enum Type {
 	},
 	INT(true,		"Int",		"",		"int",		"Integer",		"0"),
 	LONG(true,		"Long",		"",		"long",		"Long",			"0L"),
-	SHORT(false,	"Short",	"",		"short",	"Short",		"0"),
+	SHORT(false,	"Short",	"",		"short",	"Short",		"((short)0)"),
 	BYTE(false,		"Byte",		"",		"byte",		"Byte",			"0"),
 	CHAR(false,		"Char",		"",		"char",		"Character",	"'\\u0000'"),
 	BOOLEAN(false,	"Boolean",	"",		"boolean",	"Boolean",		"false"),

@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
+
 public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.label}}Collection{{t.generic}} {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	
 	public void parallelSort();
 	{% endif %}
+
+	default Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable(int index);
 }

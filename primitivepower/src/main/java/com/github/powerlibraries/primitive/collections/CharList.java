@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.CharPointer;
+
 public interface CharList extends List<Character>, CharCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface CharList extends List<Character>, CharCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<CharPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<CharPointer> primitiveIterable(int index);
 }

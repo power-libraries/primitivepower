@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.IntPointer;
+
 public interface IntList extends List<Integer>, IntCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface IntList extends List<Integer>, IntCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<IntPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<IntPointer> primitiveIterable(int index);
 }

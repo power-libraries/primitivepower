@@ -2,6 +2,8 @@ package com.github.powerlibraries.primitive.collections;
 
 import java.util.List;
 
+import com.github.powerlibraries.primitive.common.ShortPointer;
+
 public interface ShortList extends List<Short>, ShortCollection {
 
 	//TODO
@@ -43,4 +45,10 @@ public interface ShortList extends List<Short>, ShortCollection {
 	
 	public void parallelSort();
 	
+
+	default Iterable<ShortPointer> primitiveIterable() {
+		return primitiveIterable(0);
+	}
+	
+	Iterable<ShortPointer> primitiveIterable(int index);
 }
