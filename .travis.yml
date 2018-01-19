@@ -4,4 +4,8 @@ jdk:
 addons:
   sonarcloud:
     organization: "power-libraries"
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 after_success: mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true && cd target/primitivepower/ && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V && cd ../../ && sonar-scanner && cd target/primitivepower/ && mvn test -Dmaven.javadoc.skip=true -B
