@@ -2,4 +2,4 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk9
-after_success: cd target/primitivepower/ && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V && mvn test -Dmaven.javadoc.skip=true -B
+after_success: mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true && cd target/primitivepower/ && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V && mvn test -Dmaven.javadoc.skip=true -B
