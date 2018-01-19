@@ -8,7 +8,7 @@ script:
   - cd primitivepower-generator
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V 
   - mvn test -Dmaven.javadoc.skip=true -B
-  - mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true ../tmp/
+  - mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/"
   - cd ..
   - diff -qrN tmp/ primitivepower/
   - cd primitivepower
