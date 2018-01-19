@@ -9,24 +9,19 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import org.jtwig.environment.EnvironmentConfiguration;
 import org.jtwig.environment.EnvironmentConfigurationBuilder;
 import org.jtwig.property.selection.cache.NoSelectionPropertyResolverCache;
-import org.slf4j.impl.SimpleLogger;
 
 public class Generator {
 
 	public static void main(String[] args) throws IOException {
 		generateCode(
-				new File("templates"),
-				new File("../primitivepower/src/main/java/com/github/powerlibraries/primitive/")
-			);
-		
-		generateCode(
-			new File("test-templates"),
-			new File("../primitivepower/src/test/java/com/github/powerlibraries/primitive/")
+			new File("templates"),
+			new File("target/primitivepower")
 		);
 	}
 	
@@ -49,27 +44,34 @@ public class Generator {
 			.walk(in.toPath())
 			.map(Path::toFile)
 			.filter(File::isFile)
-			.filter(f->f.getName().endsWith(".twig"))
 			.collect(Collectors.toList());
 		
 		for(File f:l) {
-			JtwigTemplate nameTemplate = JtwigTemplate.inlineTemplate(f.getName().substring(0,f.getName().length()-5), configuration);
-			JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
 			File folder = new File(target, in.toPath().relativize(f.getParentFile().toPath()).toString());
 			folder.mkdirs();
 			
-			for(Type t:Type.values()) {
-				JtwigModel model = JtwigModel
-					.newModel()
-					.with("t", t)
-					.with("allTypes", Type.values());
+			if(f.getName().endsWith(".twig")) {
+				JtwigTemplate nameTemplate = JtwigTemplate.inlineTemplate(f.getName().substring(0,f.getName().length()-5), configuration);
+				JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
 				
-				File res = new File(folder, nameTemplate.render(model));
-				try (OutputStream out = new FileOutputStream(res)) {
-					template.render(model, out);
-				} catch(Exception e) {
-					throw new RuntimeException("Failed in "+f.getName()+" with k="+t, e);
+				
+				for(Type t:Type.values()) {
+					JtwigModel model = JtwigModel
+						.newModel()
+						.with("t", t)
+						.with("allTypes", Type.values());
+					
+					File res = new File(folder, nameTemplate.render(model));
+					try (OutputStream out = new FileOutputStream(res)) {
+						template.render(model, out);
+					} catch(Exception e) {
+						throw new RuntimeException("Failed in "+f.getName()+" with k="+t, e);
+					}
 				}
+			}
+			else {
+				File res = new File(folder, f.getName());
+				FileUtils.copyFile(f, res);
 			}
 		}
 	}
