@@ -58,7 +58,7 @@ public class Generator {
 				for(Type t:Type.values()) {
 					JtwigModel model = JtwigModel
 						.newModel()
-						.with("t", t) 
+						.with("t", t)
 						.with("allTypes", Type.values());
 					
 					File res = new File(folder, nameTemplate.render(model));
