@@ -21,7 +21,7 @@ public class Generator {
 	public static void main(String[] args) throws IOException {
 		generateCode(
 			new File("templates"),
-			new File("target/primitivepower")
+			new File("generated/primitivepower")
 		);
 	}
 	
