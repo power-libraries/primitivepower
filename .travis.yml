@@ -4,6 +4,9 @@ jdk:
 addons:
   sonarcloud:
     organization: "power-libraries"
+    branches:
+      - master
+      - develop
 cache:
   directories:
     - '$HOME/.m2/repository'
