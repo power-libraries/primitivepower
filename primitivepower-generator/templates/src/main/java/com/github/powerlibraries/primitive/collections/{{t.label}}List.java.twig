@@ -41,11 +41,12 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	{{t.label}}List{{t.generic}} subList(int fromIndex, int toIndex);
 	
 	{% if t.numeric %}
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	{% endif %}
 
+	@Override
 	default Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable() {
 		return primitiveIterable(0);
 	}

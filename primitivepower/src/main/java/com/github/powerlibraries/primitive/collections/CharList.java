@@ -41,11 +41,12 @@ public interface CharList extends List<Character>, CharCollection {
 	CharList subList(int fromIndex, int toIndex);
 	
 	
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	
 
+	@Override
 	default Iterable<CharPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}

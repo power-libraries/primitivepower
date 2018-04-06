@@ -41,11 +41,12 @@ public interface ByteList extends List<Byte>, ByteCollection {
 	ByteList subList(int fromIndex, int toIndex);
 	
 	
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	
 
+	@Override
 	default Iterable<BytePointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}
