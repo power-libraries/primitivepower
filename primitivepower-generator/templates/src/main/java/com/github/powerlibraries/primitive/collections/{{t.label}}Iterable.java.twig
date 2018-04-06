@@ -7,21 +7,21 @@ import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
 public interface {{t.label}}Iterable{{t.generic}} extends Iterable<{{t.boxed}}> {
 
 	@Override
-    Iterator<{{t.boxed}}> iterator();
+	Iterator<{{t.boxed}}> iterator();
 
 	Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable();
 
 	//TODO
 	/*
-    default void forEach(Consumer<? super T> action) {
-        Objects.requireNonNull(action);
-        for (T t : this) {
-            action.accept(t);
-        }
-    }
+	default void forEach(Consumer<? super T> action) {
+		Objects.requireNonNull(action);
+		for (T t : this) {
+			action.accept(t);
+		}
+	}
 
-    default Spliterator<T> spliterator() {
-        return Spliterators.spliteratorUnknownSize(iterator(), 0);
-    }
-    */
+	default Spliterator<T> spliterator() {
+		return Spliterators.spliteratorUnknownSize(iterator(), 0);
+	}
+	*/
 }

@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.BytePointer;
 
 public abstract class AbstractByteCollection implements ByteCollection {
 	
+	protected AbstractByteCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Byte)) {
@@ -38,8 +40,9 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	@Override
 	public boolean containsAllBytes(ByteCollection c) {
 		for(BytePointer o:c.primitiveIterable()) {
-			if(!this.containsByte(o.get()))
+			if(!this.containsByte(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	public boolean removeAllBytes(ByteCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<BytePointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsByte(it.next().get())) {
-				it.remove();
+		Iterator<BytePointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsByte(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	public boolean retainAllBytes(ByteCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<BytePointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsByte(it.next().get())) {
-				it.remove();
+		Iterator<BytePointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsByte(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<BytePointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<BytePointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			BytePointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

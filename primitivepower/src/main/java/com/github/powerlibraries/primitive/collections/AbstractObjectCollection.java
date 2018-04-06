@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.ObjectPointer;
 
 public abstract class AbstractObjectCollection<E> implements ObjectCollection<E> {
 	
+	protected AbstractObjectCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		
@@ -34,8 +36,9 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -43,8 +46,9 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	@Override
 	public boolean containsAllObjects(ObjectCollection<? extends E> c) {
 		for(ObjectPointer<? extends E> o:c.primitiveIterable()) {
-			if(!this.containsObject(o.get()))
+			if(!this.containsObject(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -53,10 +57,10 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	public boolean removeAllObjects(ObjectCollection<? extends E> c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<E> it = iterator();
-		while (it.hasNext()) {
-			if (c.contains(it.next())) {
-				it.remove();
+		Iterator<E> iterator = iterator();
+		while (iterator.hasNext()) {
+			if (c.contains(iterator.next())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -67,10 +71,10 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	public boolean retainAllObjects(ObjectCollection<? extends E> c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<E> it = iterator();
-		while (it.hasNext()) {
-			if (!c.contains(it.next())) {
-				it.remove();
+		Iterator<E> iterator = iterator();
+		while (iterator.hasNext()) {
+			if (!c.contains(iterator.next())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -89,18 +93,19 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<ObjectPointer<E>> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<ObjectPointer<E>> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			ObjectPointer<E> e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

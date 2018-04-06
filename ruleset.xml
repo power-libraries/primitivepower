@@ -11,14 +11,19 @@
 	<!-- include all Java rules except some specifically selected ones -->
 	<rule ref="category/java/bestpractices.xml"/>
 	<rule ref="category/java/codestyle.xml">
-		<exclude name="MethodArgumentCouldBeFinal"/>
 		<exclude name="LocalVariableCouldBeFinal"/>
+		<exclude name="MethodArgumentCouldBeFinal"/>
+		<exclude name="OnlyOneReturn"/>
 	</rule>
-	<rule ref="category/java/errorprone.xml"/>
+	<rule ref="category/java/errorprone.xml">
+		<exclude name="DataflowAnomalyAnalysis"/>
+	</rule>
 	<rule ref="category/java/design.xml">
 		<exclude name="LawOfDemeter"/>
 	</rule>
-	<rule ref="category/java/documentation.xml"/>
+	<rule ref="category/java/documentation.xml">
+		<exclude name="CommentSize"/>
+	</rule>
 	<rule ref="category/java/multithreading.xml"/>
 	<rule ref="category/java/performance.xml">
 		<exclude name="AvoidUsingShortType"/>
