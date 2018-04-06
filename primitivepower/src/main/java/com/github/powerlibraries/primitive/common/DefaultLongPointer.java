@@ -8,6 +8,7 @@ public class DefaultLongPointer implements LongPointer {
 		this.value = value;
 	}
 
+	@Override
 	public long get() {
 		return value;
 	}

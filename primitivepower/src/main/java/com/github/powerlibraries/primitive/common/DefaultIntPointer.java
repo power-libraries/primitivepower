@@ -8,6 +8,7 @@ public class DefaultIntPointer implements IntPointer {
 		this.value = value;
 	}
 
+	@Override
 	public int get() {
 		return value;
 	}

@@ -8,6 +8,7 @@ public class DefaultCharPointer implements CharPointer {
 		this.value = value;
 	}
 
+	@Override
 	public char get() {
 		return value;
 	}

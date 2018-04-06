@@ -20,8 +20,9 @@ public class Generator {
 
 	public static void main(String[] args) throws IOException {
 		File targetDirectory = new File("../primitivepower");
-		if(args.length==1)
+		if(args.length==1) {
 			targetDirectory = new File(args[0]);
+		}
 		
 		generateCode(
 			new File("templates"),
@@ -44,13 +45,13 @@ public class Generator {
 	        .build();
 		
 		
-		List<File> l = Files
+		List<File> fileList = Files
 			.walk(in.toPath())
 			.map(Path::toFile)
 			.filter(File::isFile)
 			.collect(Collectors.toList());
 		
-		for(File f:l) {
+		for(File f:fileList) {
 			File folder = new File(target, in.toPath().relativize(f.getParentFile().toPath()).toString());
 			folder.mkdirs();
 			

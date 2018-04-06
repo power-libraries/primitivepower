@@ -8,6 +8,7 @@ public class DefaultFloatPointer implements FloatPointer {
 		this.value = value;
 	}
 
+	@Override
 	public float get() {
 		return value;
 	}
