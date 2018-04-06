@@ -1,10 +1,9 @@
 package com.github.powerlibraries.primitive.collections.generator;
 
-import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@SuppressWarnings("PMD")
 @Getter @AllArgsConstructor
 public enum Type {
 	GENERIC(false,	"Object",	"<E>",	"E",		"E",			"null") {
@@ -61,8 +60,8 @@ public enum Type {
 		return "if(!("+arg+" instanceof "+boxed+")) {\n\t\t\treturn "+returnValue+";\n\t\t}";
 	}
 	
-	public String equal(String a, String b) {
-		return a+" == "+b;
+	public String equal(String left, String right) {
+		return left+" == "+right;
 	}
 	
 	public boolean isPrimitive() {
@@ -74,10 +73,12 @@ public enum Type {
 	}
 	
 	public String getExtendedGeneric() {
-		if(getGeneric().isEmpty())
+		if(getGeneric().isEmpty()) {
 			return "";
-		else
+		}
+		else {
 			return "<? extends "+getBoxed()+">";
+		}
 	}
 	
 	public String hash(String var) {

@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
 
 public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.label}}Collection{{t.generic}} {
 	
+	protected Abstract{{t.label}}Collection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		{{t.returnOnInvalidValue('o','false')}}
@@ -34,8 +36,9 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -43,8 +46,9 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	@Override
 	public boolean containsAll{{t.label}}s({{t.label}}Collection{{t.extendedGeneric}} c) {
 		for({{t.label}}Pointer{{t.extendedGeneric}} o:c.primitiveIterable()) {
-			if(!this.contains{{t.label}}(o.get()))
+			if(!this.contains{{t.label}}(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -53,10 +57,10 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	public boolean removeAll{{t.label}}s({{t.label}}Collection{{t.extendedGeneric}} c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<{{t.label}}Pointer{{t.generic}}> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.contains{{t.label}}(it.next().get())) {
-				it.remove();
+		Iterator<{{t.label}}Pointer{{t.generic}}> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.contains{{t.label}}(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -67,10 +71,10 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	public boolean retainAll{{t.label}}s({{t.label}}Collection{{t.extendedGeneric}} c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<{{t.label}}Pointer{{t.generic}}> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.contains{{t.label}}(it.next().get())) {
-				it.remove();
+		Iterator<{{t.label}}Pointer{{t.generic}}> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.contains{{t.label}}(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -81,10 +85,10 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	public boolean removeAll{{t.label}}s({{t.label}}Collection{{t.extendedGeneric}} c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator{{t.generic}} it = iterator();
-		while (it.hasNext()) {
-			if (c.contains(it.next())) {
-				it.remove();
+		Iterator{{t.generic}} iterator = iterator();
+		while (iterator.hasNext()) {
+			if (c.contains(iterator.next())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -95,10 +99,10 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	public boolean retainAll{{t.label}}s({{t.label}}Collection{{t.extendedGeneric}} c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator{{t.generic}} it = iterator();
-		while (it.hasNext()) {
-			if (!c.contains(it.next())) {
-				it.remove();
+		Iterator{{t.generic}} iterator = iterator();
+		while (iterator.hasNext()) {
+			if (!c.contains(iterator.next())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -117,18 +121,19 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<{{t.label}}Pointer{{t.generic}}> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<{{t.label}}Pointer{{t.generic}}> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			{{t.label}}Pointer{{t.generic}} e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

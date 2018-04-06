@@ -41,11 +41,12 @@ public interface ShortList extends List<Short>, ShortCollection {
 	ShortList subList(int fromIndex, int toIndex);
 	
 	
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	
 
+	@Override
 	default Iterable<ShortPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}

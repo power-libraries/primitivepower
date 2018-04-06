@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.CharPointer;
 
 public abstract class AbstractCharCollection implements CharCollection {
 	
+	protected AbstractCharCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Character)) {
@@ -38,8 +40,9 @@ public abstract class AbstractCharCollection implements CharCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractCharCollection implements CharCollection {
 	@Override
 	public boolean containsAllChars(CharCollection c) {
 		for(CharPointer o:c.primitiveIterable()) {
-			if(!this.containsChar(o.get()))
+			if(!this.containsChar(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractCharCollection implements CharCollection {
 	public boolean removeAllChars(CharCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<CharPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsChar(it.next().get())) {
-				it.remove();
+		Iterator<CharPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsChar(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractCharCollection implements CharCollection {
 	public boolean retainAllChars(CharCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<CharPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsChar(it.next().get())) {
-				it.remove();
+		Iterator<CharPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsChar(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractCharCollection implements CharCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<CharPointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<CharPointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			CharPointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

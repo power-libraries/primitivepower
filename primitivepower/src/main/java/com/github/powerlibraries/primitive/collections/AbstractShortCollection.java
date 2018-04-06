@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.ShortPointer;
 
 public abstract class AbstractShortCollection implements ShortCollection {
 	
+	protected AbstractShortCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Short)) {
@@ -38,8 +40,9 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	@Override
 	public boolean containsAllShorts(ShortCollection c) {
 		for(ShortPointer o:c.primitiveIterable()) {
-			if(!this.containsShort(o.get()))
+			if(!this.containsShort(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	public boolean removeAllShorts(ShortCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<ShortPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsShort(it.next().get())) {
-				it.remove();
+		Iterator<ShortPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsShort(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	public boolean retainAllShorts(ShortCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<ShortPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsShort(it.next().get())) {
-				it.remove();
+		Iterator<ShortPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsShort(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<ShortPointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<ShortPointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			ShortPointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

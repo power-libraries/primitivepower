@@ -41,11 +41,12 @@ public interface IntList extends List<Integer>, IntCollection {
 	IntList subList(int fromIndex, int toIndex);
 	
 	
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	
 
+	@Override
 	default Iterable<IntPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}

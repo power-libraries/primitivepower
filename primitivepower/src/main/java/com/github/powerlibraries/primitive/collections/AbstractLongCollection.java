@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.LongPointer;
 
 public abstract class AbstractLongCollection implements LongCollection {
 	
+	protected AbstractLongCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Long)) {
@@ -38,8 +40,9 @@ public abstract class AbstractLongCollection implements LongCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractLongCollection implements LongCollection {
 	@Override
 	public boolean containsAllLongs(LongCollection c) {
 		for(LongPointer o:c.primitiveIterable()) {
-			if(!this.containsLong(o.get()))
+			if(!this.containsLong(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractLongCollection implements LongCollection {
 	public boolean removeAllLongs(LongCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<LongPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsLong(it.next().get())) {
-				it.remove();
+		Iterator<LongPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsLong(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractLongCollection implements LongCollection {
 	public boolean retainAllLongs(LongCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<LongPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsLong(it.next().get())) {
-				it.remove();
+		Iterator<LongPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsLong(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractLongCollection implements LongCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<LongPointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<LongPointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			LongPointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

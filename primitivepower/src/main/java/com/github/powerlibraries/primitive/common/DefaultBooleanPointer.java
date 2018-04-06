@@ -8,6 +8,7 @@ public class DefaultBooleanPointer implements BooleanPointer {
 		this.value = value;
 	}
 
+	@Override
 	public boolean get() {
 		return value;
 	}

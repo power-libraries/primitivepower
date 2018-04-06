@@ -8,6 +8,7 @@ public class DefaultObjectPointer<E> implements ObjectPointer<E> {
 		this.value = value;
 	}
 
+	@Override
 	public E get() {
 		return value;
 	}

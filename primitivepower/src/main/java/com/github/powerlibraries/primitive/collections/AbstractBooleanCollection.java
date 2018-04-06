@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.BooleanPointer;
 
 public abstract class AbstractBooleanCollection implements BooleanCollection {
 	
+	protected AbstractBooleanCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Boolean)) {
@@ -38,8 +40,9 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	@Override
 	public boolean containsAllBooleans(BooleanCollection c) {
 		for(BooleanPointer o:c.primitiveIterable()) {
-			if(!this.containsBoolean(o.get()))
+			if(!this.containsBoolean(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	public boolean removeAllBooleans(BooleanCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<BooleanPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsBoolean(it.next().get())) {
-				it.remove();
+		Iterator<BooleanPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsBoolean(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	public boolean retainAllBooleans(BooleanCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<BooleanPointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsBoolean(it.next().get())) {
-				it.remove();
+		Iterator<BooleanPointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsBoolean(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<BooleanPointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<BooleanPointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			BooleanPointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

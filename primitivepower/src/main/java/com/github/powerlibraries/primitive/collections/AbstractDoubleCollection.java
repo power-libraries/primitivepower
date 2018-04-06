@@ -9,6 +9,8 @@ import com.github.powerlibraries.primitive.common.DoublePointer;
 
 public abstract class AbstractDoubleCollection implements DoubleCollection {
 	
+	protected AbstractDoubleCollection() {}
+	
 	@Override
 	public boolean contains(Object o) {
 		if(!(o instanceof Double)) {
@@ -38,8 +40,9 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
-			if(!this.contains(o))
+			if(!this.contains(o)) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -47,8 +50,9 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	@Override
 	public boolean containsAllDoubles(DoubleCollection c) {
 		for(DoublePointer o:c.primitiveIterable()) {
-			if(!this.containsDouble(o.get()))
+			if(!this.containsDouble(o.get())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -57,10 +61,10 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	public boolean removeAllDoubles(DoubleCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<DoublePointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (c.containsDouble(it.next().get())) {
-				it.remove();
+		Iterator<DoublePointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (c.containsDouble(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -71,10 +75,10 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	public boolean retainAllDoubles(DoubleCollection c) {
 		Objects.requireNonNull(c);
 		boolean modified = false;
-		Iterator<DoublePointer> it = primitiveIterable().iterator();
-		while (it.hasNext()) {
-			if (!c.containsDouble(it.next().get())) {
-				it.remove();
+		Iterator<DoublePointer> iterator = primitiveIterable().iterator();
+		while (iterator.hasNext()) {
+			if (!c.containsDouble(iterator.next().get())) {
+				iterator.remove();
 				modified = true;
 			}
 		}
@@ -93,18 +97,19 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	 * @return a string representation of this collection
 	 */
 	public String toString() {
-		Iterator<DoublePointer> it = primitiveIterable().iterator();
-		if (! it.hasNext())
+		Iterator<DoublePointer> iterator = primitiveIterable().iterator();
+		if (! iterator.hasNext()) {
 			return "[]";
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append('[');
+		StringBuilder result = new StringBuilder();
+		result.append('[');
 		for (;;) {
-			DoublePointer e = it.next();
-			sb.append(e.get());
-			if (! it.hasNext())
-				return sb.append(']').toString();
-			sb.append(',').append(' ');
+			result.append(iterator.next().get());
+			if (! iterator.hasNext()) {
+				return result.append(']').toString();
+			}
+			result.append(", ");
 		}
 	}
 }

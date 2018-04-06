@@ -8,6 +8,7 @@ public class DefaultBytePointer implements BytePointer {
 		this.value = value;
 	}
 
+	@Override
 	public byte get() {
 		return value;
 	}

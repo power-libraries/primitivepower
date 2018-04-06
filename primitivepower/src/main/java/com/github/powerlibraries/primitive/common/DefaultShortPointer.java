@@ -8,6 +8,7 @@ public class DefaultShortPointer implements ShortPointer {
 		this.value = value;
 	}
 
+	@Override
 	public short get() {
 		return value;
 	}

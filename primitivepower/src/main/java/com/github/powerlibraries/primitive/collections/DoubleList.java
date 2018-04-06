@@ -41,11 +41,12 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	DoubleList subList(int fromIndex, int toIndex);
 	
 	
-	public void sort();
+	void sort();
 	
-	public void parallelSort();
+	void parallelSort();
 	
 
+	@Override
 	default Iterable<DoublePointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}

@@ -8,6 +8,7 @@ public class DefaultDoublePointer implements DoublePointer {
 		this.value = value;
 	}
 
+	@Override
 	public double get() {
 		return value;
 	}
