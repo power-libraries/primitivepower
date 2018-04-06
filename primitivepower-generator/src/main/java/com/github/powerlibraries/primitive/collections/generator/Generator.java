@@ -16,12 +16,18 @@ import org.jtwig.environment.EnvironmentConfiguration;
 import org.jtwig.environment.EnvironmentConfigurationBuilder;
 import org.jtwig.property.selection.cache.NoSelectionPropertyResolverCache;
 
-public class Generator {
+@SuppressWarnings("PMD")
+public final class Generator {
+	
+	private Generator() {}
 
 	public static void main(String[] args) throws IOException {
-		File targetDirectory = new File("../primitivepower");
+		File targetDirectory;
 		if(args.length==1) {
 			targetDirectory = new File(args[0]);
+		}
+		else {
+			 targetDirectory = new File("../primitivepower");
 		}
 		
 		generateCode(
