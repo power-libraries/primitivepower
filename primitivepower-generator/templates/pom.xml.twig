@@ -2,12 +2,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.power-libraries</groupId>
-	<artifactId>primitivepower</artifactId>
+	<artifactId>primitivepower-parent</artifactId>
 	<version>1.0.0</version>
+	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<modules>{% for p in allTypes %}
+		<module>primitivepower-{{lower(p.label)}}</module>{% endfor %}
+		<module>primitivepower-primitives</module>
+		<module>primitivepower-complete</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
@@ -15,12 +22,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.16</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -36,6 +37,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
 	</build>
 </project>
