@@ -19,13 +19,31 @@ public interface ObjectList<E> extends List<E>, ObjectCollection<E> {
 	@Override
 	ObjectList<E> subList(int fromIndex, int toIndex);
 	
+	@Override
+	ObjectListIterator<E> listIterator();
 	
-
+	@Override
+	ObjectListIterator<E> listIterator(int index);
+	
 	@Override
 	default Iterable<ObjectPointer<E>> primitiveIterable() {
 		return primitiveIterable(0);
 	}
 	
 	Iterable<ObjectPointer<E>> primitiveIterable(int index);
-		
+	
+	@Override @Deprecated
+	E get(int index);
+
+	@Override @Deprecated
+	E set(int index, E element);
+
+	@Override @Deprecated
+	void add(int index, E element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

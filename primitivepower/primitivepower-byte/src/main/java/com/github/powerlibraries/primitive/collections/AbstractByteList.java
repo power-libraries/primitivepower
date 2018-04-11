@@ -42,12 +42,12 @@ public abstract class AbstractByteList extends AbstractByteCollection implements
 	}
 	
 	@Override
-	public ListIterator<Byte> iterator() {
+	public ByteListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Byte> listIterator() {
+	public ByteListIterator listIterator() {
 		return listIterator(0);
 	}
 	

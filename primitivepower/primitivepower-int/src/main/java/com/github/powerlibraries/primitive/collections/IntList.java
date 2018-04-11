@@ -24,12 +24,16 @@ public interface IntList extends List<Integer>, IntCollection {
 	@Override
 	IntList subList(int fromIndex, int toIndex);
 	
+	@Override
+	IntListIterator listIterator();
+	
+	@Override
+	IntListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<IntPointer> primitiveIterable() {
 		return primitiveIterable(0);
@@ -39,9 +43,9 @@ public interface IntList extends List<Integer>, IntCollection {
 	
 	default void replaceAll(IntUnaryOperator operator) {
 		Objects.requireNonNull(operator);
-		final ListIterator<E> li = this.listIterator();
+		final IntListIterator li = this.listIterator();
 		while (li.hasNext()) {
-			li.set(operator.apply(li.next()));
+			li.setInt(operator.applyAsInt(li.nextInt()));
 		}
 	}
 	
@@ -49,5 +53,19 @@ public interface IntList extends List<Integer>, IntCollection {
 	default Spliterator.OfInt spliterator() {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
-		
+	
+	@Override @Deprecated
+	Integer get(int index);
+
+	@Override @Deprecated
+	Integer set(int index, Integer element);
+
+	@Override @Deprecated
+	void add(int index, Integer element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

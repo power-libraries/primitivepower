@@ -15,6 +15,7 @@ public interface {{t.label}}Iterable{{t.generic}} extends Iterable<{{t.boxed}}> 
 	@Override
 	PrimitiveIterator.Of{{t.label}} iterator();
 	{% else %}
+	@Override
 	Iterator<{{t.boxed}}> iterator();
 	{% endif %}
 	Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable();

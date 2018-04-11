@@ -38,12 +38,12 @@ public abstract class Abstract{{t.label}}List{{t.generic}} extends Abstract{{t.l
 	}
 	
 	@Override
-	public ListIterator<{{t.boxed}}> iterator() {
+	public {{t.label}}ListIterator{{t.generic}} iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<{{t.boxed}}> listIterator() {
+	public {{t.label}}ListIterator{{t.generic}} listIterator() {
 		return listIterator(0);
 	}
 	

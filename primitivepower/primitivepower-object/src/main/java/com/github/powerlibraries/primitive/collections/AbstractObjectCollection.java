@@ -11,18 +11,18 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 	
 	protected AbstractObjectCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		
 		return containsObject((E)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(E e) {
 		return addObject(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		
 		return removeObject((E)o);
@@ -33,7 +33,7 @@ public abstract class AbstractObjectCollection<E> implements ObjectCollection<E>
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

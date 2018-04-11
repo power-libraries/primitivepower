@@ -11,7 +11,7 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 	
 	protected AbstractBooleanCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Boolean)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 		return containsBoolean((Boolean)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Boolean e) {
 		return addBoolean(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Boolean)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractBooleanCollection implements BooleanCollection {
 		return removeBoolean((Boolean)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Boolean[] toArray(IntFunction<Boolean[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

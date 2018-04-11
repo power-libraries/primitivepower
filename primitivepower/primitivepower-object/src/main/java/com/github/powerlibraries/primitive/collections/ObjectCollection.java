@@ -24,4 +24,31 @@ public interface ObjectCollection<E> extends Collection<E>, ObjectIterable<E> {
 
 	boolean retainAllObjects(ObjectCollection<? extends E> c);
 	
+	@Override @Deprecated
+	boolean contains(Object o);
+	
+	@Override
+	<T> T[] toArray(T[] p);
+	
+	@Override
+	Object[] toArray();
+
+	@Override @Deprecated
+	boolean add(E e);
+
+	@Override @Deprecated
+	boolean remove(Object o);
+
+	@Override @Deprecated
+	boolean containsAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean addAll(Collection<? extends E> c);
+
+	@Override @Deprecated
+	boolean removeAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean retainAll(Collection<?> c);
+	
 }

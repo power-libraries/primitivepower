@@ -42,12 +42,12 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 	}
 	
 	@Override
-	public ListIterator<Long> iterator() {
+	public LongListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Long> listIterator() {
+	public LongListIterator listIterator() {
 		return listIterator(0);
 	}
 	

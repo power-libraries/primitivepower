@@ -42,12 +42,12 @@ public abstract class AbstractDoubleList extends AbstractDoubleCollection implem
 	}
 	
 	@Override
-	public ListIterator<Double> iterator() {
+	public DoubleListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Double> listIterator() {
+	public DoubleListIterator listIterator() {
 		return listIterator(0);
 	}
 	

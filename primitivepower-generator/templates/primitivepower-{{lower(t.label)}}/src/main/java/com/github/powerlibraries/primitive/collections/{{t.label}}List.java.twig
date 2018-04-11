@@ -24,12 +24,16 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	@Override
 	{{t.label}}List{{t.generic}} subList(int fromIndex, int toIndex);
 	
+	@Override
+	{{t.label}}ListIterator{{t.generic}} listIterator();
+	
+	@Override
+	{{t.label}}ListIterator{{t.generic}} listIterator(int index);
 	{% if t.numeric %}
 	void sort();
 	
 	void parallelSort();
 	{% endif %}
-
 	@Override
 	default Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable() {
 		return primitiveIterable(0);
@@ -39,9 +43,9 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	{% if t.streamSupport %}
 	default void replaceAll({{t.label}}UnaryOperator operator) {
 		Objects.requireNonNull(operator);
-		final ListIterator<E> li = this.listIterator();
+		final {{t.label}}ListIterator li = this.listIterator();
 		while (li.hasNext()) {
-			li.set(operator.apply(li.next()));
+			li.set{{t.label}}(operator.applyAs{{t.label}}(li.next{{t.label}}()));
 		}
 	}
 	
@@ -49,5 +53,19 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	default Spliterator.Of{{t.label}} spliterator() {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
-	{% endif %}	
+	{% endif %}
+	@Override @Deprecated
+	{{t.boxed}} get(int index);
+
+	@Override @Deprecated
+	{{t.boxed}} set(int index, {{t.boxed}} element);
+
+	@Override @Deprecated
+	void add(int index, {{t.boxed}} element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

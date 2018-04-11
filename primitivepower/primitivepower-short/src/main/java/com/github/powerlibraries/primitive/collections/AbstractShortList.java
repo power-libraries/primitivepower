@@ -42,12 +42,12 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 	}
 	
 	@Override
-	public ListIterator<Short> iterator() {
+	public ShortListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Short> listIterator() {
+	public ShortListIterator listIterator() {
 		return listIterator(0);
 	}
 	

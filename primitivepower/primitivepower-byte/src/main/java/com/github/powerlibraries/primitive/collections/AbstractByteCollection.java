@@ -11,7 +11,7 @@ public abstract class AbstractByteCollection implements ByteCollection {
 	
 	protected AbstractByteCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Byte)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractByteCollection implements ByteCollection {
 		return containsByte((Byte)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Byte e) {
 		return addByte(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Byte)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractByteCollection implements ByteCollection {
 		return removeByte((Byte)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Byte[] toArray(IntFunction<Byte[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

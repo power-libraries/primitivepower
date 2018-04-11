@@ -6,6 +6,7 @@ import com.github.powerlibraries.primitive.common.BytePointer;
 
 public interface ByteIterable extends Iterable<Byte> {
 	
+	@Override
 	Iterator<Byte> iterator();
 	
 	Iterable<BytePointer> primitiveIterable();

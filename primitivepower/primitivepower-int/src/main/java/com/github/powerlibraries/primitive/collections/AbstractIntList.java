@@ -42,12 +42,12 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 	}
 	
 	@Override
-	public ListIterator<Integer> iterator() {
+	public IntListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Integer> listIterator() {
+	public IntListIterator listIterator() {
 		return listIterator(0);
 	}
 	

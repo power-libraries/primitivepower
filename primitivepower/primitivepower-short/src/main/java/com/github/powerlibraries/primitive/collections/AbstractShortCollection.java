@@ -11,7 +11,7 @@ public abstract class AbstractShortCollection implements ShortCollection {
 	
 	protected AbstractShortCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Short)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractShortCollection implements ShortCollection {
 		return containsShort((Short)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Short e) {
 		return addShort(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Short)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractShortCollection implements ShortCollection {
 		return removeShort((Short)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Short[] toArray(IntFunction<Short[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

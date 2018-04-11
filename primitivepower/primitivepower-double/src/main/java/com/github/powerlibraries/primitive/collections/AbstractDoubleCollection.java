@@ -11,7 +11,7 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 	
 	protected AbstractDoubleCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Double)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 		return containsDouble((Double)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Double e) {
 		return addDouble(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Double)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 		return removeDouble((Double)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Double[] toArray(IntFunction<Double[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

@@ -19,17 +19,35 @@ public interface FloatList extends List<Float>, FloatCollection {
 	@Override
 	FloatList subList(int fromIndex, int toIndex);
 	
+	@Override
+	FloatListIterator listIterator();
+	
+	@Override
+	FloatListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<FloatPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}
 	
 	Iterable<FloatPointer> primitiveIterable(int index);
-		
+	
+	@Override @Deprecated
+	Float get(int index);
+
+	@Override @Deprecated
+	Float set(int index, Float element);
+
+	@Override @Deprecated
+	void add(int index, Float element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

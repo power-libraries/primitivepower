@@ -11,7 +11,7 @@ public abstract class AbstractIntCollection implements IntCollection {
 	
 	protected AbstractIntCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Integer)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractIntCollection implements IntCollection {
 		return containsInt((Integer)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Integer e) {
 		return addInt(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Integer)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractIntCollection implements IntCollection {
 		return removeInt((Integer)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Integer[] toArray(IntFunction<Integer[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

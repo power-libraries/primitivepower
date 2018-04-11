@@ -6,6 +6,7 @@ import com.github.powerlibraries.primitive.common.ShortPointer;
 
 public interface ShortIterable extends Iterable<Short> {
 	
+	@Override
 	Iterator<Short> iterator();
 	
 	Iterable<ShortPointer> primitiveIterable();

@@ -19,17 +19,35 @@ public interface ShortList extends List<Short>, ShortCollection {
 	@Override
 	ShortList subList(int fromIndex, int toIndex);
 	
+	@Override
+	ShortListIterator listIterator();
+	
+	@Override
+	ShortListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<ShortPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}
 	
 	Iterable<ShortPointer> primitiveIterable(int index);
-		
+	
+	@Override @Deprecated
+	Short get(int index);
+
+	@Override @Deprecated
+	Short set(int index, Short element);
+
+	@Override @Deprecated
+	void add(int index, Short element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

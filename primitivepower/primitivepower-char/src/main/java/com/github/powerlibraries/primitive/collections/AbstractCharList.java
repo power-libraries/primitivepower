@@ -42,12 +42,12 @@ public abstract class AbstractCharList extends AbstractCharCollection implements
 	}
 	
 	@Override
-	public ListIterator<Character> iterator() {
+	public CharListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Character> listIterator() {
+	public CharListIterator listIterator() {
 		return listIterator(0);
 	}
 	

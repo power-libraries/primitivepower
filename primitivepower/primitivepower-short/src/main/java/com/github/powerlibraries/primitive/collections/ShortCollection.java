@@ -24,4 +24,31 @@ public interface ShortCollection extends Collection<Short>, ShortIterable {
 
 	boolean retainAllShorts(ShortCollection c);
 	
+	@Override @Deprecated
+	boolean contains(Object o);
+	
+	@Override @Deprecated
+	<T> T[] toArray(T[] p);
+	
+	@Override @Deprecated
+	Object[] toArray();
+
+	@Override @Deprecated
+	boolean add(Short e);
+
+	@Override @Deprecated
+	boolean remove(Object o);
+
+	@Override @Deprecated
+	boolean containsAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean addAll(Collection<? extends Short> c);
+
+	@Override @Deprecated
+	boolean removeAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean retainAll(Collection<?> c);
+	
 }

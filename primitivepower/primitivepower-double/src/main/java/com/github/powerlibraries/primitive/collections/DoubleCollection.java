@@ -5,8 +5,10 @@ import java.util.Objects;
 import java.util.PrimitiveIterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.function.DoublePredicate;
+import java.util.stream.Stream;
+import java.util.function.Predicate;
 import java.util.function.IntFunction;
-import java.util.function.LongPredicate;
 import java.util.stream.DoubleStream;
 import java.util.stream.StreamSupport;
 
@@ -55,5 +57,41 @@ public interface DoubleCollection extends Collection<Double>, DoubleIterable {
 		}
 		return removed;
 	}
+	
+	@Override @Deprecated
+	boolean contains(Object o);
+	
+	@Override @Deprecated
+	<T> T[] toArray(T[] p);
+	
+	@Override @Deprecated
+	Object[] toArray();
+
+	@Override @Deprecated
+	boolean add(Double e);
+
+	@Override @Deprecated
+	boolean remove(Object o);
+
+	@Override @Deprecated
+	boolean containsAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean addAll(Collection<? extends Double> c);
+
+	@Override @Deprecated
+	boolean removeAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean retainAll(Collection<?> c);
+	
+	@Override @Deprecated
+	Stream<Double> stream();
+
+	@Override @Deprecated
+	Stream<Double> parallelStream();
+	
+	@Override @Deprecated	
+	boolean removeIf(Predicate<? super Double> filter);
 	
 }

@@ -38,12 +38,12 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 	}
 	
 	@Override
-	public ListIterator<E> iterator() {
+	public ObjectListIterator<E> iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<E> listIterator() {
+	public ObjectListIterator<E> listIterator() {
 		return listIterator(0);
 	}
 	

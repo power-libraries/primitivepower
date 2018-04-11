@@ -42,12 +42,12 @@ public abstract class AbstractBooleanList extends AbstractBooleanCollection impl
 	}
 	
 	@Override
-	public ListIterator<Boolean> iterator() {
+	public BooleanListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Boolean> listIterator() {
+	public BooleanListIterator listIterator() {
 		return listIterator(0);
 	}
 	

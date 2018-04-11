@@ -42,12 +42,12 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 	}
 	
 	@Override
-	public ListIterator<Float> iterator() {
+	public FloatListIterator iterator() {
 		return listIterator();
 	}
 
 	@Override
-	public ListIterator<Float> listIterator() {
+	public FloatListIterator listIterator() {
 		return listIterator(0);
 	}
 	

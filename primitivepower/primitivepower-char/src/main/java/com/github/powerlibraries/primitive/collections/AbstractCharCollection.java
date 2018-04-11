@@ -11,7 +11,7 @@ public abstract class AbstractCharCollection implements CharCollection {
 	
 	protected AbstractCharCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Character)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractCharCollection implements CharCollection {
 		return containsChar((Character)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Character e) {
 		return addChar(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Character)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractCharCollection implements CharCollection {
 		return removeChar((Character)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Character[] toArray(IntFunction<Character[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

@@ -19,17 +19,35 @@ public interface CharList extends List<Character>, CharCollection {
 	@Override
 	CharList subList(int fromIndex, int toIndex);
 	
+	@Override
+	CharListIterator listIterator();
+	
+	@Override
+	CharListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<CharPointer> primitiveIterable() {
 		return primitiveIterable(0);
 	}
 	
 	Iterable<CharPointer> primitiveIterable(int index);
-		
+	
+	@Override @Deprecated
+	Character get(int index);
+
+	@Override @Deprecated
+	Character set(int index, Character element);
+
+	@Override @Deprecated
+	void add(int index, Character element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

@@ -11,29 +11,29 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	
 	protected Abstract{{t.label}}Collection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		{{t.returnOnInvalidValue('o','false')}}
 		return contains{{t.label}}(({{t.boxed}})o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add({{t.boxed}} e) {
 		return add{{t.label}}(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		{{t.returnOnInvalidValue('o','false')}}
 		return remove{{t.label}}(({{t.boxed}})o);
 	}
 
-	@Override
+	@Override{% if t.primitive %} @Deprecated{% endif %}
 	public {{t.boxed}}[] toArray(IntFunction<{{t.boxed}}[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

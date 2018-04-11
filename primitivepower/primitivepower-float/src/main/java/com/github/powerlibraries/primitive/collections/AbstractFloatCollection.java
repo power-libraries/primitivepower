@@ -11,7 +11,7 @@ public abstract class AbstractFloatCollection implements FloatCollection {
 	
 	protected AbstractFloatCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Float)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractFloatCollection implements FloatCollection {
 		return containsFloat((Float)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Float e) {
 		return addFloat(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Float)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractFloatCollection implements FloatCollection {
 		return removeFloat((Float)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Float[] toArray(IntFunction<Float[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {

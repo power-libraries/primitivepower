@@ -24,12 +24,16 @@ public interface LongList extends List<Long>, LongCollection {
 	@Override
 	LongList subList(int fromIndex, int toIndex);
 	
+	@Override
+	LongListIterator listIterator();
+	
+	@Override
+	LongListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<LongPointer> primitiveIterable() {
 		return primitiveIterable(0);
@@ -39,9 +43,9 @@ public interface LongList extends List<Long>, LongCollection {
 	
 	default void replaceAll(LongUnaryOperator operator) {
 		Objects.requireNonNull(operator);
-		final ListIterator<E> li = this.listIterator();
+		final LongListIterator li = this.listIterator();
 		while (li.hasNext()) {
-			li.set(operator.apply(li.next()));
+			li.setLong(operator.applyAsLong(li.nextLong()));
 		}
 	}
 	
@@ -49,5 +53,19 @@ public interface LongList extends List<Long>, LongCollection {
 	default Spliterator.OfLong spliterator() {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
-		
+	
+	@Override @Deprecated
+	Long get(int index);
+
+	@Override @Deprecated
+	Long set(int index, Long element);
+
+	@Override @Deprecated
+	void add(int index, Long element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

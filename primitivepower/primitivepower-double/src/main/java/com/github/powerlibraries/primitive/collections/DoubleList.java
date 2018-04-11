@@ -24,12 +24,16 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	@Override
 	DoubleList subList(int fromIndex, int toIndex);
 	
+	@Override
+	DoubleListIterator listIterator();
+	
+	@Override
+	DoubleListIterator listIterator(int index);
 	
 	void sort();
 	
 	void parallelSort();
 	
-
 	@Override
 	default Iterable<DoublePointer> primitiveIterable() {
 		return primitiveIterable(0);
@@ -39,9 +43,9 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	
 	default void replaceAll(DoubleUnaryOperator operator) {
 		Objects.requireNonNull(operator);
-		final ListIterator<E> li = this.listIterator();
+		final DoubleListIterator li = this.listIterator();
 		while (li.hasNext()) {
-			li.set(operator.apply(li.next()));
+			li.setDouble(operator.applyAsDouble(li.nextDouble()));
 		}
 	}
 	
@@ -49,5 +53,19 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	default Spliterator.OfDouble spliterator() {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
-		
+	
+	@Override @Deprecated
+	Double get(int index);
+
+	@Override @Deprecated
+	Double set(int index, Double element);
+
+	@Override @Deprecated
+	void add(int index, Double element);
+
+	@Override @Deprecated
+	int indexOf(Object o);
+
+	@Override @Deprecated
+	int lastIndexOf(Object o);
 }

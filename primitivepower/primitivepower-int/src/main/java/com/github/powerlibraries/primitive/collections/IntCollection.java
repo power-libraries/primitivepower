@@ -5,8 +5,10 @@ import java.util.Objects;
 import java.util.PrimitiveIterator;
 import java.util.Spliterator;
 import java.util.Spliterators;
+import java.util.function.IntPredicate;
+import java.util.stream.Stream;
+import java.util.function.Predicate;
 import java.util.function.IntFunction;
-import java.util.function.LongPredicate;
 import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
@@ -55,5 +57,41 @@ public interface IntCollection extends Collection<Integer>, IntIterable {
 		}
 		return removed;
 	}
+	
+	@Override @Deprecated
+	boolean contains(Object o);
+	
+	@Override @Deprecated
+	<T> T[] toArray(T[] p);
+	
+	@Override @Deprecated
+	Object[] toArray();
+
+	@Override @Deprecated
+	boolean add(Integer e);
+
+	@Override @Deprecated
+	boolean remove(Object o);
+
+	@Override @Deprecated
+	boolean containsAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean addAll(Collection<? extends Integer> c);
+
+	@Override @Deprecated
+	boolean removeAll(Collection<?> c);
+
+	@Override @Deprecated
+	boolean retainAll(Collection<?> c);
+	
+	@Override @Deprecated
+	Stream<Integer> stream();
+
+	@Override @Deprecated
+	Stream<Integer> parallelStream();
+	
+	@Override @Deprecated	
+	boolean removeIf(Predicate<? super Integer> filter);
 	
 }

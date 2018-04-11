@@ -11,7 +11,7 @@ public abstract class AbstractLongCollection implements LongCollection {
 	
 	protected AbstractLongCollection() {}
 	
-	@Override
+	@Override @Deprecated
 	public boolean contains(Object o) {
 		if(!(o instanceof Long)) {
 			return false;
@@ -19,12 +19,12 @@ public abstract class AbstractLongCollection implements LongCollection {
 		return containsLong((Long)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean add(Long e) {
 		return addLong(e);
 	}
 
-	@Override
+	@Override @Deprecated
 	public boolean remove(Object o) {
 		if(!(o instanceof Long)) {
 			return false;
@@ -32,12 +32,12 @@ public abstract class AbstractLongCollection implements LongCollection {
 		return removeLong((Long)o);
 	}
 
-	@Override
+	@Override @Deprecated
 	public Long[] toArray(IntFunction<Long[]> p) {
 		return toArray(p.apply(this.size()));
 	}
 	
-	@Override
+	@Override @Deprecated
 	public boolean containsAll(Collection<?> c) {
 		for(Object o:c) {
 			if(!this.contains(o)) {
