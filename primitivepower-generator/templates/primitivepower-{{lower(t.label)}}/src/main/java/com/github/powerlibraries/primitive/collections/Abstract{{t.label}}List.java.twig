@@ -27,13 +27,13 @@ public abstract class Abstract{{t.label}}List{{t.generic}} extends Abstract{{t.l
 
 	@Override
 	public int indexOf(Object o) {
-		{{t.returnOnInvalidValue('o','-1')}}
+		{{t.returnOnInvalidValue('o','-1',2)}}
 		return indexOf{{t.label}}(({{t.boxed}})o);
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		{{t.returnOnInvalidValue('o','-1')}}
+		{{t.returnOnInvalidValue('o','-1',2)}}
 		return lastIndexOf{{t.label}}(({{t.boxed}})o);
 	}
 	
@@ -83,9 +83,9 @@ public abstract class Abstract{{t.label}}List{{t.generic}} extends Abstract{{t.l
 		{{t.label}}ListIterator{{t.generic}} e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			{{t.type}} o1 = e1.next{{t.label}}();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof {{t.boxed}}) || {{t.unequal('o1', '('~t.boxed~')o2')}}) {
+			{{t.returnOnInvalidValue('o2','false',3)}}
+			if (o2!=null || {{t.unequal('e1.next'~t.label~'()', '('~t.boxed~')o2')}}) {
 				return false;
 			}
 		}

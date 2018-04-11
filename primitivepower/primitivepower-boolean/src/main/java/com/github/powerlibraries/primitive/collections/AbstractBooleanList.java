@@ -87,9 +87,11 @@ public abstract class AbstractBooleanList extends AbstractBooleanCollection impl
 		BooleanListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			boolean o1 = e1.nextBoolean();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Boolean) || o1 != (Boolean)o2) {
+			if(!(o2 instanceof Boolean)) {
+				return false;
+			}
+			if (o2!=null || e1.nextBoolean() != (Boolean)o2) {
 				return false;
 			}
 		}

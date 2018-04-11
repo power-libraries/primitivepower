@@ -83,9 +83,9 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 		ObjectListIterator<E> e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			E o1 = e1.nextObject();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof E) || !Objects.equals(o1, (E)o2)) {
+			
+			if (o2!=null || !Objects.equals(e1.nextObject(), (E)o2)) {
 				return false;
 			}
 		}

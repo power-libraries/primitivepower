@@ -87,9 +87,11 @@ public abstract class AbstractDoubleList extends AbstractDoubleCollection implem
 		DoubleListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			double o1 = e1.nextDouble();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Double) || o1 != (Double)o2) {
+			if(!(o2 instanceof Double)) {
+				return false;
+			}
+			if (o2!=null || e1.nextDouble() != (Double)o2) {
 				return false;
 			}
 		}

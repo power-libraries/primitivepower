@@ -87,9 +87,11 @@ public abstract class AbstractByteList extends AbstractByteCollection implements
 		ByteListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			byte o1 = e1.nextByte();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Byte) || o1 != (Byte)o2) {
+			if(!(o2 instanceof Byte)) {
+				return false;
+			}
+			if (o2!=null || e1.nextByte() != (Byte)o2) {
 				return false;
 			}
 		}

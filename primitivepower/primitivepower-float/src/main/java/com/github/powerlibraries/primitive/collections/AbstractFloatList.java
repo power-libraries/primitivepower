@@ -87,9 +87,11 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 		FloatListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			float o1 = e1.nextFloat();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Float) || o1 != (Float)o2) {
+			if(!(o2 instanceof Float)) {
+				return false;
+			}
+			if (o2!=null || e1.nextFloat() != (Float)o2) {
 				return false;
 			}
 		}

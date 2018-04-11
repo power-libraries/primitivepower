@@ -87,9 +87,11 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 		LongListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			long o1 = e1.nextLong();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Long) || o1 != (Long)o2) {
+			if(!(o2 instanceof Long)) {
+				return false;
+			}
+			if (o2!=null || e1.nextLong() != (Long)o2) {
 				return false;
 			}
 		}

@@ -87,9 +87,11 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 		IntListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			int o1 = e1.nextInt();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Integer) || o1 != (Integer)o2) {
+			if(!(o2 instanceof Integer)) {
+				return false;
+			}
+			if (o2!=null || e1.nextInt() != (Integer)o2) {
 				return false;
 			}
 		}

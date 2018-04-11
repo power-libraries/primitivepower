@@ -87,9 +87,11 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 		ShortListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			short o1 = e1.nextShort();
 			Object o2 = e2.next();
-			if (o2!=null || !(o2 instanceof Short) || o1 != (Short)o2) {
+			if(!(o2 instanceof Short)) {
+				return false;
+			}
+			if (o2!=null || e1.nextShort() != (Short)o2) {
 				return false;
 			}
 		}

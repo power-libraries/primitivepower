@@ -1,5 +1,9 @@
 package com.github.powerlibraries.primitive.collections.generator;
 
+import java.math.BigDecimal;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,7 +32,7 @@ public enum Type {
 		}
 		
 		@Override
-		public String returnOnInvalidValue(String arg, String returnValue) {
+		public String returnOnInvalidValue(String arg, String returnValue, BigDecimal tabs) {
 			return "";
 		}
 		
@@ -61,8 +65,8 @@ public enum Type {
 		return getBoxed();
 	}
 	
-	public String returnOnInvalidValue(String arg, String returnValue) {
-		return "if(!("+arg+" instanceof "+boxed+")) {\n\t\t\treturn "+returnValue+";\n\t\t}";
+	public String returnOnInvalidValue(String arg, String returnValue, BigDecimal tabs) {
+		return "if(!("+arg+" instanceof "+boxed+")) {\n"+tabs(tabs)+"\treturn "+returnValue+";\n"+tabs(tabs)+"}";
 	}
 	
 	public String equal(String left, String right) {
@@ -92,5 +96,12 @@ public enum Type {
 	
 	public String hash(String var) {
 		return this.boxed+".hashCode("+var+")";
+	}
+	
+	public String tabs(BigDecimal number) {
+		return IntStream
+			.range(0, number.intValueExact())
+			.mapToObj(i->"\t")
+			.collect(Collectors.joining());
 	}
 }
