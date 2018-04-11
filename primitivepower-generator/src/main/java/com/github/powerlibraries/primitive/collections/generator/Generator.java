@@ -58,19 +58,24 @@ public final class Generator {
 			.collect(Collectors.toList());
 		
 		for(File f:fileList) {
-			File folder = new File(target, in.toPath().relativize(f.getParentFile().toPath()).toString());
-			folder.mkdirs();
+			String relativeDirectory = in.toPath().relativize(f.getParentFile().toPath()).toString();
 			
-			if(f.getName().endsWith(".twig")) {
-				JtwigTemplate nameTemplate = JtwigTemplate.inlineTemplate(f.getName().substring(0,f.getName().length()-5), configuration);
-				JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
+			for(Type t:Type.values()) {
+				JtwigModel model = JtwigModel
+					.newModel()
+					.with("t", t)
+					.with("allTypes", Type.values());
+			
+				File folder = new File(
+					target,
+					JtwigTemplate.inlineTemplate(relativeDirectory, configuration).render(model)
+				);
+				folder.mkdirs();
 				
-				
-				for(Type t:Type.values()) {
-					JtwigModel model = JtwigModel
-						.newModel()
-						.with("t", t)
-						.with("allTypes", Type.values());
+				if(f.getName().endsWith(".twig")) {
+					JtwigTemplate nameTemplate = JtwigTemplate.inlineTemplate(f.getName().substring(0,f.getName().length()-5), configuration);
+					JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
+					
 					
 					File res = new File(folder, nameTemplate.render(model));
 					try (OutputStream out = new FileOutputStream(res)) {
@@ -79,10 +84,10 @@ public final class Generator {
 						throw new RuntimeException("Failed in "+f.getName()+" with k="+t, e);
 					}
 				}
-			}
-			else {
-				File res = new File(folder, f.getName());
-				FileUtils.copyFile(f, res);
+				else {
+					File res = new File(folder, f.getName());
+					FileUtils.copyFile(f, res);
+				}
 			}
 		}
 	}

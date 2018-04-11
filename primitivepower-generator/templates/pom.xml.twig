@@ -10,16 +10,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
-	<modules>
-		<module>primitivepower-object</module>
-		<module>primitivepower-int</module>
-		<module>primitivepower-long</module>
-		<module>primitivepower-short</module>
-		<module>primitivepower-byte</module>
-		<module>primitivepower-char</module>
-		<module>primitivepower-boolean</module>
-		<module>primitivepower-float</module>
-		<module>primitivepower-double</module>
+	<modules>{% for p in allTypes %}
+		<module>primitivepower-{{lower(p.label)}}</module>{% endfor %}
 		<module>primitivepower-primitives</module>
 		<module>primitivepower-complete</module>
 	</modules>
