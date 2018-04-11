@@ -72,6 +72,7 @@ public abstract class AbstractCharList extends AbstractCharCollection implements
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -79,13 +80,36 @@ public abstract class AbstractCharList extends AbstractCharCollection implements
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof CharList) {
+			return equals((CharList) o);
+		}
 
-		ListIterator<Character> e1 = listIterator();
+		CharListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			Character o1 = e1.next();
+			char o1 = e1.nextChar();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if (o2!=null || !(o2 instanceof Character) || o1 != (Character)o2) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(CharList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		CharListIterator e1 = listIterator();
+		CharListIterator e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			char o1 = e1.nextChar();
+			char o2 = e2.nextChar();
+			if (o1 != o2) {
 				return false;
 			}
 		}

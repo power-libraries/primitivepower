@@ -72,6 +72,7 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -79,13 +80,36 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof LongList) {
+			return equals((LongList) o);
+		}
 
-		ListIterator<Long> e1 = listIterator();
+		LongListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			Long o1 = e1.next();
+			long o1 = e1.nextLong();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if (o2!=null || !(o2 instanceof Long) || o1 != (Long)o2) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(LongList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		LongListIterator e1 = listIterator();
+		LongListIterator e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			long o1 = e1.nextLong();
+			long o2 = e2.nextLong();
+			if (o1 != o2) {
 				return false;
 			}
 		}

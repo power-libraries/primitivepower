@@ -68,6 +68,7 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -75,13 +76,36 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof ObjectList) {
+			return equals((ObjectList) o);
+		}
 
-		ListIterator<E> e1 = listIterator();
+		ObjectListIterator<E> e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			E o1 = e1.next();
+			E o1 = e1.nextObject();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if (o2!=null || !(o2 instanceof E) || !Objects.equals(o1, (E)o2)) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(ObjectList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		ObjectListIterator<E> e1 = listIterator();
+		ObjectListIterator<E> e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			E o1 = e1.nextObject();
+			E o2 = e2.nextObject();
+			if (!Objects.equals(o1, o2)) {
 				return false;
 			}
 		}

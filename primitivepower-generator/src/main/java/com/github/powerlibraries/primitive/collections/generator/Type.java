@@ -23,6 +23,11 @@ public enum Type {
 		}
 		
 		@Override
+		public String unequal(String left, String right) {
+			return "!"+this.equal(left, right);
+		}
+		
+		@Override
 		public String returnOnInvalidValue(String arg, String returnValue) {
 			return "";
 		}
@@ -62,6 +67,10 @@ public enum Type {
 	
 	public String equal(String left, String right) {
 		return left+" == "+right;
+	}
+	
+	public String unequal(String left, String right) {
+		return left+" != "+right;
 	}
 	
 	public boolean isPrimitive() {
