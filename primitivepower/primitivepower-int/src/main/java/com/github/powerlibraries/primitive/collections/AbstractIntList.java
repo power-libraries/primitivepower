@@ -72,6 +72,7 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -79,13 +80,38 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof IntList) {
+			return equals((IntList) o);
+		}
 
-		ListIterator<Integer> e1 = listIterator();
+		IntListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			Integer o1 = e1.next();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if(!(o2 instanceof Integer)) {
+				return false;
+			}
+			if (o2!=null || e1.nextInt() != (Integer)o2) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(IntList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		IntListIterator e1 = listIterator();
+		IntListIterator e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			int o1 = e1.nextInt();
+			int o2 = e2.nextInt();
+			if (o1 != o2) {
 				return false;
 			}
 		}

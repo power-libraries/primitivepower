@@ -72,6 +72,7 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -79,13 +80,38 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof FloatList) {
+			return equals((FloatList) o);
+		}
 
-		ListIterator<Float> e1 = listIterator();
+		FloatListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			Float o1 = e1.next();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if(!(o2 instanceof Float)) {
+				return false;
+			}
+			if (o2!=null || e1.nextFloat() != (Float)o2) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(FloatList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		FloatListIterator e1 = listIterator();
+		FloatListIterator e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			float o1 = e1.nextFloat();
+			float o2 = e2.nextFloat();
+			if (o1 != o2) {
 				return false;
 			}
 		}

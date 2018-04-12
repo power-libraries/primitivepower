@@ -13,7 +13,7 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 	
 	@Override @Deprecated
 	public boolean contains(Object o) {
-		{{t.returnOnInvalidValue('o','false')}}
+		{{t.returnOnInvalidValue('o','false',2)}}
 		return contains{{t.label}}(({{t.boxed}})o);
 	}
 
@@ -24,7 +24,7 @@ public abstract class Abstract{{t.label}}Collection{{t.generic}} implements {{t.
 
 	@Override @Deprecated
 	public boolean remove(Object o) {
-		{{t.returnOnInvalidValue('o','false')}}
+		{{t.returnOnInvalidValue('o','false',2)}}
 		return remove{{t.label}}(({{t.boxed}})o);
 	}
 

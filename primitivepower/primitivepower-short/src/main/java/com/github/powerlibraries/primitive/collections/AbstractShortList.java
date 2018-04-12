@@ -72,6 +72,7 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 	 * @param o the object to be compared for equality with this list
 	 * @return {@code true} if the specified object is equal to this list
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o == this) {
 			return true;
@@ -79,13 +80,38 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 		if (!(o instanceof List)) {
 			return false;
 		}
+		if (o instanceof ShortList) {
+			return equals((ShortList) o);
+		}
 
-		ListIterator<Short> e1 = listIterator();
+		ShortListIterator e1 = listIterator();
 		ListIterator<?> e2 = ((List<?>) o).listIterator();
 		while (e1.hasNext() && e2.hasNext()) {
-			Short o1 = e1.next();
 			Object o2 = e2.next();
-			if (!(o1==null ? o2==null : o1.equals(o2))) {
+			if(!(o2 instanceof Short)) {
+				return false;
+			}
+			if (o2!=null || e1.nextShort() != (Short)o2) {
+				return false;
+			}
+		}
+		return !(e1.hasNext() || e2.hasNext());
+	}
+	
+	public boolean equals(ShortList o) {
+		if (o == this) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+
+		ShortListIterator e1 = listIterator();
+		ShortListIterator e2 = o.listIterator();
+		while (e1.hasNext() && e2.hasNext()) {
+			short o1 = e1.nextShort();
+			short o2 = e2.nextShort();
+			if (o1 != o2) {
 				return false;
 			}
 		}
