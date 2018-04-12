@@ -82,7 +82,7 @@ public final class Generator {
 					} catch(Exception e) {
 						throw new RuntimeException("Failed in "+f.getName()+" with k="+t, e);
 					}
-					System.out.println("Written file "+res.getAbsolutePath());
+					System.out.println("Written file "+res.getCanonicalPath());
 				}
 				else {
 					File res = new File(folder, f.getName());
