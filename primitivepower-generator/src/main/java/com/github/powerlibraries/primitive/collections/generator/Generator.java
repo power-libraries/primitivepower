@@ -76,13 +76,13 @@ public final class Generator {
 					JtwigTemplate nameTemplate = JtwigTemplate.inlineTemplate(f.getName().substring(0,f.getName().length()-5), configuration);
 					JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
 					
-					
 					File res = new File(folder, nameTemplate.render(model));
 					try (OutputStream out = new FileOutputStream(res)) {
 						template.render(model, out);
 					} catch(Exception e) {
 						throw new RuntimeException("Failed in "+f.getName()+" with k="+t, e);
 					}
+					System.out.println("Written file "+res.getAbsolutePath());
 				}
 				else {
 					File res = new File(folder, f.getName());
