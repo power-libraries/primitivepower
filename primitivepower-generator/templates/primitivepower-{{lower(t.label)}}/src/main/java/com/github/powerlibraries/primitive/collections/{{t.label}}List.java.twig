@@ -54,6 +54,8 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
 	{% endif %}
+	{{t.label}}List{{t.generic}} reverse();
+	
 	@Override @Deprecated
 	{{t.boxed}} get(int index);
 

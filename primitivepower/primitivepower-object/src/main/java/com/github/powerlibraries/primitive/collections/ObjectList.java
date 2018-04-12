@@ -32,6 +32,8 @@ public interface ObjectList<E> extends List<E>, ObjectCollection<E> {
 	
 	Iterable<ObjectPointer<E>> primitiveIterable(int index);
 	
+	ObjectList<E> reverse();
+	
 	@Override @Deprecated
 	E get(int index);
 

@@ -54,6 +54,8 @@ public interface LongList extends List<Long>, LongCollection {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
 	
+	LongList reverse();
+	
 	@Override @Deprecated
 	Long get(int index);
 

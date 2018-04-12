@@ -36,6 +36,8 @@ public interface ShortList extends List<Short>, ShortCollection {
 	
 	Iterable<ShortPointer> primitiveIterable(int index);
 	
+	ShortList reverse();
+	
 	@Override @Deprecated
 	Short get(int index);
 

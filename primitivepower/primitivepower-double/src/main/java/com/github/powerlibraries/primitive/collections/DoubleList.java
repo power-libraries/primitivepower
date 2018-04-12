@@ -54,6 +54,8 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
 	
+	DoubleList reverse();
+	
 	@Override @Deprecated
 	Double get(int index);
 

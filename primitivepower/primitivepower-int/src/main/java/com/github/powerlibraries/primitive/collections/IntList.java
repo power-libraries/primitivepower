@@ -54,6 +54,8 @@ public interface IntList extends List<Integer>, IntCollection {
 		return Spliterators.spliterator(iterator(), size(), Spliterator.ORDERED);
 	}
 	
+	IntList reverse();
+	
 	@Override @Deprecated
 	Integer get(int index);
 

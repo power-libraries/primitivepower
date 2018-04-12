@@ -38,6 +38,15 @@ public final class Generator {
 	
 	public static void generateCode(File in, File target) throws IOException {
 		System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "trace");
+		
+		
+		Files
+			.walk(target.toPath())
+			.filter(t -> t.toString().endsWith(".java") || t.toString().endsWith(".xml"))
+			.peek(t -> System.out.println("Deleting "+t.toFile()))
+			.forEach(t -> t.toFile().delete());
+		
+		
 		final EnvironmentConfiguration configuration = EnvironmentConfigurationBuilder
             .configuration()
             	.render()

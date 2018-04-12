@@ -36,6 +36,8 @@ public interface CharList extends List<Character>, CharCollection {
 	
 	Iterable<CharPointer> primitiveIterable(int index);
 	
+	CharList reverse();
+	
 	@Override @Deprecated
 	Character get(int index);
 

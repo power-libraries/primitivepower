@@ -32,6 +32,8 @@ public interface BooleanList extends List<Boolean>, BooleanCollection {
 	
 	Iterable<BooleanPointer> primitiveIterable(int index);
 	
+	BooleanList reverse();
+	
 	@Override @Deprecated
 	Boolean get(int index);
 
