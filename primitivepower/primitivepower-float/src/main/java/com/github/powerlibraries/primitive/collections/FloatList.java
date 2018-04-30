@@ -36,7 +36,7 @@ public interface FloatList extends List<Float>, FloatCollection {
 	
 	Iterable<FloatPointer> primitiveIterable(int index);
 	
-	FloatList reverse();
+	void reverse();
 	
 	@Override @Deprecated
 	Float get(int index);

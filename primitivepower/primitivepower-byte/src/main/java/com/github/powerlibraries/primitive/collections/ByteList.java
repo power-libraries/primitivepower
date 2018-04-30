@@ -36,7 +36,7 @@ public interface ByteList extends List<Byte>, ByteCollection {
 	
 	Iterable<BytePointer> primitiveIterable(int index);
 	
-	ByteList reverse();
+	void reverse();
 	
 	@Override @Deprecated
 	Byte get(int index);
