@@ -5,12 +5,13 @@ cache:
   directories:
     - '$HOME/.m2/repository'
 script: 
-  - cd primitivepower-generator
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V 
-  - mvn test -Dmaven.javadoc.skip=true -B
-  - mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/"
-  - cd ..
-  - diff -qrN -x '*.class' tmp/ primitivepower/
-  - cd primitivepower
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V 
-  - mvn test -Dmaven.javadoc.skip=true -B
+  - >
+      cd primitivepower-generator &&
+      mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
+      mvn test -Dmaven.javadoc.skip=true -B &&
+      mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/" &&
+      cd .. &&
+      diff -qrN -x '*.class' tmp/ primitivepower/ &&
+      cd primitivepower &&
+      mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
+      mvn test -Dmaven.javadoc.skip=true -B
