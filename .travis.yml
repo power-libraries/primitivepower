@@ -4,15 +4,19 @@ jdk:
 cache:
   directories:
     - '$HOME/.m2/repository'
-script: 
-  - >
-      mkdir tmp &&
-      cd primitivepower-generator &&
-      mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
-      mvn test -Dmaven.javadoc.skip=true -B &&
-      mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/" &&
-      cd .. &&
-      diff -qrN -x '*.class' tmp/ primitivepower/ &&
-      cd primitivepower &&
-      mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
-      mvn test -Dmaven.javadoc.skip=true -B
+jobs:
+  include:
+    - stage: test if generated code matches templates
+      script: >
+        mkdir tmp &&
+        cd primitivepower-generator &&
+        mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
+        mvn test -Dmaven.javadoc.skip=true -B &&
+        mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/" &&
+        cd .. &&
+        diff -qrN -x '*.class' tmp/ primitivepower/
+    - stage: build & test
+      script: >
+        cd primitivepower &&
+        mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
+        mvn test -Dmaven.javadoc.skip=true -B
