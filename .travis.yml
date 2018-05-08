@@ -6,6 +6,7 @@ cache:
     - '$HOME/.m2/repository'
 script: 
   - >
+      mkdir tmp &&
       cd primitivepower-generator &&
       mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
       mvn test -Dmaven.javadoc.skip=true -B &&
