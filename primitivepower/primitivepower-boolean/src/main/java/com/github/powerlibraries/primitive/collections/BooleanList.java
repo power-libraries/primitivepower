@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+
 import java.util.List;
 
 import com.github.powerlibraries.primitive.common.BooleanPointer;
@@ -48,4 +49,10 @@ public interface BooleanList extends List<Boolean>, BooleanCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	boolean removeAt(int index);
+	
+	@Override @Deprecated
+	Boolean remove(int index);
+	
 }

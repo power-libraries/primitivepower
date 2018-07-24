@@ -135,4 +135,9 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Long remove(int index) {
+		return this.removeAt(index);
+	}
 }

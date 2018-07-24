@@ -135,4 +135,9 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Short remove(int index) {
+		return this.removeAt(index);
+	}
 }

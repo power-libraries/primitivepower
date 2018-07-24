@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
@@ -39,12 +41,12 @@ public final class Generator {
 	public static void generateCode(File in, File target) throws IOException {
 		System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "trace");
 		
+		Set<File> filesToDelete = new HashSet<>();
 		
 		Files
 			.walk(target.toPath())
 			.filter(t -> t.toString().endsWith(".java") || t.toString().endsWith(".xml"))
-			.peek(t -> System.out.println("Deleting "+t.toFile()))
-			.forEach(t -> t.toFile().delete());
+			.forEach(t -> filesToDelete.add(t.toFile()));
 		
 		
 		final EnvironmentConfiguration configuration = EnvironmentConfigurationBuilder
@@ -86,6 +88,7 @@ public final class Generator {
 					JtwigTemplate template = JtwigTemplate.fileTemplate(f, configuration);
 					
 					File res = new File(folder, nameTemplate.render(model));
+					filesToDelete.remove(res);
 					try (OutputStream out = new FileOutputStream(res)) {
 						template.render(model, out);
 					} catch(Exception e) {
@@ -95,8 +98,20 @@ public final class Generator {
 				}
 				else {
 					File res = new File(folder, f.getName());
+					filesToDelete.remove(res);
 					FileUtils.copyFile(f, res);
 				}
+			}
+		}
+		
+		for(File f:filesToDelete) {
+			f.delete();
+			File dir = f.getParentFile();
+			System.out.println("Deleting "+f);
+			while(!dir.equals(target) && dir.listFiles().length == 0) {
+				System.out.println("Deleting "+dir);
+				dir.delete();
+				dir = dir.getParentFile();
 			}
 		}
 	}

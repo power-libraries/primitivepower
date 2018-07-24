@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import com.github.powerlibraries.primitive.common.BytePointer;
@@ -52,4 +53,12 @@ public interface ByteList extends List<Byte>, ByteCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	byte removeAt(int index);
+	
+	@Override @Deprecated
+	Byte remove(int index);
+	
+	ByteBuffer asBuffer();
+	
 }

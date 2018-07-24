@@ -129,4 +129,9 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 			
 		return hashCode;
 	}
+	
+	@Override
+	public E remove(int index) {
+		return this.removeAt(index);
+	}
 }

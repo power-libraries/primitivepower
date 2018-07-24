@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.FloatBuffer;
 import java.util.List;
 
 import com.github.powerlibraries.primitive.common.FloatPointer;
@@ -52,4 +53,12 @@ public interface FloatList extends List<Float>, FloatCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	float removeAt(int index);
+	
+	@Override @Deprecated
+	Float remove(int index);
+	
+	FloatBuffer asBuffer();
+	
 }

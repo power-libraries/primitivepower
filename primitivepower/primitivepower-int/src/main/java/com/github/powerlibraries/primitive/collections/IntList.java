@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.IntBuffer;
 import java.util.List;
 
 import java.util.Objects;
@@ -70,4 +71,12 @@ public interface IntList extends List<Integer>, IntCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	int removeAt(int index);
+	
+	@Override @Deprecated
+	Integer remove(int index);
+	
+	IntBuffer asBuffer();
+	
 }

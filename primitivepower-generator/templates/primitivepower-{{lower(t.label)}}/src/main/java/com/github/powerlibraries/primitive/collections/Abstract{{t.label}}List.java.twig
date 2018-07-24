@@ -129,4 +129,9 @@ public abstract class Abstract{{t.label}}List{{t.generic}} extends Abstract{{t.l
 			
 		return hashCode;
 	}
+	
+	@Override
+	public {{t.boxed}} remove(int index) {
+		return this.removeAt(index);
+	}
 }

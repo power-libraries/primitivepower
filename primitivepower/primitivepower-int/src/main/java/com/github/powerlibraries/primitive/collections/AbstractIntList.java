@@ -135,4 +135,9 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Integer remove(int index) {
+		return this.removeAt(index);
+	}
 }

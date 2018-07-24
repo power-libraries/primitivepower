@@ -135,4 +135,9 @@ public abstract class AbstractBooleanList extends AbstractBooleanCollection impl
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Boolean remove(int index) {
+		return this.removeAt(index);
+	}
 }

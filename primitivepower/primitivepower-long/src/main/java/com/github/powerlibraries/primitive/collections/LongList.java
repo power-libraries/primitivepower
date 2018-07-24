@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.LongBuffer;
 import java.util.List;
 
 import java.util.Objects;
@@ -70,4 +71,12 @@ public interface LongList extends List<Long>, LongCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	long removeAt(int index);
+	
+	@Override @Deprecated
+	Long remove(int index);
+	
+	LongBuffer asBuffer();
+	
 }

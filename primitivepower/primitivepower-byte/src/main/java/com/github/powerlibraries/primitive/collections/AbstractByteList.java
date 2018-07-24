@@ -135,4 +135,9 @@ public abstract class AbstractByteList extends AbstractByteCollection implements
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Byte remove(int index) {
+		return this.removeAt(index);
+	}
 }

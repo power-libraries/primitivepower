@@ -135,4 +135,9 @@ public abstract class AbstractCharList extends AbstractCharCollection implements
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Character remove(int index) {
+		return this.removeAt(index);
+	}
 }

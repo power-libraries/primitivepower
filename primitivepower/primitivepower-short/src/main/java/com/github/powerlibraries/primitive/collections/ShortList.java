@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.ShortBuffer;
 import java.util.List;
 
 import com.github.powerlibraries.primitive.common.ShortPointer;
@@ -52,4 +53,12 @@ public interface ShortList extends List<Short>, ShortCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	short removeAt(int index);
+	
+	@Override @Deprecated
+	Short remove(int index);
+	
+	ShortBuffer asBuffer();
+	
 }

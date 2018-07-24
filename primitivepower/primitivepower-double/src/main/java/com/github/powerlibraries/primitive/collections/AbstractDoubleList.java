@@ -135,4 +135,9 @@ public abstract class AbstractDoubleList extends AbstractDoubleCollection implem
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Double remove(int index) {
+		return this.removeAt(index);
+	}
 }

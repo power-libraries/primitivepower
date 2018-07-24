@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.DoubleBuffer;
 import java.util.List;
 
 import java.util.Objects;
@@ -70,4 +71,12 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	double removeAt(int index);
+	
+	@Override @Deprecated
+	Double remove(int index);
+	
+	DoubleBuffer asBuffer();
+	
 }

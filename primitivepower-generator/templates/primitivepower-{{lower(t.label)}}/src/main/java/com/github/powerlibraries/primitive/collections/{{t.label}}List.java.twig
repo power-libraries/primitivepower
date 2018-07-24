@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+{% if t.bufferSupport %}import java.nio.{{t.label}}Buffer;{% endif %}
 import java.util.List;
 {% if t.streamSupport %}
 import java.util.Objects;
@@ -70,4 +71,12 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	{{t.type}} removeAt(int index);
+	
+	@Override @Deprecated
+	{{t.boxed}} remove(int index);
+	{% if t.bufferSupport %}
+	{{t.label}}Buffer asBuffer();
+	{% endif %}
 }

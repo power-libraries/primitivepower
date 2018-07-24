@@ -1,5 +1,6 @@
 package com.github.powerlibraries.primitive.collections;
 
+import java.nio.CharBuffer;
 import java.util.List;
 
 import com.github.powerlibraries.primitive.common.CharPointer;
@@ -52,4 +53,12 @@ public interface CharList extends List<Character>, CharCollection {
 
 	@Override @Deprecated
 	int lastIndexOf(Object o);
+	
+	char removeAt(int index);
+	
+	@Override @Deprecated
+	Character remove(int index);
+	
+	CharBuffer asBuffer();
+	
 }

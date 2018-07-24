@@ -135,4 +135,9 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 			
 		return hashCode;
 	}
+	
+	@Override
+	public Float remove(int index) {
+		return this.removeAt(index);
+	}
 }
