@@ -26,4 +26,4 @@ jobs:
         mvn test verify -P test-coverage -Dmaven.javadoc.skip=true -B
       name: "test generated code"
     - stage: "finish coverage report"
-      script: java -jar ~/codacy-coverage-reporter-assembly-latest.jar report final
+      script: java -jar ~/codacy-coverage-reporter-assembly-latest.jar final
