@@ -4,6 +4,9 @@ jdk:
 cache:
   directories:
     - '$HOME/.m2/repository'
+before_install:
+  - sudo apt-get install jq
+  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
 jobs:
   include:
     - stage: test if generated code matches templates
@@ -11,7 +14,7 @@ jobs:
         mkdir tmp &&
         cd primitivepower-generator &&
         mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
-        mvn test -Dmaven.javadoc.skip=true -B &&
+        mvn test verify -P coverage-report -Dmaven.javadoc.skip=true -B &&
         mvn exec:java -DskipTests=true -Dmaven.javadoc.skip=true -Dexec.args="../tmp/" &&
         cd .. &&
         diff -qrN -x '*.class' tmp/ primitivepower/
@@ -19,4 +22,7 @@ jobs:
       script: >
         cd primitivepower &&
         mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V &&
-        mvn test -Dmaven.javadoc.skip=true -B
+        mvn test verify -P coverage-report -Dmaven.javadoc.skip=true -B &&
+        cd .. &&
+        java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r primitivepower-generator/target/site/jacoco/jacoco.xml --partial &&
+        java -jar ~/codacy-coverage-reporter-assembly-latest.jar report final
