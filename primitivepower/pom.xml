@@ -16,10 +16,10 @@
 		<module>primitivepower-long</module>
 		<module>primitivepower-short</module>
 		<module>primitivepower-byte</module>
-		<module>primitivepower-char</module>
 		<module>primitivepower-boolean</module>
 		<module>primitivepower-float</module>
 		<module>primitivepower-double</module>
+		<module>primitivepower-char</module>
 		<module>primitivepower-primitives</module>
 		<module>primitivepower-complete</module>
 	</modules>

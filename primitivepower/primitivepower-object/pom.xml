@@ -7,4 +7,13 @@
 		<artifactId>primitivepower-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
+	
+	<dependencies>
+		<dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.10.0</version>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
 </project>

@@ -33,11 +33,6 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>primitivepower-char</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>primitivepower-boolean</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -49,6 +44,11 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>primitivepower-double</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>primitivepower-char</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

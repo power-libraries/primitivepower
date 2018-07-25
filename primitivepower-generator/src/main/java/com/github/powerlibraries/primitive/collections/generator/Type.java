@@ -45,10 +45,15 @@ public enum Type {
 	LONG(true, true,		"Long",		"",		"long",		"Long",			"0L"),
 	SHORT(false, true,	"Short",	"",		"short",	"Short",		"((short)0)"),
 	BYTE(false, true,		"Byte",		"",		"byte",		"Byte",			"0"),
-	CHAR(false, true,		"Char",		"",		"char",		"Character",	"'\\u0000'"),
 	BOOLEAN(false, false,	"Boolean",	"",		"boolean",	"Boolean",		"false"),
 	FLOAT(false, true,	"Float",	"",		"float",	"Float",		"0f"),
-	DOUBLE(true, true,	"Double",	"",		"double",	"Double",		"0d");
+	DOUBLE(true, true,	"Double",	"",		"double",	"Double",		"0d"),
+	CHAR(false, true,		"Char",		"",		"char",		"Character",	"'\\u0000'") {
+		@Override
+		public String randomValue(String random) {
+			return "((char)"+random+".nextInt(100))";
+		}
+	};
 	
 	private boolean streamSupport;
 	private boolean bufferSupport;
@@ -105,5 +110,9 @@ public enum Type {
 			.range(0, number.intValueExact())
 			.mapToObj(i->"\t")
 			.collect(Collectors.joining());
+	}
+	
+	public String randomValue(String random) {
+		return random+".next"+this.getLabel()+"()";
 	}
 }
