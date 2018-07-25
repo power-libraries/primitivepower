@@ -1,6 +1,6 @@
 package com.github.powerlibraries.primitive;
 
-import java.nio.ObjectBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import com.github.powerlibraries.primitive.collections.ObjectList;
 import com.github.powerlibraries.primitive.collections.ObjectListIterator;
 import com.github.powerlibraries.primitive.common.ObjectPointer;
 
-public class SimpleObjectList<E> extends AbstractObjectList {
+public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	private List<E> l = new ArrayList<>();
 
@@ -48,9 +48,9 @@ public class SimpleObjectList<E> extends AbstractObjectList {
 	}
 
 	@Override
-	public ObjectListIterator listIterator(int index) {
+	public ObjectListIterator<E> listIterator(int index) {
 		ListIterator<E> it = l.listIterator(index);
-		return new ObjectListIterator() {
+		return new ObjectListIterator<E>() {
 			
 			@Override
 			public void remove() {
@@ -99,22 +99,14 @@ public class SimpleObjectList<E> extends AbstractObjectList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Iterable<ObjectPointer> primitiveIterable(int index) {
+	public Iterable<ObjectPointer<E>> primitiveIterable(int index) {
 		ListIterator<E> it = l.listIterator(index);
-		return new Iterable<ObjectPointer>() {
-			public Iterator<ObjectPointer> iterator() {
-        		return new Iterator<ObjectPointer>() {
+		return new Iterable<ObjectPointer<E>>() {
+			public Iterator<ObjectPointer<E>> iterator() {
+        		return new Iterator<ObjectPointer<E>>() {
         			
         			@Override
         			public void remove() {
@@ -127,8 +119,8 @@ public class SimpleObjectList<E> extends AbstractObjectList {
         			}
         			
         			@Override
-        			public ObjectPointer next() {
-        				return new ObjectPointer() {
+        			public ObjectPointer<E> next() {
+        				return new ObjectPointer<E>() {
         					public E get() {
         						return it.next();
         					}
@@ -148,12 +140,7 @@ public class SimpleObjectList<E> extends AbstractObjectList {
 	public E removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
-	@Override
-	public ObjectBuffer asBuffer() {
-		throw new UnsupportedOperationException();
-	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

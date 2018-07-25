@@ -8,7 +8,7 @@ import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
-public class AbstractObjectList<E>Test {
+public class AbstractObjectListTest {
 
 	@Test
 	public void randomTest() {

@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+
 import java.nio.CharBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,15 +101,7 @@ public class SimpleCharList extends AbstractCharList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public Iterable<CharPointer> primitiveIterable(int index) {
@@ -148,12 +142,12 @@ public class SimpleCharList extends AbstractCharList {
 	public char removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public CharBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

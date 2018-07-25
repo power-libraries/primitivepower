@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+{% if t.bufferSupport %}
 import java.nio.{{t.label}}Buffer;
+{% endif %}
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,7 +15,7 @@ import com.github.powerlibraries.primitive.collections.{{t.label}}List;
 import com.github.powerlibraries.primitive.collections.{{t.label}}ListIterator;
 import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
 
-public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List {
+public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{{t.generic}} {
 
 	private List<{{t.boxed}}> l = new ArrayList<>();
 
@@ -48,9 +50,9 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List 
 	}
 
 	@Override
-	public {{t.label}}ListIterator listIterator(int index) {
+	public {{t.label}}ListIterator{{t.generic}} listIterator(int index) {
 		ListIterator<{{t.boxed}}> it = l.listIterator(index);
-		return new {{t.label}}ListIterator() {
+		return new {{t.label}}ListIterator{{t.generic}}() {
 			
 			@Override
 			public void remove() {
@@ -99,6 +101,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List 
 		};
 	}
 
+	{% if t.streamSupport %}
 	@Override
 	public void sort() {
 		throw new UnsupportedOperationException();
@@ -108,13 +111,14 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List 
 	public void parallelSort() {
 		throw new UnsupportedOperationException();
 	}
+	{% endif %}
 
 	@Override
-	public Iterable<{{t.label}}Pointer> primitiveIterable(int index) {
+	public Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable(int index) {
 		ListIterator<{{t.boxed}}> it = l.listIterator(index);
-		return new Iterable<{{t.label}}Pointer>() {
-			public Iterator<{{t.label}}Pointer> iterator() {
-        		return new Iterator<{{t.label}}Pointer>() {
+		return new Iterable<{{t.label}}Pointer{{t.generic}}>() {
+			public Iterator<{{t.label}}Pointer{{t.generic}}> iterator() {
+        		return new Iterator<{{t.label}}Pointer{{t.generic}}>() {
         			
         			@Override
         			public void remove() {
@@ -127,8 +131,8 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List 
         			}
         			
         			@Override
-        			public {{t.label}}Pointer next() {
-        				return new {{t.label}}Pointer() {
+        			public {{t.label}}Pointer{{t.generic}} next() {
+        				return new {{t.label}}Pointer{{t.generic}}() {
         					public {{t.type}} get() {
         						return it.next();
         					}
@@ -148,12 +152,12 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List 
 	public {{t.type}} removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	{% if t.bufferSupport %}
 	@Override
 	public {{t.label}}Buffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	{% endif %}
 	@Override
 	public int size() {
 		return l.size();

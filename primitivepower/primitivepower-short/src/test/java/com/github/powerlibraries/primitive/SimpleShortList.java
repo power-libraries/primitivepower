@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+
 import java.nio.ShortBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,15 +101,7 @@ public class SimpleShortList extends AbstractShortList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public Iterable<ShortPointer> primitiveIterable(int index) {
@@ -148,12 +142,12 @@ public class SimpleShortList extends AbstractShortList {
 	public short removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public ShortBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

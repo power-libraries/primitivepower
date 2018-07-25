@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+
 import java.nio.ByteBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,15 +101,7 @@ public class SimpleByteList extends AbstractByteList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public Iterable<BytePointer> primitiveIterable(int index) {
@@ -148,12 +142,12 @@ public class SimpleByteList extends AbstractByteList {
 	public byte removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public ByteBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

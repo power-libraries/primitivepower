@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+
 import java.nio.FloatBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,15 +101,7 @@ public class SimpleFloatList extends AbstractFloatList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public Iterable<FloatPointer> primitiveIterable(int index) {
@@ -148,12 +142,12 @@ public class SimpleFloatList extends AbstractFloatList {
 	public float removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public FloatBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

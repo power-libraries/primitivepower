@@ -1,6 +1,6 @@
 package com.github.powerlibraries.primitive;
 
-import java.nio.BooleanBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,15 +99,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 		};
 	}
 
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
+	
 
 	@Override
 	public Iterable<BooleanPointer> primitiveIterable(int index) {
@@ -148,12 +140,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	public boolean removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
-	@Override
-	public BooleanBuffer asBuffer() {
-		throw new UnsupportedOperationException();
-	}
-
+	
 	@Override
 	public int size() {
 		return l.size();

@@ -1,6 +1,8 @@
 package com.github.powerlibraries.primitive;
 
+
 import java.nio.LongBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -99,6 +101,7 @@ public class SimpleLongList extends AbstractLongList {
 		};
 	}
 
+	
 	@Override
 	public void sort() {
 		throw new UnsupportedOperationException();
@@ -108,6 +111,7 @@ public class SimpleLongList extends AbstractLongList {
 	public void parallelSort() {
 		throw new UnsupportedOperationException();
 	}
+	
 
 	@Override
 	public Iterable<LongPointer> primitiveIterable(int index) {
@@ -148,12 +152,12 @@ public class SimpleLongList extends AbstractLongList {
 	public long removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public LongBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public int size() {
 		return l.size();
