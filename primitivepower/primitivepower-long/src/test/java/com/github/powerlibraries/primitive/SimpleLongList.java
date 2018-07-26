@@ -101,18 +101,6 @@ public class SimpleLongList extends AbstractLongList {
 		};
 	}
 
-	
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
-	
-
 	@Override
 	public Iterable<LongPointer> primitiveIterable(int index) {
 		ListIterator<Long> it = l.listIterator(index);
@@ -227,4 +215,16 @@ public class SimpleLongList extends AbstractLongList {
 	public boolean addAllLongs(LongCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

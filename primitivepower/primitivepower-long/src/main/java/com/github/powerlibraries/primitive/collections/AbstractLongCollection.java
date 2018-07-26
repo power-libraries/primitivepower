@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.github.powerlibraries.primitive.common.LongPointer;
 
@@ -111,5 +113,29 @@ public abstract class AbstractLongCollection implements LongCollection {
 			}
 			result.append(", ");
 		}
+	}
+	
+	@Override @Deprecated
+	public Stream<Long> stream() {
+		return this.streamLongs().boxed();
+	}
+
+	@Override @Deprecated
+	public Stream<Long> parallelStream() {
+		return this.parallelStreamLongs().boxed();
+	}
+	
+	@Override @Deprecated
+	public boolean removeIf(Predicate<? super Long> filter) {
+		Objects.requireNonNull(filter);
+		Iterator<Long> it = this.iterator();
+		boolean changed = false;
+		while(it.hasNext()) {
+			if(filter.test(it.next())) {
+				changed = true;
+				it.remove();
+			}
+		}
+		return changed;
 	}
 }

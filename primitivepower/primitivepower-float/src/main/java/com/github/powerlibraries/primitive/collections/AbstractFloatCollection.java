@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.github.powerlibraries.primitive.common.FloatPointer;
 
@@ -111,5 +113,19 @@ public abstract class AbstractFloatCollection implements FloatCollection {
 			}
 			result.append(", ");
 		}
+	}
+	
+	@Override
+	public boolean removeIf(Predicate<? super Float> filter) {
+		Objects.requireNonNull(filter);
+		Iterator<Float> it = this.iterator();
+		boolean changed = false;
+		while(it.hasNext()) {
+			if(filter.test(it.next())) {
+				changed = true;
+				it.remove();
+			}
+		}
+		return changed;
 	}
 }

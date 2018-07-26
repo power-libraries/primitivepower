@@ -101,18 +101,6 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 		};
 	}
 
-	{% if t.streamSupport %}
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
-	{% endif %}
-
 	@Override
 	public Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable(int index) {
 		ListIterator<{{t.boxed}}> it = l.listIterator(index);
@@ -227,4 +215,16 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	public boolean addAll{{t.label}}s({{t.label}}Collection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	{% if t.numeric %}
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	{% endif %}
 }

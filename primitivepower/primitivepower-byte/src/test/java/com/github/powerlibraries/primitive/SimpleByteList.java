@@ -101,8 +101,6 @@ public class SimpleByteList extends AbstractByteList {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<BytePointer> primitiveIterable(int index) {
 		ListIterator<Byte> it = l.listIterator(index);
@@ -217,4 +215,16 @@ public class SimpleByteList extends AbstractByteList {
 	public boolean addAllBytes(ByteCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

@@ -101,18 +101,6 @@ public class SimpleIntList extends AbstractIntList {
 		};
 	}
 
-	
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
-	
-
 	@Override
 	public Iterable<IntPointer> primitiveIterable(int index) {
 		ListIterator<Integer> it = l.listIterator(index);
@@ -227,4 +215,16 @@ public class SimpleIntList extends AbstractIntList {
 	public boolean addAllInts(IntCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

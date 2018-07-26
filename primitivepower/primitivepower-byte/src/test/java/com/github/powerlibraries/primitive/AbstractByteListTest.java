@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +20,13 @@ public class AbstractByteListTest {
 		for(int i=0; i<10000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				byte v = r.nextByte();
+				byte v = ((byte)r.nextInt(100));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				if(r.nextBoolean()) {
-					byte v = r.nextByte();
+					byte v = ((byte)r.nextInt(100));
 					assertThat(list.remove((Byte)v))
 						.isEqualTo(expected.remove((Byte)v));
 				}

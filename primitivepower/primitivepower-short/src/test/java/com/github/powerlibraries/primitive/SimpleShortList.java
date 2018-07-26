@@ -101,8 +101,6 @@ public class SimpleShortList extends AbstractShortList {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<ShortPointer> primitiveIterable(int index) {
 		ListIterator<Short> it = l.listIterator(index);
@@ -217,4 +215,16 @@ public class SimpleShortList extends AbstractShortList {
 	public boolean addAllShorts(ShortCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

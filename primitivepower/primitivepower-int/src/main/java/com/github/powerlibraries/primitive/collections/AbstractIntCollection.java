@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.github.powerlibraries.primitive.common.IntPointer;
 
@@ -111,5 +113,29 @@ public abstract class AbstractIntCollection implements IntCollection {
 			}
 			result.append(", ");
 		}
+	}
+	
+	@Override @Deprecated
+	public Stream<Integer> stream() {
+		return this.streamInts().boxed();
+	}
+
+	@Override @Deprecated
+	public Stream<Integer> parallelStream() {
+		return this.parallelStreamInts().boxed();
+	}
+	
+	@Override @Deprecated
+	public boolean removeIf(Predicate<? super Integer> filter) {
+		Objects.requireNonNull(filter);
+		Iterator<Integer> it = this.iterator();
+		boolean changed = false;
+		while(it.hasNext()) {
+			if(filter.test(it.next())) {
+				changed = true;
+				it.remove();
+			}
+		}
+		return changed;
 	}
 }

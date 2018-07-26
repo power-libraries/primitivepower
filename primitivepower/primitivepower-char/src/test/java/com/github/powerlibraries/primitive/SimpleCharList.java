@@ -101,8 +101,6 @@ public class SimpleCharList extends AbstractCharList {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<CharPointer> primitiveIterable(int index) {
 		ListIterator<Character> it = l.listIterator(index);
@@ -217,4 +215,16 @@ public class SimpleCharList extends AbstractCharList {
 	public boolean addAllChars(CharCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

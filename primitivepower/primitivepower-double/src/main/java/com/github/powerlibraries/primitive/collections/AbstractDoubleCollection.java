@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.github.powerlibraries.primitive.common.DoublePointer;
 
@@ -111,5 +113,29 @@ public abstract class AbstractDoubleCollection implements DoubleCollection {
 			}
 			result.append(", ");
 		}
+	}
+	
+	@Override @Deprecated
+	public Stream<Double> stream() {
+		return this.streamDoubles().boxed();
+	}
+
+	@Override @Deprecated
+	public Stream<Double> parallelStream() {
+		return this.parallelStreamDoubles().boxed();
+	}
+	
+	@Override @Deprecated
+	public boolean removeIf(Predicate<? super Double> filter) {
+		Objects.requireNonNull(filter);
+		Iterator<Double> it = this.iterator();
+		boolean changed = false;
+		while(it.hasNext()) {
+			if(filter.test(it.next())) {
+				changed = true;
+				it.remove();
+			}
+		}
+		return changed;
 	}
 }

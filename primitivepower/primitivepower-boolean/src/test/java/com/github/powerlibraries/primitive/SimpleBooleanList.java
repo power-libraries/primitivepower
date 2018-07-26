@@ -99,8 +99,6 @@ public class SimpleBooleanList extends AbstractBooleanList {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<BooleanPointer> primitiveIterable(int index) {
 		ListIterator<Boolean> it = l.listIterator(index);
@@ -210,4 +208,6 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	public boolean addAllBooleans(BooleanCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
 }

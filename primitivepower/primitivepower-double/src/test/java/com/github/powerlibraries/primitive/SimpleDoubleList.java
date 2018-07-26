@@ -101,18 +101,6 @@ public class SimpleDoubleList extends AbstractDoubleList {
 		};
 	}
 
-	
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
-	
-
 	@Override
 	public Iterable<DoublePointer> primitiveIterable(int index) {
 		ListIterator<Double> it = l.listIterator(index);
@@ -227,4 +215,16 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	public boolean addAllDoubles(DoubleCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }

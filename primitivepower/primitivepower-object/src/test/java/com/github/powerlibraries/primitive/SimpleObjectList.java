@@ -99,8 +99,6 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<ObjectPointer<E>> primitiveIterable(int index) {
 		ListIterator<E> it = l.listIterator(index);
@@ -210,4 +208,6 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	public boolean addAllObjects(ObjectCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
 }

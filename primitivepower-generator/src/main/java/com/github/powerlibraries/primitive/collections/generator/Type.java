@@ -40,11 +40,26 @@ public enum Type {
 		public String hash(String var) {
 			return "Objects.hashCode("+var+")";
 		}
+		
+		@Override
+		public String randomValue(String random) {
+			return "(E)TimeUnit.values()["+random+".nextInt(100)]";
+		}
 	},
 	INT(true, true,		"Int",		"",		"int",		"Integer",		"0"),
 	LONG(true, true,		"Long",		"",		"long",		"Long",			"0L"),
-	SHORT(false, true,	"Short",	"",		"short",	"Short",		"((short)0)"),
-	BYTE(false, true,		"Byte",		"",		"byte",		"Byte",			"0"),
+	SHORT(false, true,	"Short",	"",		"short",	"Short",		"((short)0)") {
+		@Override
+		public String randomValue(String random) {
+			return "((short)"+random+".nextInt(100))";
+		}
+	},
+	BYTE(false, true,		"Byte",		"",		"byte",		"Byte",			"0") {
+		@Override
+		public String randomValue(String random) {
+			return "((byte)"+random+".nextInt(100))";
+		}
+	},
 	BOOLEAN(false, false,	"Boolean",	"",		"boolean",	"Boolean",		"false"),
 	FLOAT(false, true,	"Float",	"",		"float",	"Float",		"0f"),
 	DOUBLE(true, true,	"Double",	"",		"double",	"Double",		"0d"),

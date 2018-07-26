@@ -101,8 +101,6 @@ public class SimpleFloatList extends AbstractFloatList {
 		};
 	}
 
-	
-
 	@Override
 	public Iterable<FloatPointer> primitiveIterable(int index) {
 		ListIterator<Float> it = l.listIterator(index);
@@ -217,4 +215,16 @@ public class SimpleFloatList extends AbstractFloatList {
 	public boolean addAllFloats(FloatCollection c) {
 		throw new UnsupportedOperationException();
 	}
+	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
+	
 }
