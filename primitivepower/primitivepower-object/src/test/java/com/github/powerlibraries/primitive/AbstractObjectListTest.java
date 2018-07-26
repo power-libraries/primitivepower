@@ -17,18 +17,23 @@ public class AbstractObjectListTest<E> {
 		List<E> expected = new ArrayList<>();
 		SimpleObjectList list = new SimpleObjectList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				E v = (E)TimeUnit.values()[r.nextInt(100)];
+				E v = (E)TimeUnit.values()[r.nextInt(7)];
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				if(r.nextBoolean()) {
-					E v = (E)TimeUnit.values()[r.nextInt(100)];
+					E v = (E)TimeUnit.values()[r.nextInt(7)];
 					assertThat(list.remove((E)v))
 						.isEqualTo(expected.remove((E)v));
+				}
+				else {
+					E v = (E)TimeUnit.values()[r.nextInt(7)];
+					assertThat(list.indexOf((E)v))
+						.isEqualTo(expected.indexOf((E)v));
 				}
 			}
 			

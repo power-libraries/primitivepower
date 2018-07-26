@@ -17,7 +17,7 @@ public class AbstractFloatListTest {
 		List<Float> expected = new ArrayList<>();
 		SimpleFloatList list = new SimpleFloatList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				float v = r.nextFloat();
@@ -29,6 +29,11 @@ public class AbstractFloatListTest {
 					float v = r.nextFloat();
 					assertThat(list.remove((Float)v))
 						.isEqualTo(expected.remove((Float)v));
+				}
+				else {
+					float v = r.nextFloat();
+					assertThat(list.indexOf((Float)v))
+						.isEqualTo(expected.indexOf((Float)v));
 				}
 			}
 			

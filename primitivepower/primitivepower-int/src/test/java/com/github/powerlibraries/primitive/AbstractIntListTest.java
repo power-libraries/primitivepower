@@ -17,7 +17,7 @@ public class AbstractIntListTest {
 		List<Integer> expected = new ArrayList<>();
 		SimpleIntList list = new SimpleIntList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				int v = r.nextInt();
@@ -29,6 +29,11 @@ public class AbstractIntListTest {
 					int v = r.nextInt();
 					assertThat(list.remove((Integer)v))
 						.isEqualTo(expected.remove((Integer)v));
+				}
+				else {
+					int v = r.nextInt();
+					assertThat(list.indexOf((Integer)v))
+						.isEqualTo(expected.indexOf((Integer)v));
 				}
 			}
 			

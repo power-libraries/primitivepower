@@ -17,7 +17,7 @@ public class AbstractLongListTest {
 		List<Long> expected = new ArrayList<>();
 		SimpleLongList list = new SimpleLongList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				long v = r.nextLong();
@@ -29,6 +29,11 @@ public class AbstractLongListTest {
 					long v = r.nextLong();
 					assertThat(list.remove((Long)v))
 						.isEqualTo(expected.remove((Long)v));
+				}
+				else {
+					long v = r.nextLong();
+					assertThat(list.indexOf((Long)v))
+						.isEqualTo(expected.indexOf((Long)v));
 				}
 			}
 			

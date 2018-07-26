@@ -35,11 +35,6 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public int indexOfByte(byte o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfByte(byte o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleByteList extends AbstractByteList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfByte(byte e) {
+		return l.indexOf(e);
 	}
 
 	@Override

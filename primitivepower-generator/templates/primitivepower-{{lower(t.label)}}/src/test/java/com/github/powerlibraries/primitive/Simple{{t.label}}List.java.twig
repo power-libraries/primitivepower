@@ -35,11 +35,6 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	}
 
 	@Override
-	public int indexOf{{t.label}}({{t.type}} o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOf{{t.label}}({{t.type}} o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOf{{t.label}}({{t.type}} e) {
+		return l.indexOf(e);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class AbstractShortListTest {
 		List<Short> expected = new ArrayList<>();
 		SimpleShortList list = new SimpleShortList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				short v = ((short)r.nextInt(100));
@@ -29,6 +29,11 @@ public class AbstractShortListTest {
 					short v = ((short)r.nextInt(100));
 					assertThat(list.remove((Short)v))
 						.isEqualTo(expected.remove((Short)v));
+				}
+				else {
+					short v = ((short)r.nextInt(100));
+					assertThat(list.indexOf((Short)v))
+						.isEqualTo(expected.indexOf((Short)v));
 				}
 			}
 			

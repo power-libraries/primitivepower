@@ -43,7 +43,7 @@ public enum Type {
 		
 		@Override
 		public String randomValue(String random) {
-			return "(E)TimeUnit.values()["+random+".nextInt(100)]";
+			return "(E)TimeUnit.values()["+random+".nextInt(7)]";
 		}
 	},
 	INT(true, true,		"Int",		"",		"int",		"Integer",		"0"),

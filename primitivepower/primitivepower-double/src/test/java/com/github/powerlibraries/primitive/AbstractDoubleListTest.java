@@ -17,7 +17,7 @@ public class AbstractDoubleListTest {
 		List<Double> expected = new ArrayList<>();
 		SimpleDoubleList list = new SimpleDoubleList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				double v = r.nextDouble();
@@ -29,6 +29,11 @@ public class AbstractDoubleListTest {
 					double v = r.nextDouble();
 					assertThat(list.remove((Double)v))
 						.isEqualTo(expected.remove((Double)v));
+				}
+				else {
+					double v = r.nextDouble();
+					assertThat(list.indexOf((Double)v))
+						.isEqualTo(expected.indexOf((Double)v));
 				}
 			}
 			

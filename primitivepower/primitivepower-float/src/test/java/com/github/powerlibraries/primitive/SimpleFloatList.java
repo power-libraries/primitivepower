@@ -35,11 +35,6 @@ public class SimpleFloatList extends AbstractFloatList {
 	}
 
 	@Override
-	public int indexOfFloat(float o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfFloat(float o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleFloatList extends AbstractFloatList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfFloat(float e) {
+		return l.indexOf(e);
 	}
 
 	@Override

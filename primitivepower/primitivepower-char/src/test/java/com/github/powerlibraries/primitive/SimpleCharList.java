@@ -35,11 +35,6 @@ public class SimpleCharList extends AbstractCharList {
 	}
 
 	@Override
-	public int indexOfChar(char o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfChar(char o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleCharList extends AbstractCharList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfChar(char e) {
+		return l.indexOf(e);
 	}
 
 	@Override

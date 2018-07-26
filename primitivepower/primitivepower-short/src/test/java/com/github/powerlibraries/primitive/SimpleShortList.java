@@ -35,11 +35,6 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public int indexOfShort(short o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfShort(short o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleShortList extends AbstractShortList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfShort(short e) {
+		return l.indexOf(e);
 	}
 
 	@Override

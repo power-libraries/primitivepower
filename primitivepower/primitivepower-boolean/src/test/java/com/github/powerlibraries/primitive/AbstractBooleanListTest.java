@@ -17,7 +17,7 @@ public class AbstractBooleanListTest {
 		List<Boolean> expected = new ArrayList<>();
 		SimpleBooleanList list = new SimpleBooleanList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				boolean v = r.nextBoolean();
@@ -29,6 +29,11 @@ public class AbstractBooleanListTest {
 					boolean v = r.nextBoolean();
 					assertThat(list.remove((Boolean)v))
 						.isEqualTo(expected.remove((Boolean)v));
+				}
+				else {
+					boolean v = r.nextBoolean();
+					assertThat(list.indexOf((Boolean)v))
+						.isEqualTo(expected.indexOf((Boolean)v));
 				}
 			}
 			

@@ -33,11 +33,6 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public int indexOfObject(E o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfObject(E o) {
 		throw new UnsupportedOperationException();
 	}
@@ -97,6 +92,11 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfObject(E e) {
+		return l.indexOf(e);
 	}
 
 	@Override

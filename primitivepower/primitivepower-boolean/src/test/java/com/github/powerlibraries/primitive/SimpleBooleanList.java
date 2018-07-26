@@ -33,11 +33,6 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	}
 
 	@Override
-	public int indexOfBoolean(boolean o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfBoolean(boolean o) {
 		throw new UnsupportedOperationException();
 	}
@@ -97,6 +92,11 @@ public class SimpleBooleanList extends AbstractBooleanList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfBoolean(boolean e) {
+		return l.indexOf(e);
 	}
 
 	@Override

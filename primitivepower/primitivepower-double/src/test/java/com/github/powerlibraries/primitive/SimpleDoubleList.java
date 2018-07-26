@@ -35,11 +35,6 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public int indexOfDouble(double o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfDouble(double o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleDoubleList extends AbstractDoubleList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfDouble(double e) {
+		return l.indexOf(e);
 	}
 
 	@Override

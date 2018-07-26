@@ -35,11 +35,6 @@ public class SimpleLongList extends AbstractLongList {
 	}
 
 	@Override
-	public int indexOfLong(long o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfLong(long o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleLongList extends AbstractLongList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfLong(long e) {
+		return l.indexOf(e);
 	}
 
 	@Override

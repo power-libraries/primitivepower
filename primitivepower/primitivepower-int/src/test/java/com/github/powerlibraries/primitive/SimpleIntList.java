@@ -35,11 +35,6 @@ public class SimpleIntList extends AbstractIntList {
 	}
 
 	@Override
-	public int indexOfInt(int o) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public int lastIndexOfInt(int o) {
 		throw new UnsupportedOperationException();
 	}
@@ -99,6 +94,11 @@ public class SimpleIntList extends AbstractIntList {
 				it.add(e);
 			}
 		};
+	}
+	
+	@Override
+	public int indexOfInt(int e) {
+		return l.indexOf(e);
 	}
 
 	@Override

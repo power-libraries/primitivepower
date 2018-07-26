@@ -17,7 +17,7 @@ public class AbstractByteListTest {
 		List<Byte> expected = new ArrayList<>();
 		SimpleByteList list = new SimpleByteList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				byte v = ((byte)r.nextInt(100));
@@ -29,6 +29,11 @@ public class AbstractByteListTest {
 					byte v = ((byte)r.nextInt(100));
 					assertThat(list.remove((Byte)v))
 						.isEqualTo(expected.remove((Byte)v));
+				}
+				else {
+					byte v = ((byte)r.nextInt(100));
+					assertThat(list.indexOf((Byte)v))
+						.isEqualTo(expected.indexOf((Byte)v));
 				}
 			}
 			

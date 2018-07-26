@@ -17,7 +17,7 @@ public class AbstractCharListTest {
 		List<Character> expected = new ArrayList<>();
 		SimpleCharList list = new SimpleCharList();
 		
-		for(int i=0; i<10000; i++) {
+		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				char v = ((char)r.nextInt(100));
@@ -29,6 +29,11 @@ public class AbstractCharListTest {
 					char v = ((char)r.nextInt(100));
 					assertThat(list.remove((Character)v))
 						.isEqualTo(expected.remove((Character)v));
+				}
+				else {
+					char v = ((char)r.nextInt(100));
+					assertThat(list.indexOf((Character)v))
+						.isEqualTo(expected.indexOf((Character)v));
 				}
 			}
 			
