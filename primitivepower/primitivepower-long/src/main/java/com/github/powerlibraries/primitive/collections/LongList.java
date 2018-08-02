@@ -42,7 +42,7 @@ public interface LongList extends List<Long>, LongCollection {
 	
 	Iterable<LongPointer> primitiveIterable(int index);
 	
-	default void replaceAll(LongUnaryOperator operator) {
+	default void replaceAllLongs(LongUnaryOperator operator) {
 		Objects.requireNonNull(operator);
 		final LongListIterator li = this.listIterator();
 		while (li.hasNext()) {

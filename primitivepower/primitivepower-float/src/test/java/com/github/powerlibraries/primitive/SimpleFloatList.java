@@ -163,7 +163,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException();
+		return l.toArray(a);
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public boolean containsFloat(float o) {
-		throw new UnsupportedOperationException();
+		return l.contains(o);
 	}
 
 	@Override

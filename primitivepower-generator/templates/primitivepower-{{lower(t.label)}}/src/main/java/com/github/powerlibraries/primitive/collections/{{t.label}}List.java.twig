@@ -42,7 +42,7 @@ public interface {{t.label}}List{{t.generic}} extends List<{{t.boxed}}>, {{t.lab
 	
 	Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable(int index);
 	{% if t.streamSupport %}
-	default void replaceAll({{t.label}}UnaryOperator operator) {
+	default void replaceAll{{t.label}}s({{t.label}}UnaryOperator operator) {
 		Objects.requireNonNull(operator);
 		final {{t.label}}ListIterator li = this.listIterator();
 		while (li.hasNext()) {

@@ -163,7 +163,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException();
+		return l.toArray(a);
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public boolean containsByte(byte o) {
-		throw new UnsupportedOperationException();
+		return l.contains(o);
 	}
 
 	@Override

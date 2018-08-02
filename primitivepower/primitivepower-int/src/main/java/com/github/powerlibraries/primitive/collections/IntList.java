@@ -42,7 +42,7 @@ public interface IntList extends List<Integer>, IntCollection {
 	
 	Iterable<IntPointer> primitiveIterable(int index);
 	
-	default void replaceAll(IntUnaryOperator operator) {
+	default void replaceAllInts(IntUnaryOperator operator) {
 		Objects.requireNonNull(operator);
 		final IntListIterator li = this.listIterator();
 		while (li.hasNext()) {

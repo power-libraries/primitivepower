@@ -163,7 +163,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException();
+		return l.toArray(a);
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public boolean containsLong(long o) {
-		throw new UnsupportedOperationException();
+		return l.contains(o);
 	}
 
 	@Override

@@ -5,11 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Spliterators;
 
 import org.junit.jupiter.api.Test;
 
 public class AbstractCharListTest {
+
+	@Test
+	public void guardConditionsTest() {
+		SimpleCharList list = new SimpleCharList();
+		
+		assertThat(list.contains(null)).isFalse();
+	}
 
 	@Test
 	public void randomTest() {
@@ -25,22 +32,46 @@ public class AbstractCharListTest {
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				if(r.nextBoolean()) {
-					char v = ((char)r.nextInt(100));
-					assertThat(list.remove((Character)v))
-						.isEqualTo(expected.remove((Character)v));
-				}
-				else {
-					char v = ((char)r.nextInt(100));
-					assertThat(list.indexOf((Character)v))
-						.isEqualTo(expected.indexOf((Character)v));
+				char v;
+				switch(r.nextInt(3)) {
+					case 0:
+						v = ((char)r.nextInt(100));
+						assertThat(list.remove((Character)v))
+							.isEqualTo(expected.remove((Character)v));
+						break;
+					case 1:
+						v = ((char)r.nextInt(100));
+						assertThat(list.indexOf((Character)v))
+							.isEqualTo(expected.indexOf((Character)v));
+						break;
+					case 2:
+						v = ((char)r.nextInt(100));
+						assertThat(list.contains((Character)v))
+							.isEqualTo(expected.contains((Character)v));
+						break;
 				}
 			}
 			
-			
-			assertThat(list.size()).isEqualTo(expected.size());
-			assertThat(list.toString()).isEqualTo(expected.toString());
-			assertThat(list.toArray()).isEqualTo(expected.toArray());
+			readOnlyTests(list, expected);
 		}
+		
+		//replace all elements with '\u0000'
+		list.replaceAll(v -> '\u0000');
+		expected.replaceAll(v -> '\u0000');
+		readOnlyTests(list, expected);
+	}
+	
+	private void readOnlyTests(SimpleCharList list, List<Character> expected) {
+		assertThat(list.size()).isEqualTo(expected.size());
+		assertThat(list.toString()).isEqualTo(expected.toString());
+		
+		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		assertThat(list.toArray(Character[]::new)).isEqualTo(expected.toArray(new Character[expected.size()]));
+		
+		assertThat(expected).containsAll(list);
+		assertThat(list).containsAll(expected);
+		
+		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
+		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 	}
 }

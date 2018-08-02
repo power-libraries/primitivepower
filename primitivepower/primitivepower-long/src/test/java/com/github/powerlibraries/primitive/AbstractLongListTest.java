@@ -5,11 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Spliterators;
 
 import org.junit.jupiter.api.Test;
 
 public class AbstractLongListTest {
+
+	@Test
+	public void guardConditionsTest() {
+		SimpleLongList list = new SimpleLongList();
+		
+		assertThat(list.contains(null)).isFalse();
+	}
 
 	@Test
 	public void randomTest() {
@@ -25,22 +32,46 @@ public class AbstractLongListTest {
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				if(r.nextBoolean()) {
-					long v = r.nextLong();
-					assertThat(list.remove((Long)v))
-						.isEqualTo(expected.remove((Long)v));
-				}
-				else {
-					long v = r.nextLong();
-					assertThat(list.indexOf((Long)v))
-						.isEqualTo(expected.indexOf((Long)v));
+				long v;
+				switch(r.nextInt(3)) {
+					case 0:
+						v = r.nextLong();
+						assertThat(list.remove((Long)v))
+							.isEqualTo(expected.remove((Long)v));
+						break;
+					case 1:
+						v = r.nextLong();
+						assertThat(list.indexOf((Long)v))
+							.isEqualTo(expected.indexOf((Long)v));
+						break;
+					case 2:
+						v = r.nextLong();
+						assertThat(list.contains((Long)v))
+							.isEqualTo(expected.contains((Long)v));
+						break;
 				}
 			}
 			
-			
-			assertThat(list.size()).isEqualTo(expected.size());
-			assertThat(list.toString()).isEqualTo(expected.toString());
-			assertThat(list.toArray()).isEqualTo(expected.toArray());
+			readOnlyTests(list, expected);
 		}
+		
+		//replace all elements with 0L
+		list.replaceAll(v -> 0L);
+		expected.replaceAll(v -> 0L);
+		readOnlyTests(list, expected);
+	}
+	
+	private void readOnlyTests(SimpleLongList list, List<Long> expected) {
+		assertThat(list.size()).isEqualTo(expected.size());
+		assertThat(list.toString()).isEqualTo(expected.toString());
+		
+		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		assertThat(list.toArray(Long[]::new)).isEqualTo(expected.toArray(new Long[expected.size()]));
+		
+		assertThat(expected).containsAll(list);
+		assertThat(list).containsAll(expected);
+		
+		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
+		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 	}
 }

@@ -163,7 +163,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException();
+		return l.toArray(a);
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public boolean contains{{t.label}}({{t.type}} o) {
-		throw new UnsupportedOperationException();
+		return l.contains(o);
 	}
 
 	@Override

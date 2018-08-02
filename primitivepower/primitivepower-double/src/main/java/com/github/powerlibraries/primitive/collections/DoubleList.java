@@ -42,7 +42,7 @@ public interface DoubleList extends List<Double>, DoubleCollection {
 	
 	Iterable<DoublePointer> primitiveIterable(int index);
 	
-	default void replaceAll(DoubleUnaryOperator operator) {
+	default void replaceAllDoubles(DoubleUnaryOperator operator) {
 		Objects.requireNonNull(operator);
 		final DoubleListIterator li = this.listIterator();
 		while (li.hasNext()) {

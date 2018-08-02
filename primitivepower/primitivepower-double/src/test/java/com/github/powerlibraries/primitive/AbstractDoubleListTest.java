@@ -5,11 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Spliterators;
 
 import org.junit.jupiter.api.Test;
 
 public class AbstractDoubleListTest {
+
+	@Test
+	public void guardConditionsTest() {
+		SimpleDoubleList list = new SimpleDoubleList();
+		
+		assertThat(list.contains(null)).isFalse();
+	}
 
 	@Test
 	public void randomTest() {
@@ -25,22 +32,46 @@ public class AbstractDoubleListTest {
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				if(r.nextBoolean()) {
-					double v = r.nextDouble();
-					assertThat(list.remove((Double)v))
-						.isEqualTo(expected.remove((Double)v));
-				}
-				else {
-					double v = r.nextDouble();
-					assertThat(list.indexOf((Double)v))
-						.isEqualTo(expected.indexOf((Double)v));
+				double v;
+				switch(r.nextInt(3)) {
+					case 0:
+						v = r.nextDouble();
+						assertThat(list.remove((Double)v))
+							.isEqualTo(expected.remove((Double)v));
+						break;
+					case 1:
+						v = r.nextDouble();
+						assertThat(list.indexOf((Double)v))
+							.isEqualTo(expected.indexOf((Double)v));
+						break;
+					case 2:
+						v = r.nextDouble();
+						assertThat(list.contains((Double)v))
+							.isEqualTo(expected.contains((Double)v));
+						break;
 				}
 			}
 			
-			
-			assertThat(list.size()).isEqualTo(expected.size());
-			assertThat(list.toString()).isEqualTo(expected.toString());
-			assertThat(list.toArray()).isEqualTo(expected.toArray());
+			readOnlyTests(list, expected);
 		}
+		
+		//replace all elements with 0d
+		list.replaceAll(v -> 0d);
+		expected.replaceAll(v -> 0d);
+		readOnlyTests(list, expected);
+	}
+	
+	private void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
+		assertThat(list.size()).isEqualTo(expected.size());
+		assertThat(list.toString()).isEqualTo(expected.toString());
+		
+		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		assertThat(list.toArray(Double[]::new)).isEqualTo(expected.toArray(new Double[expected.size()]));
+		
+		assertThat(expected).containsAll(list);
+		assertThat(list).containsAll(expected);
+		
+		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
+		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 	}
 }

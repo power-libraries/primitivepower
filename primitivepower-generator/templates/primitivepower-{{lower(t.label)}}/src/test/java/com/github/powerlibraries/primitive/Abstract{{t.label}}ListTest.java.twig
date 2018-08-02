@@ -5,11 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Spliterators;
 
 import org.junit.jupiter.api.Test;
 
 public class Abstract{{t.label}}ListTest{{t.generic}} {
+
+	@Test
+	public void guardConditionsTest() {
+		Simple{{t.label}}List list = new Simple{{t.label}}List();
+		
+		assertThat(list.contains(null)).isFalse();
+	}
 
 	@Test
 	public void randomTest() {
@@ -25,22 +32,46 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				if(r.nextBoolean()) {
-					{{t.type}} v = {{t.randomValue('r')}};
-					assertThat(list.remove(({{t.boxed}})v))
-						.isEqualTo(expected.remove(({{t.boxed}})v));
-				}
-				else {
-					{{t.type}} v = {{t.randomValue('r')}};
-					assertThat(list.indexOf(({{t.boxed}})v))
-						.isEqualTo(expected.indexOf(({{t.boxed}})v));
+				{{t.type}} v;
+				switch(r.nextInt(3)) {
+					case 0:
+						v = {{t.randomValue('r')}};
+						assertThat(list.remove(({{t.boxed}})v))
+							.isEqualTo(expected.remove(({{t.boxed}})v));
+						break;
+					case 1:
+						v = {{t.randomValue('r')}};
+						assertThat(list.indexOf(({{t.boxed}})v))
+							.isEqualTo(expected.indexOf(({{t.boxed}})v));
+						break;
+					case 2:
+						v = {{t.randomValue('r')}};
+						assertThat(list.contains(({{t.boxed}})v))
+							.isEqualTo(expected.contains(({{t.boxed}})v));
+						break;
 				}
 			}
 			
-			
-			assertThat(list.size()).isEqualTo(expected.size());
-			assertThat(list.toString()).isEqualTo(expected.toString());
-			assertThat(list.toArray()).isEqualTo(expected.toArray());
+			readOnlyTests(list, expected);
 		}
+		
+		//replace all elements with {{t.neutralElement}}
+		list.replaceAll(v -> {{t.neutralElement}});
+		expected.replaceAll(v -> {{t.neutralElement}});
+		readOnlyTests(list, expected);
+	}
+	
+	private void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		assertThat(list.size()).isEqualTo(expected.size());
+		assertThat(list.toString()).isEqualTo(expected.toString());
+		
+		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		assertThat(list.toArray({{t.boxed}}[]::new)).isEqualTo(expected.toArray(new {{t.boxed}}[expected.size()]));
+		
+		assertThat(expected).containsAll(list);
+		assertThat(list).containsAll(expected);
+		
+		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
+		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 	}
 }

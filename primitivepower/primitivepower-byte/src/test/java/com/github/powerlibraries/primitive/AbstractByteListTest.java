@@ -5,11 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Spliterators;
 
 import org.junit.jupiter.api.Test;
 
 public class AbstractByteListTest {
+
+	@Test
+	public void guardConditionsTest() {
+		SimpleByteList list = new SimpleByteList();
+		
+		assertThat(list.contains(null)).isFalse();
+	}
 
 	@Test
 	public void randomTest() {
@@ -25,22 +32,46 @@ public class AbstractByteListTest {
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				if(r.nextBoolean()) {
-					byte v = ((byte)r.nextInt(100));
-					assertThat(list.remove((Byte)v))
-						.isEqualTo(expected.remove((Byte)v));
-				}
-				else {
-					byte v = ((byte)r.nextInt(100));
-					assertThat(list.indexOf((Byte)v))
-						.isEqualTo(expected.indexOf((Byte)v));
+				byte v;
+				switch(r.nextInt(3)) {
+					case 0:
+						v = ((byte)r.nextInt(100));
+						assertThat(list.remove((Byte)v))
+							.isEqualTo(expected.remove((Byte)v));
+						break;
+					case 1:
+						v = ((byte)r.nextInt(100));
+						assertThat(list.indexOf((Byte)v))
+							.isEqualTo(expected.indexOf((Byte)v));
+						break;
+					case 2:
+						v = ((byte)r.nextInt(100));
+						assertThat(list.contains((Byte)v))
+							.isEqualTo(expected.contains((Byte)v));
+						break;
 				}
 			}
 			
-			
-			assertThat(list.size()).isEqualTo(expected.size());
-			assertThat(list.toString()).isEqualTo(expected.toString());
-			assertThat(list.toArray()).isEqualTo(expected.toArray());
+			readOnlyTests(list, expected);
 		}
+		
+		//replace all elements with 0
+		list.replaceAll(v -> 0);
+		expected.replaceAll(v -> 0);
+		readOnlyTests(list, expected);
+	}
+	
+	private void readOnlyTests(SimpleByteList list, List<Byte> expected) {
+		assertThat(list.size()).isEqualTo(expected.size());
+		assertThat(list.toString()).isEqualTo(expected.toString());
+		
+		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		assertThat(list.toArray(Byte[]::new)).isEqualTo(expected.toArray(new Byte[expected.size()]));
+		
+		assertThat(expected).containsAll(list);
+		assertThat(list).containsAll(expected);
+		
+		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
+		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 	}
 }

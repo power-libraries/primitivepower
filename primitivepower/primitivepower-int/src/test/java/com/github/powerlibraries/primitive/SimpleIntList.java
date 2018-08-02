@@ -163,7 +163,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException();
+		return l.toArray(a);
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public boolean containsInt(int o) {
-		throw new UnsupportedOperationException();
+		return l.contains(o);
 	}
 
 	@Override
