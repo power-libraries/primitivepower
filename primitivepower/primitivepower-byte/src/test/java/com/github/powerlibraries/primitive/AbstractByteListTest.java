@@ -17,6 +17,7 @@ public class AbstractByteListTest {
 		SimpleByteList list = new SimpleByteList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractByteListTest {
 		//replace all elements with 0
 		list.replaceAll(v -> 0);
 		expected.replaceAll(v -> 0);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllBytes(v -> 0);
 		readOnlyTests(list, expected);
 	}
 	

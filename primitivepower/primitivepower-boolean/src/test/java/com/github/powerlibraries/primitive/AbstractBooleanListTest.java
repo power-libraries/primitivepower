@@ -17,6 +17,7 @@ public class AbstractBooleanListTest {
 		SimpleBooleanList list = new SimpleBooleanList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractBooleanListTest {
 		//replace all elements with false
 		list.replaceAll(v -> false);
 		expected.replaceAll(v -> false);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllBooleans(v -> false);
 		readOnlyTests(list, expected);
 	}
 	

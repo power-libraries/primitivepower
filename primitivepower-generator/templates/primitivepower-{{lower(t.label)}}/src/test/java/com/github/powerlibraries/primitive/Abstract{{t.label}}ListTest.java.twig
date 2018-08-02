@@ -17,6 +17,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		Simple{{t.label}}List list = new Simple{{t.label}}List();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		//replace all elements with {{t.neutralElement}}
 		list.replaceAll(v -> {{t.neutralElement}});
 		expected.replaceAll(v -> {{t.neutralElement}});
+		readOnlyTests(list, expected);
+		
+		list.replaceAll{{t.label}}s(v -> {{t.neutralElement}});
 		readOnlyTests(list, expected);
 	}
 	

@@ -17,6 +17,7 @@ public class AbstractCharListTest {
 		SimpleCharList list = new SimpleCharList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractCharListTest {
 		//replace all elements with '\u0000'
 		list.replaceAll(v -> '\u0000');
 		expected.replaceAll(v -> '\u0000');
+		readOnlyTests(list, expected);
+		
+		list.replaceAllChars(v -> '\u0000');
 		readOnlyTests(list, expected);
 	}
 	

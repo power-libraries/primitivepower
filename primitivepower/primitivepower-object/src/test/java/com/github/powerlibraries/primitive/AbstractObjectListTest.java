@@ -17,6 +17,7 @@ public class AbstractObjectListTest<E> {
 		SimpleObjectList list = new SimpleObjectList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractObjectListTest<E> {
 		//replace all elements with null
 		list.replaceAll(v -> null);
 		expected.replaceAll(v -> null);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllObjects(v -> null);
 		readOnlyTests(list, expected);
 	}
 	

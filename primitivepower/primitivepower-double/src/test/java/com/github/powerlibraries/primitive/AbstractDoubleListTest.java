@@ -17,6 +17,7 @@ public class AbstractDoubleListTest {
 		SimpleDoubleList list = new SimpleDoubleList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractDoubleListTest {
 		//replace all elements with 0d
 		list.replaceAll(v -> 0d);
 		expected.replaceAll(v -> 0d);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllDoubles(v -> 0d);
 		readOnlyTests(list, expected);
 	}
 	

@@ -17,6 +17,7 @@ public class AbstractFloatListTest {
 		SimpleFloatList list = new SimpleFloatList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractFloatListTest {
 		//replace all elements with 0f
 		list.replaceAll(v -> 0f);
 		expected.replaceAll(v -> 0f);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllFloats(v -> 0f);
 		readOnlyTests(list, expected);
 	}
 	

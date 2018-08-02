@@ -17,6 +17,7 @@ public class AbstractLongListTest {
 		SimpleLongList list = new SimpleLongList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractLongListTest {
 		//replace all elements with 0L
 		list.replaceAll(v -> 0L);
 		expected.replaceAll(v -> 0L);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllLongs(v -> 0L);
 		readOnlyTests(list, expected);
 	}
 	

@@ -17,6 +17,7 @@ public class AbstractShortListTest {
 		SimpleShortList list = new SimpleShortList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractShortListTest {
 		//replace all elements with ((short)0)
 		list.replaceAll(v -> ((short)0));
 		expected.replaceAll(v -> ((short)0));
+		readOnlyTests(list, expected);
+		
+		list.replaceAllShorts(v -> ((short)0));
 		readOnlyTests(list, expected);
 	}
 	

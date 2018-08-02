@@ -17,6 +17,7 @@ public class AbstractIntListTest {
 		SimpleIntList list = new SimpleIntList();
 		
 		assertThat(list.contains(null)).isFalse();
+		assertThat(list.remove(null)).isFalse();
 	}
 
 	@Test
@@ -59,6 +60,9 @@ public class AbstractIntListTest {
 		//replace all elements with 0
 		list.replaceAll(v -> 0);
 		expected.replaceAll(v -> 0);
+		readOnlyTests(list, expected);
+		
+		list.replaceAllInts(v -> 0);
 		readOnlyTests(list, expected);
 	}
 	
