@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Spliterators;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +67,7 @@ public class AbstractObjectListTest<E> {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(E[]::new)).isEqualTo(expected.toArray(new E[expected.size()]));
+		assertThat(list.toArray(Object[]::new)).isEqualTo(expected.toArray(new Object[expected.size()]));
 		
 		assertThat(expected).containsAll(list);
 		assertThat(list).containsAll(expected);
