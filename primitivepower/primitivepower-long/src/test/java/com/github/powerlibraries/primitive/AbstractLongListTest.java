@@ -62,7 +62,9 @@ public class AbstractLongListTest {
 		expected.replaceAll(v -> 0L);
 		readOnlyTests(list, expected);
 		
+		
 		list.replaceAllLongs(v -> 0L);
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +75,14 @@ public class AbstractLongListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Long[]::new)).isEqualTo(expected.toArray(new Long[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
+		assertThat(list.streamLongs()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

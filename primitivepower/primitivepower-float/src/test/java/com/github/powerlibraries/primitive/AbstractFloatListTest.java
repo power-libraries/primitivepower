@@ -62,7 +62,7 @@ public class AbstractFloatListTest {
 		expected.replaceAll(v -> 0f);
 		readOnlyTests(list, expected);
 		
-		list.replaceAllFloats(v -> 0f);
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +73,12 @@ public class AbstractFloatListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

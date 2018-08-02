@@ -62,7 +62,9 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		expected.replaceAll(v -> {{t.neutralElement}});
 		readOnlyTests(list, expected);
 		
+		{% if t.streamSupport %}
 		list.replaceAll{{t.label}}s(v -> {{t.neutralElement}});
+		{% endif %}
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +75,14 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray({{t.boxedArrayType}}[]::new)).isEqualTo(expected.toArray(new {{t.boxedArrayType}}[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		{% if t.streamSupport %}
+		assertThat(list.stream{{t.label}}s()).containsExactlyElementsOf(expected);
+		{% endif %}
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

@@ -62,7 +62,7 @@ public class AbstractByteListTest {
 		expected.replaceAll(v -> 0);
 		readOnlyTests(list, expected);
 		
-		list.replaceAllBytes(v -> 0);
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +73,12 @@ public class AbstractByteListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Byte[]::new)).isEqualTo(expected.toArray(new Byte[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

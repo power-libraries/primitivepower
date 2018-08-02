@@ -62,7 +62,7 @@ public class AbstractCharListTest {
 		expected.replaceAll(v -> '\u0000');
 		readOnlyTests(list, expected);
 		
-		list.replaceAllChars(v -> '\u0000');
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +73,12 @@ public class AbstractCharListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Character[]::new)).isEqualTo(expected.toArray(new Character[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

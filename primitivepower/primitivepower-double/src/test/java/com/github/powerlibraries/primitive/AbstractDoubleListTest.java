@@ -62,7 +62,9 @@ public class AbstractDoubleListTest {
 		expected.replaceAll(v -> 0d);
 		readOnlyTests(list, expected);
 		
+		
 		list.replaceAllDoubles(v -> 0d);
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +75,14 @@ public class AbstractDoubleListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Double[]::new)).isEqualTo(expected.toArray(new Double[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
+		assertThat(list.streamDoubles()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));

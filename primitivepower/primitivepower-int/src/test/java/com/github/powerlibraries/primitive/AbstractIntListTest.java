@@ -62,7 +62,9 @@ public class AbstractIntListTest {
 		expected.replaceAll(v -> 0);
 		readOnlyTests(list, expected);
 		
+		
 		list.replaceAllInts(v -> 0);
+		
 		readOnlyTests(list, expected);
 	}
 	
@@ -73,8 +75,14 @@ public class AbstractIntListTest {
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
 		assertThat(list.toArray(Integer[]::new)).isEqualTo(expected.toArray(new Integer[expected.size()]));
 		
-		assertThat(expected).containsAll(list);
-		assertThat(list).containsAll(expected);
+		assertThat(list).containsExactlyElementsOf(expected);
+		
+		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		
+		assertThat(list.streamInts()).containsExactlyElementsOf(expected);
+		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
