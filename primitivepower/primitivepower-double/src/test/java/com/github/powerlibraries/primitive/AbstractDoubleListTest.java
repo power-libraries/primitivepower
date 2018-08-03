@@ -134,6 +134,13 @@ public class AbstractDoubleListTest {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(SimpleDoubleList list, List<Double> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
@@ -151,6 +158,13 @@ public class AbstractDoubleListTest {
 		expected.removeIf(v -> r2.nextBoolean());
 
 		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEachDouble(SimpleDoubleList list, List<Double> expected) {
+		List<Double> collected = new ArrayList<>();
+		list.forEachDouble(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
@@ -174,5 +188,8 @@ public class AbstractDoubleListTest {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }

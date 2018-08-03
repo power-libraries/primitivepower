@@ -15,7 +15,7 @@ public interface IntIterable extends Iterable<Integer> {
 	
 	Iterable<IntPointer> primitiveIterable();
 	
-	default void forEach(IntConsumer action) {
+	default void forEachInt(IntConsumer action) {
 		Objects.requireNonNull(action);
 		for (IntPointer t : this.primitiveIterable()) {
 			action.accept(t.get());

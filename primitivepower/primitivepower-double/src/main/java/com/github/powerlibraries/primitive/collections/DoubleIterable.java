@@ -15,7 +15,7 @@ public interface DoubleIterable extends Iterable<Double> {
 	
 	Iterable<DoublePointer> primitiveIterable();
 	
-	default void forEach(DoubleConsumer action) {
+	default void forEachDouble(DoubleConsumer action) {
 		Objects.requireNonNull(action);
 		for (DoublePointer t : this.primitiveIterable()) {
 			action.accept(t.get());

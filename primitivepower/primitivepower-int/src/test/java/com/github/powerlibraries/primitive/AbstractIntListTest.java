@@ -134,6 +134,13 @@ public class AbstractIntListTest {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(SimpleIntList list, List<Integer> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllInts(SimpleIntList list, List<Integer> expected) {
@@ -151,6 +158,13 @@ public class AbstractIntListTest {
 		expected.removeIf(v -> r2.nextBoolean());
 
 		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEachInt(SimpleIntList list, List<Integer> expected) {
+		List<Integer> collected = new ArrayList<>();
+		list.forEachInt(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
@@ -174,5 +188,8 @@ public class AbstractIntListTest {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }

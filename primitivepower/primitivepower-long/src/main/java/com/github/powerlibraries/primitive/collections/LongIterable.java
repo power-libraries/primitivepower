@@ -15,7 +15,7 @@ public interface LongIterable extends Iterable<Long> {
 	
 	Iterable<LongPointer> primitiveIterable();
 	
-	default void forEach(LongConsumer action) {
+	default void forEachLong(LongConsumer action) {
 		Objects.requireNonNull(action);
 		for (LongPointer t : this.primitiveIterable()) {
 			action.accept(t.get());

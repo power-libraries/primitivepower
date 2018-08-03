@@ -134,6 +134,13 @@ public class AbstractObjectListTest<E> {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(SimpleObjectList list, List<E> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	
 	
 	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
@@ -153,5 +160,8 @@ public class AbstractObjectListTest<E> {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }

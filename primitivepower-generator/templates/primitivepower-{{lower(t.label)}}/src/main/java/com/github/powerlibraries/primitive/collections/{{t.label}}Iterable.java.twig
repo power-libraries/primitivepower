@@ -20,7 +20,7 @@ public interface {{t.label}}Iterable{{t.generic}} extends Iterable<{{t.boxed}}> 
 	{% endif %}
 	Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable();
 	{% if t.streamSupport %}
-	default void forEach({{t.label}}Consumer{{t.generic}} action) {
+	default void forEach{{t.label}}({{t.label}}Consumer{{t.generic}} action) {
 		Objects.requireNonNull(action);
 		for ({{t.label}}Pointer{{t.generic}} t : this.primitiveIterable()) {
 			action.accept(t.get());

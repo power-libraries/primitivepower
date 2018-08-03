@@ -134,6 +134,13 @@ public class AbstractByteListTest {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(SimpleByteList list, List<Byte> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	
 	
 	private static  void readOnlyTests(SimpleByteList list, List<Byte> expected) {
@@ -153,5 +160,8 @@ public class AbstractByteListTest {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }

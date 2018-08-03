@@ -134,6 +134,13 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	{% if t.streamSupport %}
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAll{{t.label}}s(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
@@ -151,6 +158,13 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		expected.removeIf(v -> r2.nextBoolean());
 
 		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach{{t.label}}(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		List<{{t.boxed}}> collected = new ArrayList<>();
+		list.forEach{{t.label}}(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	{% endif %}
 	
@@ -174,5 +188,8 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }

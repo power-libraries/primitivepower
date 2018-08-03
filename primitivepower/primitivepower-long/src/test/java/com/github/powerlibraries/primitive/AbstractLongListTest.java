@@ -134,6 +134,13 @@ public class AbstractLongListTest {
 		}
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEach(SimpleLongList list, List<Long> expected) {
+		List collected = new ArrayList();
+		list.forEach(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllLongs(SimpleLongList list, List<Long> expected) {
@@ -151,6 +158,13 @@ public class AbstractLongListTest {
 		expected.removeIf(v -> r2.nextBoolean());
 
 		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEachLong(SimpleLongList list, List<Long> expected) {
+		List<Long> collected = new ArrayList<>();
+		list.forEachLong(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
@@ -174,5 +188,8 @@ public class AbstractLongListTest {
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
 		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		
+		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
+		assertThat(list.equals(expected));
 	}
 }
