@@ -23,6 +23,7 @@ public class AbstractCharListTest {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -90,7 +91,6 @@ public class AbstractCharListTest {
 		readOnlyTests(list, expected);
 	}
 	
-	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleCharList list, List<Character> expected) {
 		Random r1 = new Random(9);
@@ -100,6 +100,35 @@ public class AbstractCharListTest {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleCharList list, List<Character> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleCharList list, List<Character> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			char v = ((char)r.nextInt(100));
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleCharList list, List<Character> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			char v = ((char)r.nextInt(100));
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -113,6 +142,7 @@ public class AbstractCharListTest {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

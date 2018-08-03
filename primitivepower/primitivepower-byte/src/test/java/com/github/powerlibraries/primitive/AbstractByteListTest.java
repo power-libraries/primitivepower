@@ -23,6 +23,7 @@ public class AbstractByteListTest {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -90,7 +91,6 @@ public class AbstractByteListTest {
 		readOnlyTests(list, expected);
 	}
 	
-	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleByteList list, List<Byte> expected) {
 		Random r1 = new Random(9);
@@ -100,6 +100,35 @@ public class AbstractByteListTest {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleByteList list, List<Byte> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleByteList list, List<Byte> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			byte v = ((byte)r.nextInt(100));
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleByteList list, List<Byte> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			byte v = ((byte)r.nextInt(100));
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
 	
 	private static  void readOnlyTests(SimpleByteList list, List<Byte> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -113,6 +142,7 @@ public class AbstractByteListTest {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

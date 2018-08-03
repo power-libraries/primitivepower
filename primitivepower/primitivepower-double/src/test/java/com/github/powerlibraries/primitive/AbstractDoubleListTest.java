@@ -23,6 +23,7 @@ public class AbstractDoubleListTest {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -91,15 +92,6 @@ public class AbstractDoubleListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
-		list.replaceAllDoubles(v -> 0d);
-		expected.replaceAll(v -> 0d);
-		
-		readOnlyTests(list, expected);
-	}
-	
-	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleDoubleList list, List<Double> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -108,6 +100,53 @@ public class AbstractDoubleListTest {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleDoubleList list, List<Double> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleDoubleList list, List<Double> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			double v = r.nextDouble();
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleDoubleList list, List<Double> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			double v = r.nextDouble();
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
+		list.replaceAllDoubles(v -> 0d);
+		expected.replaceAll(v -> 0d);
+		
+		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeDoubleIf(SimpleDoubleList list, List<Double> expected) {
+		Random r1 = new Random(9);
+		list.removeDoubleIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
 	
 	private static  void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -121,8 +160,10 @@ public class AbstractDoubleListTest {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		assertThat(list.streamDoubles()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStreamDoubles()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

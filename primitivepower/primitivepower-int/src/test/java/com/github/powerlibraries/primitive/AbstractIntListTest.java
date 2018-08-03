@@ -23,6 +23,7 @@ public class AbstractIntListTest {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -91,15 +92,6 @@ public class AbstractIntListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAllInts(SimpleIntList list, List<Integer> expected) {
-		list.replaceAllInts(v -> 0);
-		expected.replaceAll(v -> 0);
-		
-		readOnlyTests(list, expected);
-	}
-	
-	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleIntList list, List<Integer> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -108,6 +100,53 @@ public class AbstractIntListTest {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleIntList list, List<Integer> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleIntList list, List<Integer> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			int v = r.nextInt();
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleIntList list, List<Integer> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			int v = r.nextInt();
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAllInts(SimpleIntList list, List<Integer> expected) {
+		list.replaceAllInts(v -> 0);
+		expected.replaceAll(v -> 0);
+		
+		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIntIf(SimpleIntList list, List<Integer> expected) {
+		Random r1 = new Random(9);
+		list.removeIntIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
 	
 	private static  void readOnlyTests(SimpleIntList list, List<Integer> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -121,8 +160,10 @@ public class AbstractIntListTest {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		assertThat(list.streamInts()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStreamInts()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

@@ -19,17 +19,17 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public E getObject(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public E setObject(int index, E element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addObject(int index, E element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

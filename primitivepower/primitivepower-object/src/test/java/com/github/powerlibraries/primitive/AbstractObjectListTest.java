@@ -23,6 +23,7 @@ public class AbstractObjectListTest<E> {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -90,7 +91,6 @@ public class AbstractObjectListTest<E> {
 		readOnlyTests(list, expected);
 	}
 	
-	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleObjectList list, List<E> expected) {
 		Random r1 = new Random(9);
@@ -100,6 +100,35 @@ public class AbstractObjectListTest<E> {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleObjectList list, List<E> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleObjectList list, List<E> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			E v = (E)TimeUnit.values()[r.nextInt(7)];
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleObjectList list, List<E> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			E v = (E)TimeUnit.values()[r.nextInt(7)];
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
 	
 	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -113,6 +142,7 @@ public class AbstractObjectListTest<E> {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

@@ -21,17 +21,17 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public double getDouble(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public double setDouble(int index, double element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addDouble(int index, double element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

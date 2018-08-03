@@ -21,17 +21,17 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public char getChar(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public char setChar(int index, char element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addChar(int index, char element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

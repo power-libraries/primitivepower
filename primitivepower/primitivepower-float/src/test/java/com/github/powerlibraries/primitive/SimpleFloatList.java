@@ -21,17 +21,17 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public float getFloat(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public float setFloat(int index, float element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addFloat(int index, float element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

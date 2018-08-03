@@ -19,17 +19,17 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public boolean getBoolean(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public boolean setBoolean(int index, boolean element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addBoolean(int index, boolean element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

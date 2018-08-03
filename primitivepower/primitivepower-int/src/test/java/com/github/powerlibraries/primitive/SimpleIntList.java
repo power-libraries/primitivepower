@@ -21,17 +21,17 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public int getInt(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public int setInt(int index, int element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addInt(int index, int element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

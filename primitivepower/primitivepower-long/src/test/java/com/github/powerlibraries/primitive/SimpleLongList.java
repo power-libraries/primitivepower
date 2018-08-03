@@ -21,17 +21,17 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public long getLong(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public long setLong(int index, long element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addLong(int index, long element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

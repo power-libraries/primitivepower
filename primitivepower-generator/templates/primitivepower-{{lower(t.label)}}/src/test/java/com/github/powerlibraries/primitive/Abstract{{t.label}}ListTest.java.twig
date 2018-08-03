@@ -23,6 +23,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -89,15 +90,6 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 
 		readOnlyTests(list, expected);
 	}
-	{% if t.streamSupport %}
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll{{t.label}}s(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
-		list.replaceAll{{t.label}}s(v -> {{t.neutralElement}});
-		expected.replaceAll(v -> {{t.neutralElement}});
-		
-		readOnlyTests(list, expected);
-	}
-	{% endif %}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
@@ -108,6 +100,53 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			{{t.type}} v = {{t.randomValue('r')}};
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			{{t.type}} v = {{t.randomValue('r')}};
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	{% if t.streamSupport %}
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll{{t.label}}s(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		list.replaceAll{{t.label}}s(v -> {{t.neutralElement}});
+		expected.replaceAll(v -> {{t.neutralElement}});
+		
+		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void remove{{t.label}}If(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		Random r1 = new Random(9);
+		list.remove{{t.label}}If(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	{% endif %}
 	
 	private static {{t.generic}} void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -121,8 +160,10 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		{% if t.streamSupport %}
 		assertThat(list.stream{{t.label}}s()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream{{t.label}}s()).containsExactlyInAnyOrderElementsOf(expected);
 		{% endif %}
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

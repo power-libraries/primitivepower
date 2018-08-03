@@ -23,6 +23,7 @@ public class AbstractLongListTest {
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
+		assertThat(list.indexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -91,15 +92,6 @@ public class AbstractLongListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAllLongs(SimpleLongList list, List<Long> expected) {
-		list.replaceAllLongs(v -> 0L);
-		expected.replaceAll(v -> 0L);
-		
-		readOnlyTests(list, expected);
-	}
-	
-	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleLongList list, List<Long> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -108,6 +100,53 @@ public class AbstractLongListTest {
 
 		readOnlyTests(list, expected);
 	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void get(SimpleLongList list, List<Long> expected) {
+		for(int i = 0; i < expected.size(); i++) {
+			assertThat(list.get(i)).isEqualTo(expected.get(i));
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void set(SimpleLongList list, List<Long> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < expected.size(); i++) {
+			long v = r.nextLong();
+			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void add(SimpleLongList list, List<Long> expected) {
+		Random r = new Random(9);
+		for(int i = 0; i < 50; i++) {
+			long v = r.nextLong();
+			assertThat(list.add(v)).isEqualTo(expected.add(v));
+			readOnlyTests(list, expected);
+		}
+	}
+	
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAllLongs(SimpleLongList list, List<Long> expected) {
+		list.replaceAllLongs(v -> 0L);
+		expected.replaceAll(v -> 0L);
+		
+		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeLongIf(SimpleLongList list, List<Long> expected) {
+		Random r1 = new Random(9);
+		list.removeLongIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
 	
 	private static  void readOnlyTests(SimpleLongList list, List<Long> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
@@ -121,8 +160,10 @@ public class AbstractLongListTest {
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		assertThat(list.streamLongs()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStreamLongs()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

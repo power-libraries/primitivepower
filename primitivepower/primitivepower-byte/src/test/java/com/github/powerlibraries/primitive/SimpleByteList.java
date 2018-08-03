@@ -21,17 +21,17 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public byte getByte(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public byte setByte(int index, byte element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addByte(int index, byte element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override

@@ -21,17 +21,17 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public short getShort(int index) {
-		throw new UnsupportedOperationException();
+		return l.get(index);
 	}
 
 	@Override
 	public short setShort(int index, short element) {
-		throw new UnsupportedOperationException();
+		return l.set(index, element);
 	}
 
 	@Override
 	public void addShort(int index, short element) {
-		throw new UnsupportedOperationException();
+		return l.add(element);
 	}
 
 	@Override
