@@ -24,6 +24,7 @@ public class AbstractLongListTest {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -35,7 +36,7 @@ public class AbstractLongListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				long v = r.nextLong(9);
+				long v = ((long)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
@@ -43,22 +44,22 @@ public class AbstractLongListTest {
 				long v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = r.nextLong(9);
+						v = ((long)r.nextInt(9));
 						assertThat(list.remove((Long)v))
 							.isEqualTo(expected.remove((Long)v));
 						break;
 					case 1:
-						v = r.nextLong(9);
+						v = ((long)r.nextInt(9));
 						assertThat(list.indexOf((Long)v))
 							.isEqualTo(expected.indexOf((Long)v));
 						break;
 					case 2:
-						v = r.nextLong(9);
+						v = ((long)r.nextInt(9));
 						assertThat(list.lastIndexOf((Long)v))
 							.isEqualTo(expected.lastIndexOf((Long)v));
 						break;
 					case 3:
-						v = r.nextLong(9);
+						v = ((long)r.nextInt(9));
 						assertThat(list.contains((Long)v))
 							.isEqualTo(expected.contains((Long)v));
 						break;
@@ -79,7 +80,7 @@ public class AbstractLongListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					long v = r.nextLong(9);
+					long v = ((long)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -117,7 +118,7 @@ public class AbstractLongListTest {
 	public void set(SimpleLongList list, List<Long> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			long v = r.nextLong(9);
+			long v = ((long)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -127,7 +128,7 @@ public class AbstractLongListTest {
 	public void add(SimpleLongList list, List<Long> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			long v = r.nextLong(9);
+			long v = ((long)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

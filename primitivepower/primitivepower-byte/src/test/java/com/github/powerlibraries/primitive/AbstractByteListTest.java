@@ -24,6 +24,7 @@ public class AbstractByteListTest {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -35,7 +36,7 @@ public class AbstractByteListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				byte v = ((byte)r.nextInt(100));
+				byte v = ((byte)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
@@ -43,22 +44,22 @@ public class AbstractByteListTest {
 				byte v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((byte)r.nextInt(100));
+						v = ((byte)r.nextInt(9));
 						assertThat(list.remove((Byte)v))
 							.isEqualTo(expected.remove((Byte)v));
 						break;
 					case 1:
-						v = ((byte)r.nextInt(100));
+						v = ((byte)r.nextInt(9));
 						assertThat(list.indexOf((Byte)v))
 							.isEqualTo(expected.indexOf((Byte)v));
 						break;
 					case 2:
-						v = ((byte)r.nextInt(100));
+						v = ((byte)r.nextInt(9));
 						assertThat(list.lastIndexOf((Byte)v))
 							.isEqualTo(expected.lastIndexOf((Byte)v));
 						break;
 					case 3:
-						v = ((byte)r.nextInt(100));
+						v = ((byte)r.nextInt(9));
 						assertThat(list.contains((Byte)v))
 							.isEqualTo(expected.contains((Byte)v));
 						break;
@@ -79,7 +80,7 @@ public class AbstractByteListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					byte v = ((byte)r.nextInt(100));
+					byte v = ((byte)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -117,7 +118,7 @@ public class AbstractByteListTest {
 	public void set(SimpleByteList list, List<Byte> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			byte v = ((byte)r.nextInt(100));
+			byte v = ((byte)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -127,7 +128,7 @@ public class AbstractByteListTest {
 	public void add(SimpleByteList list, List<Byte> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			byte v = ((byte)r.nextInt(100));
+			byte v = ((byte)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

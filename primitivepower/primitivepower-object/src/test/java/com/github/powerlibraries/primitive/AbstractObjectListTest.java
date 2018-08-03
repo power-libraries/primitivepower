@@ -24,6 +24,7 @@ public class AbstractObjectListTest<E> {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test

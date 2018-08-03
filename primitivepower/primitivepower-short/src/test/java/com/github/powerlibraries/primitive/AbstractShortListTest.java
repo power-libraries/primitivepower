@@ -24,6 +24,7 @@ public class AbstractShortListTest {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -35,7 +36,7 @@ public class AbstractShortListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				short v = ((short)r.nextInt(100));
+				short v = ((short)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
@@ -43,22 +44,22 @@ public class AbstractShortListTest {
 				short v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((short)r.nextInt(100));
+						v = ((short)r.nextInt(9));
 						assertThat(list.remove((Short)v))
 							.isEqualTo(expected.remove((Short)v));
 						break;
 					case 1:
-						v = ((short)r.nextInt(100));
+						v = ((short)r.nextInt(9));
 						assertThat(list.indexOf((Short)v))
 							.isEqualTo(expected.indexOf((Short)v));
 						break;
 					case 2:
-						v = ((short)r.nextInt(100));
+						v = ((short)r.nextInt(9));
 						assertThat(list.lastIndexOf((Short)v))
 							.isEqualTo(expected.lastIndexOf((Short)v));
 						break;
 					case 3:
-						v = ((short)r.nextInt(100));
+						v = ((short)r.nextInt(9));
 						assertThat(list.contains((Short)v))
 							.isEqualTo(expected.contains((Short)v));
 						break;
@@ -79,7 +80,7 @@ public class AbstractShortListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					short v = ((short)r.nextInt(100));
+					short v = ((short)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -117,7 +118,7 @@ public class AbstractShortListTest {
 	public void set(SimpleShortList list, List<Short> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			short v = ((short)r.nextInt(100));
+			short v = ((short)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -127,7 +128,7 @@ public class AbstractShortListTest {
 	public void add(SimpleShortList list, List<Short> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			short v = ((short)r.nextInt(100));
+			short v = ((short)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

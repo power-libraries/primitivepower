@@ -24,6 +24,7 @@ public class AbstractCharListTest {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -35,7 +36,7 @@ public class AbstractCharListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				char v = ((char)r.nextInt(100));
+				char v = ((char)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
@@ -43,22 +44,22 @@ public class AbstractCharListTest {
 				char v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((char)r.nextInt(100));
+						v = ((char)r.nextInt(9));
 						assertThat(list.remove((Character)v))
 							.isEqualTo(expected.remove((Character)v));
 						break;
 					case 1:
-						v = ((char)r.nextInt(100));
+						v = ((char)r.nextInt(9));
 						assertThat(list.indexOf((Character)v))
 							.isEqualTo(expected.indexOf((Character)v));
 						break;
 					case 2:
-						v = ((char)r.nextInt(100));
+						v = ((char)r.nextInt(9));
 						assertThat(list.lastIndexOf((Character)v))
 							.isEqualTo(expected.lastIndexOf((Character)v));
 						break;
 					case 3:
-						v = ((char)r.nextInt(100));
+						v = ((char)r.nextInt(9));
 						assertThat(list.contains((Character)v))
 							.isEqualTo(expected.contains((Character)v));
 						break;
@@ -79,7 +80,7 @@ public class AbstractCharListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					char v = ((char)r.nextInt(100));
+					char v = ((char)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -117,7 +118,7 @@ public class AbstractCharListTest {
 	public void set(SimpleCharList list, List<Character> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			char v = ((char)r.nextInt(100));
+			char v = ((char)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -127,7 +128,7 @@ public class AbstractCharListTest {
 	public void add(SimpleCharList list, List<Character> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			char v = ((char)r.nextInt(100));
+			char v = ((char)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
