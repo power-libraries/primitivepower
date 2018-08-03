@@ -41,7 +41,7 @@ public class AbstractObjectListTest<E> {
 			}
 			else {
 				E v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
 						v = (E)TimeUnit.values()[r.nextInt(7)];
 						assertThat(list.remove((E)v))
@@ -53,6 +53,11 @@ public class AbstractObjectListTest<E> {
 							.isEqualTo(expected.indexOf((E)v));
 						break;
 					case 2:
+						v = (E)TimeUnit.values()[r.nextInt(7)];
+						assertThat(list.lastIndexOf((E)v))
+							.isEqualTo(expected.lastIndexOf((E)v));
+						break;
+					case 3:
 						v = (E)TimeUnit.values()[r.nextInt(7)];
 						assertThat(list.contains((E)v))
 							.isEqualTo(expected.contains((E)v));

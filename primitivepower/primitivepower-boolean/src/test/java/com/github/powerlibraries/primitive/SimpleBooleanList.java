@@ -29,12 +29,12 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public void addBoolean(int index, boolean element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfBoolean(boolean o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

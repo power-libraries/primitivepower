@@ -35,25 +35,30 @@ public class AbstractIntListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				int v = r.nextInt();
+				int v = r.nextInt(9);
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				int v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
-						v = r.nextInt();
+						v = r.nextInt(9);
 						assertThat(list.remove((Integer)v))
 							.isEqualTo(expected.remove((Integer)v));
 						break;
 					case 1:
-						v = r.nextInt();
+						v = r.nextInt(9);
 						assertThat(list.indexOf((Integer)v))
 							.isEqualTo(expected.indexOf((Integer)v));
 						break;
 					case 2:
-						v = r.nextInt();
+						v = r.nextInt(9);
+						assertThat(list.lastIndexOf((Integer)v))
+							.isEqualTo(expected.lastIndexOf((Integer)v));
+						break;
+					case 3:
+						v = r.nextInt(9);
 						assertThat(list.contains((Integer)v))
 							.isEqualTo(expected.contains((Integer)v));
 						break;
@@ -74,7 +79,7 @@ public class AbstractIntListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					int v = r.nextInt();
+					int v = r.nextInt(9);
 					list.add(v);
 					expected.add(v);
 				}
@@ -112,7 +117,7 @@ public class AbstractIntListTest {
 	public void set(SimpleIntList list, List<Integer> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			int v = r.nextInt();
+			int v = r.nextInt(9);
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -122,7 +127,7 @@ public class AbstractIntListTest {
 	public void add(SimpleIntList list, List<Integer> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			int v = r.nextInt();
+			int v = r.nextInt(9);
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

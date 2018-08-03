@@ -31,12 +31,12 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public void addFloat(int index, float element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfFloat(float o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

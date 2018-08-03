@@ -31,12 +31,12 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public void addLong(int index, long element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfLong(long o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

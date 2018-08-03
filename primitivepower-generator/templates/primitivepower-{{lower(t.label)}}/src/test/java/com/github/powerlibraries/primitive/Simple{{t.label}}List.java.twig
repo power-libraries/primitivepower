@@ -31,12 +31,12 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public void add{{t.label}}(int index, {{t.type}} element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOf{{t.label}}({{t.type}} o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

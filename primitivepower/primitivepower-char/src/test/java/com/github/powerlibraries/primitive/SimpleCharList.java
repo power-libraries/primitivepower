@@ -31,12 +31,12 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public void addChar(int index, char element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfChar(char o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

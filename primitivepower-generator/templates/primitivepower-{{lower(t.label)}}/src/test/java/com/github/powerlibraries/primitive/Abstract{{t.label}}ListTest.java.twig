@@ -24,6 +24,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
 		assertThat(list.indexOf(null)).isEqualTo(-1);
+		assertThat(list.lastIndexOf(null)).isEqualTo(-1);
 	}
 
 	@Test
@@ -41,7 +42,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 			}
 			else {
 				{{t.type}} v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
 						v = {{t.randomValue('r')}};
 						assertThat(list.remove(({{t.boxed}})v))
@@ -53,6 +54,11 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 							.isEqualTo(expected.indexOf(({{t.boxed}})v));
 						break;
 					case 2:
+						v = {{t.randomValue('r')}};
+						assertThat(list.lastIndexOf(({{t.boxed}})v))
+							.isEqualTo(expected.lastIndexOf(({{t.boxed}})v));
+						break;
+					case 3:
 						v = {{t.randomValue('r')}};
 						assertThat(list.contains(({{t.boxed}})v))
 							.isEqualTo(expected.contains(({{t.boxed}})v));

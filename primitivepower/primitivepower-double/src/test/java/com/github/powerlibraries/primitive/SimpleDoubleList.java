@@ -31,12 +31,12 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public void addDouble(int index, double element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfDouble(double o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

@@ -128,6 +128,6 @@ public enum Type {
 	}
 	
 	public String randomValue(String random) {
-		return random+".next"+this.getLabel()+"()";
+		return random+".next"+this.getLabel()+"(9)";
 	}
 }

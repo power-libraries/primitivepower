@@ -41,7 +41,7 @@ public class AbstractByteListTest {
 			}
 			else {
 				byte v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
 						v = ((byte)r.nextInt(100));
 						assertThat(list.remove((Byte)v))
@@ -53,6 +53,11 @@ public class AbstractByteListTest {
 							.isEqualTo(expected.indexOf((Byte)v));
 						break;
 					case 2:
+						v = ((byte)r.nextInt(100));
+						assertThat(list.lastIndexOf((Byte)v))
+							.isEqualTo(expected.lastIndexOf((Byte)v));
+						break;
+					case 3:
 						v = ((byte)r.nextInt(100));
 						assertThat(list.contains((Byte)v))
 							.isEqualTo(expected.contains((Byte)v));

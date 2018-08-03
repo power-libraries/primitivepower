@@ -35,25 +35,30 @@ public class AbstractBooleanListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				boolean v = r.nextBoolean();
+				boolean v = r.nextBoolean(9);
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				boolean v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
-						v = r.nextBoolean();
+						v = r.nextBoolean(9);
 						assertThat(list.remove((Boolean)v))
 							.isEqualTo(expected.remove((Boolean)v));
 						break;
 					case 1:
-						v = r.nextBoolean();
+						v = r.nextBoolean(9);
 						assertThat(list.indexOf((Boolean)v))
 							.isEqualTo(expected.indexOf((Boolean)v));
 						break;
 					case 2:
-						v = r.nextBoolean();
+						v = r.nextBoolean(9);
+						assertThat(list.lastIndexOf((Boolean)v))
+							.isEqualTo(expected.lastIndexOf((Boolean)v));
+						break;
+					case 3:
+						v = r.nextBoolean(9);
 						assertThat(list.contains((Boolean)v))
 							.isEqualTo(expected.contains((Boolean)v));
 						break;
@@ -74,7 +79,7 @@ public class AbstractBooleanListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					boolean v = r.nextBoolean();
+					boolean v = r.nextBoolean(9);
 					list.add(v);
 					expected.add(v);
 				}
@@ -112,7 +117,7 @@ public class AbstractBooleanListTest {
 	public void set(SimpleBooleanList list, List<Boolean> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			boolean v = r.nextBoolean();
+			boolean v = r.nextBoolean(9);
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -122,7 +127,7 @@ public class AbstractBooleanListTest {
 	public void add(SimpleBooleanList list, List<Boolean> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			boolean v = r.nextBoolean();
+			boolean v = r.nextBoolean(9);
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

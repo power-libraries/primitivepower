@@ -41,7 +41,7 @@ public class AbstractCharListTest {
 			}
 			else {
 				char v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
 						v = ((char)r.nextInt(100));
 						assertThat(list.remove((Character)v))
@@ -53,6 +53,11 @@ public class AbstractCharListTest {
 							.isEqualTo(expected.indexOf((Character)v));
 						break;
 					case 2:
+						v = ((char)r.nextInt(100));
+						assertThat(list.lastIndexOf((Character)v))
+							.isEqualTo(expected.lastIndexOf((Character)v));
+						break;
+					case 3:
 						v = ((char)r.nextInt(100));
 						assertThat(list.contains((Character)v))
 							.isEqualTo(expected.contains((Character)v));

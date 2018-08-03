@@ -31,12 +31,12 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public void addInt(int index, int element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfInt(int o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

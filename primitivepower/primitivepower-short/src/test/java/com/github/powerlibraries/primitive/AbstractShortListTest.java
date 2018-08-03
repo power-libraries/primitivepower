@@ -41,7 +41,7 @@ public class AbstractShortListTest {
 			}
 			else {
 				short v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
 						v = ((short)r.nextInt(100));
 						assertThat(list.remove((Short)v))
@@ -53,6 +53,11 @@ public class AbstractShortListTest {
 							.isEqualTo(expected.indexOf((Short)v));
 						break;
 					case 2:
+						v = ((short)r.nextInt(100));
+						assertThat(list.lastIndexOf((Short)v))
+							.isEqualTo(expected.lastIndexOf((Short)v));
+						break;
+					case 3:
 						v = ((short)r.nextInt(100));
 						assertThat(list.contains((Short)v))
 							.isEqualTo(expected.contains((Short)v));

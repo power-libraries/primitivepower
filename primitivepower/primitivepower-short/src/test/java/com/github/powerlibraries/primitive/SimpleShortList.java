@@ -31,12 +31,12 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public void addShort(int index, short element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfShort(short o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

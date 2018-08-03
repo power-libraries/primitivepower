@@ -35,25 +35,30 @@ public class AbstractDoubleListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				double v = r.nextDouble();
+				double v = r.nextDouble(9);
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				double v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
-						v = r.nextDouble();
+						v = r.nextDouble(9);
 						assertThat(list.remove((Double)v))
 							.isEqualTo(expected.remove((Double)v));
 						break;
 					case 1:
-						v = r.nextDouble();
+						v = r.nextDouble(9);
 						assertThat(list.indexOf((Double)v))
 							.isEqualTo(expected.indexOf((Double)v));
 						break;
 					case 2:
-						v = r.nextDouble();
+						v = r.nextDouble(9);
+						assertThat(list.lastIndexOf((Double)v))
+							.isEqualTo(expected.lastIndexOf((Double)v));
+						break;
+					case 3:
+						v = r.nextDouble(9);
 						assertThat(list.contains((Double)v))
 							.isEqualTo(expected.contains((Double)v));
 						break;
@@ -74,7 +79,7 @@ public class AbstractDoubleListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					double v = r.nextDouble();
+					double v = r.nextDouble(9);
 					list.add(v);
 					expected.add(v);
 				}
@@ -112,7 +117,7 @@ public class AbstractDoubleListTest {
 	public void set(SimpleDoubleList list, List<Double> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			double v = r.nextDouble();
+			double v = r.nextDouble(9);
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -122,7 +127,7 @@ public class AbstractDoubleListTest {
 	public void add(SimpleDoubleList list, List<Double> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			double v = r.nextDouble();
+			double v = r.nextDouble(9);
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}

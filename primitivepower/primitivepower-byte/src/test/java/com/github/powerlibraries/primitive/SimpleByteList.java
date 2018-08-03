@@ -31,12 +31,12 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public void addByte(int index, byte element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfByte(byte o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

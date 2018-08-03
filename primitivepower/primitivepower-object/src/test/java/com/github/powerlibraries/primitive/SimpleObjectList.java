@@ -29,12 +29,12 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public void addObject(int index, E element) {
-		return l.add(element);
+		l.add(index, element);
 	}
 
 	@Override
 	public int lastIndexOfObject(E o) {
-		throw new UnsupportedOperationException();
+		return l.lastIndexOf(o);
 	}
 
 	@Override

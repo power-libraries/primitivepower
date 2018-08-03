@@ -35,25 +35,30 @@ public class AbstractFloatListTest {
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				float v = r.nextFloat();
+				float v = r.nextFloat(9);
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
 				float v;
-				switch(r.nextInt(3)) {
+				switch(r.nextInt(4)) {
 					case 0:
-						v = r.nextFloat();
+						v = r.nextFloat(9);
 						assertThat(list.remove((Float)v))
 							.isEqualTo(expected.remove((Float)v));
 						break;
 					case 1:
-						v = r.nextFloat();
+						v = r.nextFloat(9);
 						assertThat(list.indexOf((Float)v))
 							.isEqualTo(expected.indexOf((Float)v));
 						break;
 					case 2:
-						v = r.nextFloat();
+						v = r.nextFloat(9);
+						assertThat(list.lastIndexOf((Float)v))
+							.isEqualTo(expected.lastIndexOf((Float)v));
+						break;
+					case 3:
+						v = r.nextFloat(9);
 						assertThat(list.contains((Float)v))
 							.isEqualTo(expected.contains((Float)v));
 						break;
@@ -74,7 +79,7 @@ public class AbstractFloatListTest {
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					float v = r.nextFloat();
+					float v = r.nextFloat(9);
 					list.add(v);
 					expected.add(v);
 				}
@@ -112,7 +117,7 @@ public class AbstractFloatListTest {
 	public void set(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			float v = r.nextFloat();
+			float v = r.nextFloat(9);
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
@@ -122,7 +127,7 @@ public class AbstractFloatListTest {
 	public void add(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			float v = r.nextFloat();
+			float v = r.nextFloat(9);
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
