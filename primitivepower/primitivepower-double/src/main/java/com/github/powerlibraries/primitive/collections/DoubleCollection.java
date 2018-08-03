@@ -45,7 +45,7 @@ public interface DoubleCollection extends Collection<Double>, DoubleIterable {
 		return Spliterators.spliterator(this.iterator(), this.size(), 0);
 	}
 	
-	default boolean removeIf(DoublePredicate filter) {
+	default boolean removeDoubleIf(DoublePredicate filter) {
 		Objects.requireNonNull(filter);
 		boolean removed = false;
 		final PrimitiveIterator.OfDouble each = iterator();

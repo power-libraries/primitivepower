@@ -45,7 +45,7 @@ public interface {{t.label}}Collection{{t.generic}} extends Collection<{{t.boxed
 		return Spliterators.spliterator(this.iterator(), this.size(), 0);
 	}
 	
-	default boolean removeIf({{t.label}}Predicate{{t.generic}} filter) {
+	default boolean remove{{t.label}}If({{t.label}}Predicate{{t.generic}} filter) {
 		Objects.requireNonNull(filter);
 		boolean removed = false;
 		final PrimitiveIterator.Of{{t.label}} each = iterator();

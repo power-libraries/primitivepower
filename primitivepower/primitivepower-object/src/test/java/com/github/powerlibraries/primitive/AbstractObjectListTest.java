@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Spliterators;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class AbstractObjectListTest<E> {
 
@@ -56,17 +61,47 @@ public class AbstractObjectListTest<E> {
 			
 			readOnlyTests(list, expected);
 		}
-		
-		//replace all elements with null
+	}
+	
+	public static <E> Stream<Arguments> generateLists() {
+		return LongStream
+			.of(7,24829,98417242323L)
+			.mapToObj(Random::new)
+			.map(r -> {
+				List<E> expected = new ArrayList<>();
+				SimpleObjectList list = new SimpleObjectList();
+				
+				for(int i=0; i<100; i++) {
+					//adding a value
+					E v = (E)TimeUnit.values()[r.nextInt(7)];
+					list.add(v);
+					expected.add(v);
+				}
+				readOnlyTests(list, expected);
+				return Arguments.of(list, expected);
+			});
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll(SimpleObjectList list, List<E> expected) {
 		list.replaceAll(v -> null);
 		expected.replaceAll(v -> null);
-		readOnlyTests(list, expected);
-		
-		
+
 		readOnlyTests(list, expected);
 	}
 	
-	private void readOnlyTests(SimpleObjectList list, List<E> expected) {
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleObjectList list, List<E> expected) {
+		Random r1 = new Random(9);
+		list.removeIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
+	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		

@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Spliterators;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class Abstract{{t.label}}ListTest{{t.generic}} {
 
@@ -56,19 +61,55 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 			
 			readOnlyTests(list, expected);
 		}
-		
-		//replace all elements with {{t.neutralElement}}
+	}
+	
+	public static {{t.generic}} Stream<Arguments> generateLists() {
+		return LongStream
+			.of(7,24829,98417242323L)
+			.mapToObj(Random::new)
+			.map(r -> {
+				List<{{t.boxed}}> expected = new ArrayList<>();
+				Simple{{t.label}}List list = new Simple{{t.label}}List();
+				
+				for(int i=0; i<100; i++) {
+					//adding a value
+					{{t.type}} v = {{t.randomValue('r')}};
+					list.add(v);
+					expected.add(v);
+				}
+				readOnlyTests(list, expected);
+				return Arguments.of(list, expected);
+			});
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
 		list.replaceAll(v -> {{t.neutralElement}});
 		expected.replaceAll(v -> {{t.neutralElement}});
+
 		readOnlyTests(list, expected);
-		
-		{% if t.streamSupport %}
+	}
+	{% if t.streamSupport %}
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll{{t.label}}s(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
 		list.replaceAll{{t.label}}s(v -> {{t.neutralElement}});
-		{% endif %}
+		expected.replaceAll(v -> {{t.neutralElement}});
+		
+		readOnlyTests(list, expected);
+	}
+	{% endif %}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		Random r1 = new Random(9);
+		list.removeIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
 		readOnlyTests(list, expected);
 	}
 	
-	private void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+	private static {{t.generic}} void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		

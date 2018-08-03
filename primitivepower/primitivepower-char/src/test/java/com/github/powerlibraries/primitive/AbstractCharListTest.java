@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Spliterators;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class AbstractCharListTest {
 
@@ -56,17 +61,47 @@ public class AbstractCharListTest {
 			
 			readOnlyTests(list, expected);
 		}
-		
-		//replace all elements with '\u0000'
+	}
+	
+	public static  Stream<Arguments> generateLists() {
+		return LongStream
+			.of(7,24829,98417242323L)
+			.mapToObj(Random::new)
+			.map(r -> {
+				List<Character> expected = new ArrayList<>();
+				SimpleCharList list = new SimpleCharList();
+				
+				for(int i=0; i<100; i++) {
+					//adding a value
+					char v = ((char)r.nextInt(100));
+					list.add(v);
+					expected.add(v);
+				}
+				readOnlyTests(list, expected);
+				return Arguments.of(list, expected);
+			});
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll(SimpleCharList list, List<Character> expected) {
 		list.replaceAll(v -> '\u0000');
 		expected.replaceAll(v -> '\u0000');
-		readOnlyTests(list, expected);
-		
-		
+
 		readOnlyTests(list, expected);
 	}
 	
-	private void readOnlyTests(SimpleCharList list, List<Character> expected) {
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleCharList list, List<Character> expected) {
+		Random r1 = new Random(9);
+		list.removeIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
+	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		

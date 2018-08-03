@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Spliterators;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class AbstractDoubleListTest {
 
@@ -56,19 +61,55 @@ public class AbstractDoubleListTest {
 			
 			readOnlyTests(list, expected);
 		}
-		
-		//replace all elements with 0d
+	}
+	
+	public static  Stream<Arguments> generateLists() {
+		return LongStream
+			.of(7,24829,98417242323L)
+			.mapToObj(Random::new)
+			.map(r -> {
+				List<Double> expected = new ArrayList<>();
+				SimpleDoubleList list = new SimpleDoubleList();
+				
+				for(int i=0; i<100; i++) {
+					//adding a value
+					double v = r.nextDouble();
+					list.add(v);
+					expected.add(v);
+				}
+				readOnlyTests(list, expected);
+				return Arguments.of(list, expected);
+			});
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAll(SimpleDoubleList list, List<Double> expected) {
 		list.replaceAll(v -> 0d);
 		expected.replaceAll(v -> 0d);
+
 		readOnlyTests(list, expected);
-		
-		
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
 		list.replaceAllDoubles(v -> 0d);
+		expected.replaceAll(v -> 0d);
 		
 		readOnlyTests(list, expected);
 	}
 	
-	private void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleDoubleList list, List<Double> expected) {
+		Random r1 = new Random(9);
+		list.removeIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
+	private static  void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		

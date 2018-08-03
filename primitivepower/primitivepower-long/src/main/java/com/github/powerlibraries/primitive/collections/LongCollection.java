@@ -45,7 +45,7 @@ public interface LongCollection extends Collection<Long>, LongIterable {
 		return Spliterators.spliterator(this.iterator(), this.size(), 0);
 	}
 	
-	default boolean removeIf(LongPredicate filter) {
+	default boolean removeLongIf(LongPredicate filter) {
 		Objects.requireNonNull(filter);
 		boolean removed = false;
 		final PrimitiveIterator.OfLong each = iterator();

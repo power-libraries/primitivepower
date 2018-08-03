@@ -45,7 +45,7 @@ public interface IntCollection extends Collection<Integer>, IntIterable {
 		return Spliterators.spliterator(this.iterator(), this.size(), 0);
 	}
 	
-	default boolean removeIf(IntPredicate filter) {
+	default boolean removeIntIf(IntPredicate filter) {
 		Objects.requireNonNull(filter);
 		boolean removed = false;
 		final PrimitiveIterator.OfInt each = iterator();
