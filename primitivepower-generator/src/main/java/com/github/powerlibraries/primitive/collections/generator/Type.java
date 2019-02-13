@@ -50,7 +50,7 @@ public enum Type {
 	LONG(true, true,		"Long",		"",		"long",		"Long",			"0L"),
 	SHORT(false, true,	"Short",	"",		"short",	"Short",		"((short)0)") {
 	},
-	BYTE(false, true,		"Byte",		"",		"byte",		"Byte",			"0") {
+	BYTE(false, true,		"Byte",		"",		"byte",		"Byte",			"((byte)0)") {
 	},
 	BOOLEAN(false, false,	"Boolean",	"",		"boolean",	"Boolean",		"false") {
 		@Override
