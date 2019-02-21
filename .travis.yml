@@ -18,8 +18,7 @@ jobs:
         - cd primitivepower
         - mvn -B -V install -DskipTests
       script:
-        - mvn cobertura:cobertura -Dcobertura.report.format=xml
-        - mvn cobertura:cobertura -Dcobertura.report.format=html
+        - mvn test verify -P test-coverage
       after_success: bash <(curl -s https://codecov.io/bash)
 
 
