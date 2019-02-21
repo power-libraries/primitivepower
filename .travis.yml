@@ -1,9 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
-cache:
-  directories:
-    - '$HOME/.m2/repository'
 jobs:
   include:
     - stage: "build & test"
@@ -22,3 +19,11 @@ jobs:
         - mvn -B -V install -DskipTests
       script:
         - mvn -B -V test
+
+
+#remove the installed maven jars before caching
+before_cache:
+  - rm -f -r $HOME/.m2/repository/com/github/power-libraries
+cache:
+  directories:
+    - "$HOME/.m2"
