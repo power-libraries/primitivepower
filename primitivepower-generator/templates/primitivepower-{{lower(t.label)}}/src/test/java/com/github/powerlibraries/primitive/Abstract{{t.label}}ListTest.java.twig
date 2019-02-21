@@ -169,6 +169,10 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 	{% endif %}
 	
 	private static {{t.generic}} void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		List<{{t.boxed}}> unexpected = new ArrayList<>(expected);
+		unexpected.add(null);
+	
+	
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
@@ -177,8 +181,11 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
+		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.containsAll(unexpected)).isFalse();
+		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		{% if t.streamSupport %}

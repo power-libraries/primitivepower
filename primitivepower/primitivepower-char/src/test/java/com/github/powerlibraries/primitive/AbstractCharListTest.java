@@ -144,6 +144,10 @@ public class AbstractCharListTest {
 	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
+		List<Character> unexpected = new ArrayList<>(expected);
+		unexpected.add(null);
+	
+	
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
@@ -152,8 +156,11 @@ public class AbstractCharListTest {
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
+		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.containsAll(unexpected)).isFalse();
+		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
