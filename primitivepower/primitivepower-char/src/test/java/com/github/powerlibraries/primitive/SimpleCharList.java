@@ -106,28 +106,28 @@ public class SimpleCharList extends AbstractCharList {
 		ListIterator<Character> it = l.listIterator(index);
 		return new Iterable<CharPointer>() {
 			public Iterator<CharPointer> iterator() {
-        		return new Iterator<CharPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public CharPointer next() {
-        				return new CharPointer() {
-        					public char get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<CharPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public CharPointer next() {
+						return new CharPointer() {
+							public char get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 

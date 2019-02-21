@@ -106,28 +106,28 @@ public class SimpleDoubleList extends AbstractDoubleList {
 		ListIterator<Double> it = l.listIterator(index);
 		return new Iterable<DoublePointer>() {
 			public Iterator<DoublePointer> iterator() {
-        		return new Iterator<DoublePointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public DoublePointer next() {
-        				return new DoublePointer() {
-        					public double get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<DoublePointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public DoublePointer next() {
+						return new DoublePointer() {
+							public double get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
