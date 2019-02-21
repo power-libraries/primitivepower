@@ -91,7 +91,7 @@ public abstract class AbstractBooleanList extends AbstractBooleanCollection impl
 			if(!(o2 instanceof Boolean)) {
 				return false;
 			}
-			if (o2!=null || e1.nextBoolean() != (Boolean)o2) {
+			if (o2==null || e1.nextBoolean() != (Boolean)o2) {
 				return false;
 			}
 		}

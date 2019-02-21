@@ -91,7 +91,7 @@ public abstract class AbstractIntList extends AbstractIntCollection implements I
 			if(!(o2 instanceof Integer)) {
 				return false;
 			}
-			if (o2!=null || e1.nextInt() != (Integer)o2) {
+			if (o2==null || e1.nextInt() != (Integer)o2) {
 				return false;
 			}
 		}

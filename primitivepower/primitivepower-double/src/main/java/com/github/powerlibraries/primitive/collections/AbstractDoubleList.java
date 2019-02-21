@@ -91,7 +91,7 @@ public abstract class AbstractDoubleList extends AbstractDoubleCollection implem
 			if(!(o2 instanceof Double)) {
 				return false;
 			}
-			if (o2!=null || e1.nextDouble() != (Double)o2) {
+			if (o2==null || e1.nextDouble() != (Double)o2) {
 				return false;
 			}
 		}
