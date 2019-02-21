@@ -18,7 +18,8 @@ jobs:
         - cd primitivepower
         - mvn -B -V install -DskipTests
       script:
-        - mvn -B -V test
+        - mvn test verify -P test-coverage
+      after_success: bash <(curl -s https://codecov.io/bash)
 
 
 #remove the installed maven jars before caching
