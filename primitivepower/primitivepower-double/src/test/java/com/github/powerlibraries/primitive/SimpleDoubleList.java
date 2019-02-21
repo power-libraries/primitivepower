@@ -168,7 +168,7 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public boolean addAll(Collection<? extends Double> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

@@ -168,7 +168,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public boolean addAll(Collection<? extends Float> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

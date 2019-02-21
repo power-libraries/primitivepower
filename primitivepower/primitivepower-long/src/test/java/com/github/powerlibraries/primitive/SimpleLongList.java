@@ -168,7 +168,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public boolean addAll(Collection<? extends Long> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

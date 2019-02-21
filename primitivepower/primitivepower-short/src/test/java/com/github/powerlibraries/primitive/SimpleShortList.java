@@ -168,7 +168,7 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public boolean addAll(Collection<? extends Short> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
