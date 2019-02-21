@@ -169,8 +169,8 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 	{% endif %}
 	
 	private static {{t.generic}} void readOnlyTests(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
-		List<{{t.boxed}}> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

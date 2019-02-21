@@ -169,8 +169,8 @@ public class AbstractDoubleListTest {
 	
 	
 	private static  void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
-		List<Double> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

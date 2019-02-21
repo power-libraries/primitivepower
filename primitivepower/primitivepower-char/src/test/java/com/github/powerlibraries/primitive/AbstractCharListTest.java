@@ -144,8 +144,8 @@ public class AbstractCharListTest {
 	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
-		List<Character> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

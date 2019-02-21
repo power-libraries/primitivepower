@@ -144,8 +144,8 @@ public class AbstractObjectListTest<E> {
 	
 	
 	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
-		List<E> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

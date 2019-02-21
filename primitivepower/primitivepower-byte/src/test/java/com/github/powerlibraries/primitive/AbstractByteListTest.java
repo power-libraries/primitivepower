@@ -144,8 +144,8 @@ public class AbstractByteListTest {
 	
 	
 	private static  void readOnlyTests(SimpleByteList list, List<Byte> expected) {
-		List<Byte> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

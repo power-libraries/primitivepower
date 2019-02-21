@@ -169,8 +169,8 @@ public class AbstractLongListTest {
 	
 	
 	private static  void readOnlyTests(SimpleLongList list, List<Long> expected) {
-		List<Long> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

@@ -144,8 +144,8 @@ public class AbstractBooleanListTest {
 	
 	
 	private static  void readOnlyTests(SimpleBooleanList list, List<Boolean> expected) {
-		List<Boolean> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

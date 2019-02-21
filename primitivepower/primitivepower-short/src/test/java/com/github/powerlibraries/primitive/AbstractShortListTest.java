@@ -144,8 +144,8 @@ public class AbstractShortListTest {
 	
 	
 	private static  void readOnlyTests(SimpleShortList list, List<Short> expected) {
-		List<Short> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());

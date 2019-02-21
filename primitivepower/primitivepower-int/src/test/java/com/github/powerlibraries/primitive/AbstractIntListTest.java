@@ -169,8 +169,8 @@ public class AbstractIntListTest {
 	
 	
 	private static  void readOnlyTests(SimpleIntList list, List<Integer> expected) {
-		List<Integer> unexpected = new ArrayList<>(expected);
-		unexpected.add(null);
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
 	
 	
 		assertThat(list.size()).isEqualTo(expected.size());
