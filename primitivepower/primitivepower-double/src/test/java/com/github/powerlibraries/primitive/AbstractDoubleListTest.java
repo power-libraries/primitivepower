@@ -98,6 +98,19 @@ public class AbstractDoubleListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsDoubleList(SimpleDoubleList list, List<Double> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleDoubleList copy = new SimpleDoubleList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleDoubleList)null)).isFalse();
+		assertThat(list.equals((List<Double>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleDoubleList list, List<Double> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

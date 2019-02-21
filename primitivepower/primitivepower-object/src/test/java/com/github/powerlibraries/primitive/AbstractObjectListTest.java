@@ -98,6 +98,19 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsObjectList(SimpleObjectList list, List<E> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleObjectList copy = new SimpleObjectList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleObjectList)null)).isFalse();
+		assertThat(list.equals((List<E>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleObjectList list, List<E> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

@@ -161,7 +161,7 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

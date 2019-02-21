@@ -98,6 +98,19 @@ public class AbstractShortListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsShortList(SimpleShortList list, List<Short> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleShortList copy = new SimpleShortList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleShortList)null)).isFalse();
+		assertThat(list.equals((List<Short>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleShortList list, List<Short> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

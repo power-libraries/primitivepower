@@ -98,6 +98,19 @@ public class AbstractLongListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsLongList(SimpleLongList list, List<Long> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleLongList copy = new SimpleLongList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleLongList)null)).isFalse();
+		assertThat(list.equals((List<Long>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleLongList list, List<Long> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

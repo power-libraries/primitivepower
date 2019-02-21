@@ -98,6 +98,19 @@ public class AbstractByteListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsByteList(SimpleByteList list, List<Byte> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleByteList copy = new SimpleByteList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleByteList)null)).isFalse();
+		assertThat(list.equals((List<Byte>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleByteList list, List<Byte> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

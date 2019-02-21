@@ -98,6 +98,19 @@ public class AbstractCharListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsCharList(SimpleCharList list, List<Character> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleCharList copy = new SimpleCharList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleCharList)null)).isFalse();
+		assertThat(list.equals((List<Character>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleCharList list, List<Character> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

@@ -98,6 +98,19 @@ public class AbstractIntListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsIntList(SimpleIntList list, List<Integer> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleIntList copy = new SimpleIntList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleIntList)null)).isFalse();
+		assertThat(list.equals((List<Integer>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleIntList list, List<Integer> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

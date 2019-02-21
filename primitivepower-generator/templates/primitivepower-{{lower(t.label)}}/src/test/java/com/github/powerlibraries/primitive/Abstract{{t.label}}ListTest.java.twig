@@ -98,6 +98,19 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equals{{t.label}}List(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		Simple{{t.label}}List copy = new Simple{{t.label}}List();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((Simple{{t.label}}List)null)).isFalse();
+		assertThat(list.equals((List<{{t.boxed}}>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(Simple{{t.label}}List list, List<{{t.boxed}}> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());

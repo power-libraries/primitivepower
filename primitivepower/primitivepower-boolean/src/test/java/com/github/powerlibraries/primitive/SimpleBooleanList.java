@@ -161,7 +161,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public boolean addAll(Collection<? extends Boolean> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

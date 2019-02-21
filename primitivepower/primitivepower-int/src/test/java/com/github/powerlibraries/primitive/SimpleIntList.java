@@ -168,7 +168,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public boolean addAll(Collection<? extends Integer> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

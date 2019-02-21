@@ -168,7 +168,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public boolean addAll(Collection<? extends {{t.boxed}}> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
