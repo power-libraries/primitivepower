@@ -168,7 +168,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public boolean addAll(Collection<? extends Byte> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

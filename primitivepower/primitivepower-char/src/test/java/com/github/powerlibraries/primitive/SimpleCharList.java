@@ -168,7 +168,7 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public boolean addAll(Collection<? extends Character> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
