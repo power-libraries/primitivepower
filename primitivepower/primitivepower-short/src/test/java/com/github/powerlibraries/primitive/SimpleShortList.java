@@ -106,28 +106,28 @@ public class SimpleShortList extends AbstractShortList {
 		ListIterator<Short> it = l.listIterator(index);
 		return new Iterable<ShortPointer>() {
 			public Iterator<ShortPointer> iterator() {
-        		return new Iterator<ShortPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public ShortPointer next() {
-        				return new ShortPointer() {
-        					public short get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<ShortPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public ShortPointer next() {
+						return new ShortPointer() {
+							public short get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 

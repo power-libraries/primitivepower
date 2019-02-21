@@ -106,28 +106,28 @@ public class SimpleByteList extends AbstractByteList {
 		ListIterator<Byte> it = l.listIterator(index);
 		return new Iterable<BytePointer>() {
 			public Iterator<BytePointer> iterator() {
-        		return new Iterator<BytePointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public BytePointer next() {
-        				return new BytePointer() {
-        					public byte get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<BytePointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public BytePointer next() {
+						return new BytePointer() {
+							public byte get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
