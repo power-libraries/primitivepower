@@ -121,9 +121,7 @@
 			<property name="allowEscapesForControlCharacters" value="true"/>
 		</module>
 		<module name="TrailingComment"/>
-		<module name="UncommentedMain">
-			<property name="excludedClasses" value="^com\.bakdata\.conquery\.Conquery$"/>
-		</module>
+		<module name="UncommentedMain"/>
 		<module name="UpperEll"/>
 		<module name="ModifierOrder"/>
 		<module name="RedundantModifier"/>
