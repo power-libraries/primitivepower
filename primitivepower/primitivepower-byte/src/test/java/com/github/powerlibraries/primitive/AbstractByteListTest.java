@@ -91,8 +91,8 @@ public class AbstractByteListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAll(SimpleByteList list, List<Byte> expected) {
-		list.replaceAll(v -> 0);
-		expected.replaceAll(v -> 0);
+		list.replaceAll(v -> ((byte)0));
+		expected.replaceAll(v -> ((byte)0));
 
 		readOnlyTests(list, expected);
 	}
