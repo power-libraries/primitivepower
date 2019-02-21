@@ -129,7 +129,7 @@
 		
 		<!-- Javadoc requirements -->
 		<module name="AtclauseOrder"/>
-		<!--
+
 		<module name="JavadocMethod">
 			<property name="allowUndeclaredRTE" value="true"/>
 			<property name="allowedAnnotations" value="Override"/>
@@ -141,7 +141,7 @@
 			<property name="allowedAnnotations" value="Getter,Setter,Slf4j,Builder,UtilityClass"/>
 		</module>
 		<module name="JavadocVariable"/>
-		 -->
+
 		<module name="RegexpSinglelineJava">
 			<property name="format" value='@author'/>
 			<property name="message" value="author tags are forbidden"/>
