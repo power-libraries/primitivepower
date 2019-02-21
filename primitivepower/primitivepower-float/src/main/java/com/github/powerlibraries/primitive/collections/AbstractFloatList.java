@@ -91,7 +91,7 @@ public abstract class AbstractFloatList extends AbstractFloatCollection implemen
 			if(!(o2 instanceof Float)) {
 				return false;
 			}
-			if (o2!=null || e1.nextFloat() != (Float)o2) {
+			if (o2==null || e1.nextFloat() != (Float)o2) {
 				return false;
 			}
 		}
