@@ -91,7 +91,7 @@ public abstract class AbstractLongList extends AbstractLongCollection implements
 			if(!(o2 instanceof Long)) {
 				return false;
 			}
-			if (o2!=null || e1.nextLong() != (Long)o2) {
+			if (o2==null || e1.nextLong() != (Long)o2) {
 				return false;
 			}
 		}

@@ -85,7 +85,7 @@ public abstract class AbstractObjectList<E> extends AbstractObjectCollection<E> 
 		while (e1.hasNext() && e2.hasNext()) {
 			Object o2 = e2.next();
 			
-			if (o2!=null || !Objects.equals(e1.nextObject(), (E)o2)) {
+			if (o2==null || !Objects.equals(e1.nextObject(), (E)o2)) {
 				return false;
 			}
 		}
