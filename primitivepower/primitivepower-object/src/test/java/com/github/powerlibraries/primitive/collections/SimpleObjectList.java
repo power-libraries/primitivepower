@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
 import java.util.ArrayList;
@@ -7,45 +7,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractBooleanList;
-import com.github.powerlibraries.primitive.collections.BooleanCollection;
-import com.github.powerlibraries.primitive.collections.BooleanList;
-import com.github.powerlibraries.primitive.collections.BooleanListIterator;
-import com.github.powerlibraries.primitive.common.BooleanPointer;
+import com.github.powerlibraries.primitive.collections.AbstractObjectList;
+import com.github.powerlibraries.primitive.collections.ObjectCollection;
+import com.github.powerlibraries.primitive.collections.ObjectList;
+import com.github.powerlibraries.primitive.collections.ObjectListIterator;
+import com.github.powerlibraries.primitive.common.ObjectPointer;
 
-public class SimpleBooleanList extends AbstractBooleanList {
+public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
-	private List<Boolean> l = new ArrayList<>();
+	private List<E> l = new ArrayList<>();
 
 	@Override
-	public boolean getBoolean(int index) {
+	public E getObject(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public boolean setBoolean(int index, boolean element) {
+	public E setObject(int index, E element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addBoolean(int index, boolean element) {
+	public void addObject(int index, E element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfBoolean(boolean o) {
+	public int lastIndexOfObject(E o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public BooleanList subList(int fromIndex, int toIndex) {
+	public ObjectList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public BooleanListIterator listIterator(int index) {
-		ListIterator<Boolean> it = l.listIterator(index);
-		return new BooleanListIterator() {
+	public ObjectListIterator<E> listIterator(int index) {
+		ListIterator<E> it = l.listIterator(index);
+		return new ObjectListIterator<E>() {
 			
 			@Override
 			public void remove() {
@@ -73,38 +73,38 @@ public class SimpleBooleanList extends AbstractBooleanList {
 			}
 			
 			@Override
-			public void setBoolean(boolean e) {
+			public void setObject(E e) {
 				it.set(e);
 			}
 			
 			@Override
-			public boolean previousBoolean() {
+			public E previousObject() {
 				return it.previous();
 			}
 			
 			@Override
-			public boolean nextBoolean() {
+			public E nextObject() {
 				return it.next();
 			}
 			
 			@Override
-			public void addBoolean(boolean e) {
+			public void addObject(E e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfBoolean(boolean e) {
+	public int indexOfObject(E e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<BooleanPointer> primitiveIterable(int index) {
-		ListIterator<Boolean> it = l.listIterator(index);
-		return new Iterable<BooleanPointer>() {
-			public Iterator<BooleanPointer> iterator() {
-				return new Iterator<BooleanPointer>() {
+	public Iterable<ObjectPointer<E>> primitiveIterable(int index) {
+		ListIterator<E> it = l.listIterator(index);
+		return new Iterable<ObjectPointer<E>>() {
+			public Iterator<ObjectPointer<E>> iterator() {
+				return new Iterator<ObjectPointer<E>>() {
 					
 					@Override
 					public void remove() {
@@ -117,9 +117,9 @@ public class SimpleBooleanList extends AbstractBooleanList {
 					}
 					
 					@Override
-					public BooleanPointer next() {
-						return new BooleanPointer() {
-							public boolean get() {
+					public ObjectPointer<E> next() {
+						return new ObjectPointer<E>() {
+							public E get() {
 								return it.next();
 							}
 						};
@@ -135,7 +135,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	}
 
 	@Override
-	public boolean removeAt(int index) {
+	public E removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -160,12 +160,12 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Boolean> c) {
+	public boolean addAll(Collection<? extends E> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Boolean> c) {
+	public boolean addAll(int index, Collection<? extends E> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -185,27 +185,27 @@ public class SimpleBooleanList extends AbstractBooleanList {
 	}
 
 	@Override
-	public boolean containsBoolean(boolean o) {
+	public boolean containsObject(E o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public boolean[] toBooleanArray() {
+	public E[] toObjectArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addBoolean(boolean e) {
+	public boolean addObject(E e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeBoolean(boolean o) {
-		return l.remove((Boolean)o);
+	public boolean removeObject(E o) {
+		return l.remove((E)o);
 	}
 
 	@Override
-	public boolean addAllBooleans(BooleanCollection c) {
+	public boolean addAllObjects(ObjectCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

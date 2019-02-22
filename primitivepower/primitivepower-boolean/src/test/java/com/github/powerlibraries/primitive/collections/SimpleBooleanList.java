@@ -1,7 +1,5 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
-
-import java.nio.ShortBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +7,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractShortList;
-import com.github.powerlibraries.primitive.collections.ShortCollection;
-import com.github.powerlibraries.primitive.collections.ShortList;
-import com.github.powerlibraries.primitive.collections.ShortListIterator;
-import com.github.powerlibraries.primitive.common.ShortPointer;
+import com.github.powerlibraries.primitive.collections.AbstractBooleanList;
+import com.github.powerlibraries.primitive.collections.BooleanCollection;
+import com.github.powerlibraries.primitive.collections.BooleanList;
+import com.github.powerlibraries.primitive.collections.BooleanListIterator;
+import com.github.powerlibraries.primitive.common.BooleanPointer;
 
-public class SimpleShortList extends AbstractShortList {
+public class SimpleBooleanList extends AbstractBooleanList {
 
-	private List<Short> l = new ArrayList<>();
+	private List<Boolean> l = new ArrayList<>();
 
 	@Override
-	public short getShort(int index) {
+	public boolean getBoolean(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public short setShort(int index, short element) {
+	public boolean setBoolean(int index, boolean element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addShort(int index, short element) {
+	public void addBoolean(int index, boolean element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfShort(short o) {
+	public int lastIndexOfBoolean(boolean o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ShortList subList(int fromIndex, int toIndex) {
+	public BooleanList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ShortListIterator listIterator(int index) {
-		ListIterator<Short> it = l.listIterator(index);
-		return new ShortListIterator() {
+	public BooleanListIterator listIterator(int index) {
+		ListIterator<Boolean> it = l.listIterator(index);
+		return new BooleanListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +73,38 @@ public class SimpleShortList extends AbstractShortList {
 			}
 			
 			@Override
-			public void setShort(short e) {
+			public void setBoolean(boolean e) {
 				it.set(e);
 			}
 			
 			@Override
-			public short previousShort() {
+			public boolean previousBoolean() {
 				return it.previous();
 			}
 			
 			@Override
-			public short nextShort() {
+			public boolean nextBoolean() {
 				return it.next();
 			}
 			
 			@Override
-			public void addShort(short e) {
+			public void addBoolean(boolean e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfShort(short e) {
+	public int indexOfBoolean(boolean e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<ShortPointer> primitiveIterable(int index) {
-		ListIterator<Short> it = l.listIterator(index);
-		return new Iterable<ShortPointer>() {
-			public Iterator<ShortPointer> iterator() {
-				return new Iterator<ShortPointer>() {
+	public Iterable<BooleanPointer> primitiveIterable(int index) {
+		ListIterator<Boolean> it = l.listIterator(index);
+		return new Iterable<BooleanPointer>() {
+			public Iterator<BooleanPointer> iterator() {
+				return new Iterator<BooleanPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +117,9 @@ public class SimpleShortList extends AbstractShortList {
 					}
 					
 					@Override
-					public ShortPointer next() {
-						return new ShortPointer() {
-							public short get() {
+					public BooleanPointer next() {
+						return new BooleanPointer() {
+							public boolean get() {
 								return it.next();
 							}
 						};
@@ -137,12 +135,7 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public short removeAt(int index) {
-		throw new UnsupportedOperationException();
-	}
-	
-	@Override
-	public ShortBuffer asBuffer() {
+	public boolean removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -167,12 +160,12 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Short> c) {
+	public boolean addAll(Collection<? extends Boolean> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Short> c) {
+	public boolean addAll(int index, Collection<? extends Boolean> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,39 +185,29 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public boolean containsShort(short o) {
+	public boolean containsBoolean(boolean o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public short[] toShortArray() {
+	public boolean[] toBooleanArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addShort(short e) {
+	public boolean addBoolean(boolean e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeShort(short o) {
-		return l.remove((Short)o);
+	public boolean removeBoolean(boolean o) {
+		return l.remove((Boolean)o);
 	}
 
 	@Override
-	public boolean addAllShorts(ShortCollection c) {
+	public boolean addAllBooleans(BooleanCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	
-	
-	@Override
-	public void sort() {
-		throw new UnsupportedOperationException();
-	}
-	
-	@Override
-	public void parallelSort() {
-		throw new UnsupportedOperationException();
-	}
 	
 }

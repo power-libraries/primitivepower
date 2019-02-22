@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,11 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class AbstractLongListTest {
+public class AbstractFloatListTest {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleLongList list = new SimpleLongList();
+		SimpleFloatList list = new SimpleFloatList();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -30,38 +30,38 @@ public class AbstractLongListTest {
 	@Test
 	public void randomTest() {
 		Random r = new Random(7);
-		List<Long> expected = new ArrayList<>();
-		SimpleLongList list = new SimpleLongList();
+		List<Float> expected = new ArrayList<>();
+		SimpleFloatList list = new SimpleFloatList();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				long v = ((long)r.nextInt(9));
+				float v = ((float)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				long v;
+				float v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((long)r.nextInt(9));
-						assertThat(list.remove((Long)v))
-							.isEqualTo(expected.remove((Long)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.remove((Float)v))
+							.isEqualTo(expected.remove((Float)v));
 						break;
 					case 1:
-						v = ((long)r.nextInt(9));
-						assertThat(list.indexOf((Long)v))
-							.isEqualTo(expected.indexOf((Long)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.indexOf((Float)v))
+							.isEqualTo(expected.indexOf((Float)v));
 						break;
 					case 2:
-						v = ((long)r.nextInt(9));
-						assertThat(list.lastIndexOf((Long)v))
-							.isEqualTo(expected.lastIndexOf((Long)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.lastIndexOf((Float)v))
+							.isEqualTo(expected.lastIndexOf((Float)v));
 						break;
 					case 3:
-						v = ((long)r.nextInt(9));
-						assertThat(list.contains((Long)v))
-							.isEqualTo(expected.contains((Long)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.contains((Float)v))
+							.isEqualTo(expected.contains((Float)v));
 						break;
 				}
 			}
@@ -75,12 +75,12 @@ public class AbstractLongListTest {
 			.of(7,24829,98417242323L)
 			.mapToObj(Random::new)
 			.map(r -> {
-				List<Long> expected = new ArrayList<>();
-				SimpleLongList list = new SimpleLongList();
+				List<Float> expected = new ArrayList<>();
+				SimpleFloatList list = new SimpleFloatList();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					long v = ((long)r.nextInt(9));
+					float v = ((float)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -90,28 +90,28 @@ public class AbstractLongListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleLongList list, List<Long> expected) {
-		list.replaceAll(v -> 0L);
-		expected.replaceAll(v -> 0L);
+	public void replaceAll(SimpleFloatList list, List<Float> expected) {
+		list.replaceAll(v -> 0f);
+		expected.replaceAll(v -> 0f);
 
 		readOnlyTests(list, expected);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsLongList(SimpleLongList list, List<Long> expected) {
+	public void equalsFloatList(SimpleFloatList list, List<Float> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleLongList copy = new SimpleLongList();
+		SimpleFloatList copy = new SimpleFloatList();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleLongList)null)).isFalse();
-		assertThat(list.equals((List<Long>)null)).isFalse();
+		assertThat(list.equals((SimpleFloatList)null)).isFalse();
+		assertThat(list.equals((List<Float>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleLongList list, List<Long> expected) {
+	public void removeIf(SimpleFloatList list, List<Float> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,67 +121,42 @@ public class AbstractLongListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleLongList list, List<Long> expected) {
+	public void get(SimpleFloatList list, List<Float> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleLongList list, List<Long> expected) {
+	public void set(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			long v = ((long)r.nextInt(9));
+			float v = ((float)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleLongList list, List<Long> expected) {
+	public void add(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			long v = ((long)r.nextInt(9));
+			float v = ((float)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleLongList list, List<Long> expected) {
+	public void forEach(SimpleFloatList list, List<Float> expected) {
 		List collected = new ArrayList();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAllLongs(SimpleLongList list, List<Long> expected) {
-		list.replaceAllLongs(v -> 0L);
-		expected.replaceAll(v -> 0L);
-		
-		readOnlyTests(list, expected);
-	}
 	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeLongIf(SimpleLongList list, List<Long> expected) {
-		Random r1 = new Random(9);
-		list.removeLongIf(v -> r1.nextBoolean());
-		Random r2 = new Random(9);
-		expected.removeIf(v -> r2.nextBoolean());
-
-		readOnlyTests(list, expected);
-	}
-	
-	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEachLong(SimpleLongList list, List<Long> expected) {
-		List<Long> collected = new ArrayList<>();
-		list.forEachLong(v->collected.add(v));
-		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
-	}
-	
-	
-	private static  void readOnlyTests(SimpleLongList list, List<Long> expected) {
+	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
 		List unexpected = new ArrayList(expected);
 		unexpected.add(new Object());
 	
@@ -190,7 +165,7 @@ public class AbstractLongListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Long[]::new)).isEqualTo(expected.toArray(new Long[expected.size()]));
+		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
@@ -201,9 +176,6 @@ public class AbstractLongListTest {
 		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
-		
-		assertThat(list.streamLongs()).containsExactlyElementsOf(expected);
-		assertThat(list.parallelStreamLongs()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());

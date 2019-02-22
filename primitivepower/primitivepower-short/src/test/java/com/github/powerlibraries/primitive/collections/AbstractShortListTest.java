@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

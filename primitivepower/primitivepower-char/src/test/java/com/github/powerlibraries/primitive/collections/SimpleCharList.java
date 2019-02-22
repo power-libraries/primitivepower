@@ -1,5 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
+
+import java.nio.CharBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractObjectList;
-import com.github.powerlibraries.primitive.collections.ObjectCollection;
-import com.github.powerlibraries.primitive.collections.ObjectList;
-import com.github.powerlibraries.primitive.collections.ObjectListIterator;
-import com.github.powerlibraries.primitive.common.ObjectPointer;
+import com.github.powerlibraries.primitive.collections.AbstractCharList;
+import com.github.powerlibraries.primitive.collections.CharCollection;
+import com.github.powerlibraries.primitive.collections.CharList;
+import com.github.powerlibraries.primitive.collections.CharListIterator;
+import com.github.powerlibraries.primitive.common.CharPointer;
 
-public class SimpleObjectList<E> extends AbstractObjectList<E> {
+public class SimpleCharList extends AbstractCharList {
 
-	private List<E> l = new ArrayList<>();
+	private List<Character> l = new ArrayList<>();
 
 	@Override
-	public E getObject(int index) {
+	public char getChar(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public E setObject(int index, E element) {
+	public char setChar(int index, char element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addObject(int index, E element) {
+	public void addChar(int index, char element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfObject(E o) {
+	public int lastIndexOfChar(char o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ObjectList subList(int fromIndex, int toIndex) {
+	public CharList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ObjectListIterator<E> listIterator(int index) {
-		ListIterator<E> it = l.listIterator(index);
-		return new ObjectListIterator<E>() {
+	public CharListIterator listIterator(int index) {
+		ListIterator<Character> it = l.listIterator(index);
+		return new CharListIterator() {
 			
 			@Override
 			public void remove() {
@@ -73,38 +75,38 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 			}
 			
 			@Override
-			public void setObject(E e) {
+			public void setChar(char e) {
 				it.set(e);
 			}
 			
 			@Override
-			public E previousObject() {
+			public char previousChar() {
 				return it.previous();
 			}
 			
 			@Override
-			public E nextObject() {
+			public char nextChar() {
 				return it.next();
 			}
 			
 			@Override
-			public void addObject(E e) {
+			public void addChar(char e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfObject(E e) {
+	public int indexOfChar(char e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<ObjectPointer<E>> primitiveIterable(int index) {
-		ListIterator<E> it = l.listIterator(index);
-		return new Iterable<ObjectPointer<E>>() {
-			public Iterator<ObjectPointer<E>> iterator() {
-				return new Iterator<ObjectPointer<E>>() {
+	public Iterable<CharPointer> primitiveIterable(int index) {
+		ListIterator<Character> it = l.listIterator(index);
+		return new Iterable<CharPointer>() {
+			public Iterator<CharPointer> iterator() {
+				return new Iterator<CharPointer>() {
 					
 					@Override
 					public void remove() {
@@ -117,9 +119,9 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 					}
 					
 					@Override
-					public ObjectPointer<E> next() {
-						return new ObjectPointer<E>() {
-							public E get() {
+					public CharPointer next() {
+						return new CharPointer() {
+							public char get() {
 								return it.next();
 							}
 						};
@@ -135,7 +137,12 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public E removeAt(int index) {
+	public char removeAt(int index) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public CharBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -160,12 +167,12 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends E> c) {
+	public boolean addAll(Collection<? extends Character> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends E> c) {
+	public boolean addAll(int index, Collection<? extends Character> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -185,29 +192,39 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public boolean containsObject(E o) {
+	public boolean containsChar(char o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public E[] toObjectArray() {
+	public char[] toCharArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addObject(E e) {
+	public boolean addChar(char e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeObject(E o) {
-		return l.remove((E)o);
+	public boolean removeChar(char o) {
+		return l.remove((Character)o);
 	}
 
 	@Override
-	public boolean addAllObjects(ObjectCollection c) {
+	public boolean addAllChars(CharCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
 	
 }

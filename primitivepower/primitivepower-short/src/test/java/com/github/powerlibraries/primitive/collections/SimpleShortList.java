@@ -1,53 +1,53 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
-{% if t.bufferSupport %}
-import java.nio.{{t.label}}Buffer;
-{% endif %}
+
+import java.nio.ShortBuffer;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.Abstract{{t.label}}List;
-import com.github.powerlibraries.primitive.collections.{{t.label}}Collection;
-import com.github.powerlibraries.primitive.collections.{{t.label}}List;
-import com.github.powerlibraries.primitive.collections.{{t.label}}ListIterator;
-import com.github.powerlibraries.primitive.common.{{t.label}}Pointer;
+import com.github.powerlibraries.primitive.collections.AbstractShortList;
+import com.github.powerlibraries.primitive.collections.ShortCollection;
+import com.github.powerlibraries.primitive.collections.ShortList;
+import com.github.powerlibraries.primitive.collections.ShortListIterator;
+import com.github.powerlibraries.primitive.common.ShortPointer;
 
-public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{{t.generic}} {
+public class SimpleShortList extends AbstractShortList {
 
-	private List<{{t.boxed}}> l = new ArrayList<>();
+	private List<Short> l = new ArrayList<>();
 
 	@Override
-	public {{t.type}} get{{t.label}}(int index) {
+	public short getShort(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public {{t.type}} set{{t.label}}(int index, {{t.type}} element) {
+	public short setShort(int index, short element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void add{{t.label}}(int index, {{t.type}} element) {
+	public void addShort(int index, short element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOf{{t.label}}({{t.type}} o) {
+	public int lastIndexOfShort(short o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public {{t.label}}List subList(int fromIndex, int toIndex) {
+	public ShortList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public {{t.label}}ListIterator{{t.generic}} listIterator(int index) {
-		ListIterator<{{t.boxed}}> it = l.listIterator(index);
-		return new {{t.label}}ListIterator{{t.generic}}() {
+	public ShortListIterator listIterator(int index) {
+		ListIterator<Short> it = l.listIterator(index);
+		return new ShortListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 			}
 			
 			@Override
-			public void set{{t.label}}({{t.type}} e) {
+			public void setShort(short e) {
 				it.set(e);
 			}
 			
 			@Override
-			public {{t.type}} previous{{t.label}}() {
+			public short previousShort() {
 				return it.previous();
 			}
 			
 			@Override
-			public {{t.type}} next{{t.label}}() {
+			public short nextShort() {
 				return it.next();
 			}
 			
 			@Override
-			public void add{{t.label}}({{t.type}} e) {
+			public void addShort(short e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOf{{t.label}}({{t.type}} e) {
+	public int indexOfShort(short e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<{{t.label}}Pointer{{t.generic}}> primitiveIterable(int index) {
-		ListIterator<{{t.boxed}}> it = l.listIterator(index);
-		return new Iterable<{{t.label}}Pointer{{t.generic}}>() {
-			public Iterator<{{t.label}}Pointer{{t.generic}}> iterator() {
-				return new Iterator<{{t.label}}Pointer{{t.generic}}>() {
+	public Iterable<ShortPointer> primitiveIterable(int index) {
+		ListIterator<Short> it = l.listIterator(index);
+		return new Iterable<ShortPointer>() {
+			public Iterator<ShortPointer> iterator() {
+				return new Iterator<ShortPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 					}
 					
 					@Override
-					public {{t.label}}Pointer{{t.generic}} next() {
-						return new {{t.label}}Pointer{{t.generic}}() {
-							public {{t.type}} get() {
+					public ShortPointer next() {
+						return new ShortPointer() {
+							public short get() {
 								return it.next();
 							}
 						};
@@ -137,15 +137,15 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	}
 
 	@Override
-	public {{t.type}} removeAt(int index) {
+	public short removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
-	{% if t.bufferSupport %}
+	
 	@Override
-	public {{t.label}}Buffer asBuffer() {
+	public ShortBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
-	{% endif %}
+	
 	@Override
 	public int size() {
 		return l.size();
@@ -167,12 +167,12 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends {{t.boxed}}> c) {
+	public boolean addAll(Collection<? extends Short> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends {{t.boxed}}> c) {
+	public boolean addAll(int index, Collection<? extends Short> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,31 +192,31 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	}
 
 	@Override
-	public boolean contains{{t.label}}({{t.type}} o) {
+	public boolean containsShort(short o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public {{t.type}}[] to{{t.label}}Array() {
+	public short[] toShortArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean add{{t.label}}({{t.type}} e) {
+	public boolean addShort(short e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean remove{{t.label}}({{t.type}} o) {
-		return l.remove(({{t.boxed}})o);
+	public boolean removeShort(short o) {
+		return l.remove((Short)o);
 	}
 
 	@Override
-	public boolean addAll{{t.label}}s({{t.label}}Collection c) {
+	public boolean addAllShorts(ShortCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	
-	{% if t.numeric %}
+	
 	@Override
 	public void sort() {
 		throw new UnsupportedOperationException();
@@ -226,5 +226,5 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 	public void parallelSort() {
 		throw new UnsupportedOperationException();
 	}
-	{% endif %}
+	
 }

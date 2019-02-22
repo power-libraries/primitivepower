@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,11 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class AbstractFloatListTest {
+public class AbstractBooleanListTest {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleFloatList list = new SimpleFloatList();
+		SimpleBooleanList list = new SimpleBooleanList();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -30,38 +30,38 @@ public class AbstractFloatListTest {
 	@Test
 	public void randomTest() {
 		Random r = new Random(7);
-		List<Float> expected = new ArrayList<>();
-		SimpleFloatList list = new SimpleFloatList();
+		List<Boolean> expected = new ArrayList<>();
+		SimpleBooleanList list = new SimpleBooleanList();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				float v = ((float)r.nextInt(9));
+				boolean v = r.nextBoolean();
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				float v;
+				boolean v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((float)r.nextInt(9));
-						assertThat(list.remove((Float)v))
-							.isEqualTo(expected.remove((Float)v));
+						v = r.nextBoolean();
+						assertThat(list.remove((Boolean)v))
+							.isEqualTo(expected.remove((Boolean)v));
 						break;
 					case 1:
-						v = ((float)r.nextInt(9));
-						assertThat(list.indexOf((Float)v))
-							.isEqualTo(expected.indexOf((Float)v));
+						v = r.nextBoolean();
+						assertThat(list.indexOf((Boolean)v))
+							.isEqualTo(expected.indexOf((Boolean)v));
 						break;
 					case 2:
-						v = ((float)r.nextInt(9));
-						assertThat(list.lastIndexOf((Float)v))
-							.isEqualTo(expected.lastIndexOf((Float)v));
+						v = r.nextBoolean();
+						assertThat(list.lastIndexOf((Boolean)v))
+							.isEqualTo(expected.lastIndexOf((Boolean)v));
 						break;
 					case 3:
-						v = ((float)r.nextInt(9));
-						assertThat(list.contains((Float)v))
-							.isEqualTo(expected.contains((Float)v));
+						v = r.nextBoolean();
+						assertThat(list.contains((Boolean)v))
+							.isEqualTo(expected.contains((Boolean)v));
 						break;
 				}
 			}
@@ -75,12 +75,12 @@ public class AbstractFloatListTest {
 			.of(7,24829,98417242323L)
 			.mapToObj(Random::new)
 			.map(r -> {
-				List<Float> expected = new ArrayList<>();
-				SimpleFloatList list = new SimpleFloatList();
+				List<Boolean> expected = new ArrayList<>();
+				SimpleBooleanList list = new SimpleBooleanList();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					float v = ((float)r.nextInt(9));
+					boolean v = r.nextBoolean();
 					list.add(v);
 					expected.add(v);
 				}
@@ -90,28 +90,28 @@ public class AbstractFloatListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleFloatList list, List<Float> expected) {
-		list.replaceAll(v -> 0f);
-		expected.replaceAll(v -> 0f);
+	public void replaceAll(SimpleBooleanList list, List<Boolean> expected) {
+		list.replaceAll(v -> false);
+		expected.replaceAll(v -> false);
 
 		readOnlyTests(list, expected);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsFloatList(SimpleFloatList list, List<Float> expected) {
+	public void equalsBooleanList(SimpleBooleanList list, List<Boolean> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleFloatList copy = new SimpleFloatList();
+		SimpleBooleanList copy = new SimpleBooleanList();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleFloatList)null)).isFalse();
-		assertThat(list.equals((List<Float>)null)).isFalse();
+		assertThat(list.equals((SimpleBooleanList)null)).isFalse();
+		assertThat(list.equals((List<Boolean>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleFloatList list, List<Float> expected) {
+	public void removeIf(SimpleBooleanList list, List<Boolean> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,34 +121,34 @@ public class AbstractFloatListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleFloatList list, List<Float> expected) {
+	public void get(SimpleBooleanList list, List<Boolean> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleFloatList list, List<Float> expected) {
+	public void set(SimpleBooleanList list, List<Boolean> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			float v = ((float)r.nextInt(9));
+			boolean v = r.nextBoolean();
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleFloatList list, List<Float> expected) {
+	public void add(SimpleBooleanList list, List<Boolean> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			float v = ((float)r.nextInt(9));
+			boolean v = r.nextBoolean();
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleFloatList list, List<Float> expected) {
+	public void forEach(SimpleBooleanList list, List<Boolean> expected) {
 		List collected = new ArrayList();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
@@ -156,7 +156,7 @@ public class AbstractFloatListTest {
 	
 	
 	
-	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
+	private static  void readOnlyTests(SimpleBooleanList list, List<Boolean> expected) {
 		List unexpected = new ArrayList(expected);
 		unexpected.add(new Object());
 	
@@ -165,7 +165,7 @@ public class AbstractFloatListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
+		assertThat(list.toArray(Boolean[]::new)).isEqualTo(expected.toArray(new Boolean[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		

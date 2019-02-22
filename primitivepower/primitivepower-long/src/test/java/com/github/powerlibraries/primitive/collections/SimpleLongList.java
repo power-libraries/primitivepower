@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.ByteBuffer;
+import java.nio.LongBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractByteList;
-import com.github.powerlibraries.primitive.collections.ByteCollection;
-import com.github.powerlibraries.primitive.collections.ByteList;
-import com.github.powerlibraries.primitive.collections.ByteListIterator;
-import com.github.powerlibraries.primitive.common.BytePointer;
+import com.github.powerlibraries.primitive.collections.AbstractLongList;
+import com.github.powerlibraries.primitive.collections.LongCollection;
+import com.github.powerlibraries.primitive.collections.LongList;
+import com.github.powerlibraries.primitive.collections.LongListIterator;
+import com.github.powerlibraries.primitive.common.LongPointer;
 
-public class SimpleByteList extends AbstractByteList {
+public class SimpleLongList extends AbstractLongList {
 
-	private List<Byte> l = new ArrayList<>();
+	private List<Long> l = new ArrayList<>();
 
 	@Override
-	public byte getByte(int index) {
+	public long getLong(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public byte setByte(int index, byte element) {
+	public long setLong(int index, long element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addByte(int index, byte element) {
+	public void addLong(int index, long element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfByte(byte o) {
+	public int lastIndexOfLong(long o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ByteList subList(int fromIndex, int toIndex) {
+	public LongList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ByteListIterator listIterator(int index) {
-		ListIterator<Byte> it = l.listIterator(index);
-		return new ByteListIterator() {
+	public LongListIterator listIterator(int index) {
+		ListIterator<Long> it = l.listIterator(index);
+		return new LongListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleByteList extends AbstractByteList {
 			}
 			
 			@Override
-			public void setByte(byte e) {
+			public void setLong(long e) {
 				it.set(e);
 			}
 			
 			@Override
-			public byte previousByte() {
+			public long previousLong() {
 				return it.previous();
 			}
 			
 			@Override
-			public byte nextByte() {
+			public long nextLong() {
 				return it.next();
 			}
 			
 			@Override
-			public void addByte(byte e) {
+			public void addLong(long e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfByte(byte e) {
+	public int indexOfLong(long e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<BytePointer> primitiveIterable(int index) {
-		ListIterator<Byte> it = l.listIterator(index);
-		return new Iterable<BytePointer>() {
-			public Iterator<BytePointer> iterator() {
-				return new Iterator<BytePointer>() {
+	public Iterable<LongPointer> primitiveIterable(int index) {
+		ListIterator<Long> it = l.listIterator(index);
+		return new Iterable<LongPointer>() {
+			public Iterator<LongPointer> iterator() {
+				return new Iterator<LongPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleByteList extends AbstractByteList {
 					}
 					
 					@Override
-					public BytePointer next() {
-						return new BytePointer() {
-							public byte get() {
+					public LongPointer next() {
+						return new LongPointer() {
+							public long get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public byte removeAt(int index) {
+	public long removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public ByteBuffer asBuffer() {
+	public LongBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -167,12 +167,12 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Byte> c) {
+	public boolean addAll(Collection<? extends Long> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Byte> c) {
+	public boolean addAll(int index, Collection<? extends Long> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public boolean containsByte(byte o) {
+	public boolean containsLong(long o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public byte[] toByteArray() {
+	public long[] toLongArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addByte(byte e) {
+	public boolean addLong(long e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeByte(byte o) {
-		return l.remove((Byte)o);
+	public boolean removeLong(long o) {
+		return l.remove((Long)o);
 	}
 
 	@Override
-	public boolean addAllBytes(ByteCollection c) {
+	public boolean addAllLongs(LongCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

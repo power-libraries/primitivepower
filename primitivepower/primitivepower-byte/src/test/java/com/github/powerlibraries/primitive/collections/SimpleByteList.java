@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.DoubleBuffer;
+import java.nio.ByteBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractDoubleList;
-import com.github.powerlibraries.primitive.collections.DoubleCollection;
-import com.github.powerlibraries.primitive.collections.DoubleList;
-import com.github.powerlibraries.primitive.collections.DoubleListIterator;
-import com.github.powerlibraries.primitive.common.DoublePointer;
+import com.github.powerlibraries.primitive.collections.AbstractByteList;
+import com.github.powerlibraries.primitive.collections.ByteCollection;
+import com.github.powerlibraries.primitive.collections.ByteList;
+import com.github.powerlibraries.primitive.collections.ByteListIterator;
+import com.github.powerlibraries.primitive.common.BytePointer;
 
-public class SimpleDoubleList extends AbstractDoubleList {
+public class SimpleByteList extends AbstractByteList {
 
-	private List<Double> l = new ArrayList<>();
+	private List<Byte> l = new ArrayList<>();
 
 	@Override
-	public double getDouble(int index) {
+	public byte getByte(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public double setDouble(int index, double element) {
+	public byte setByte(int index, byte element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addDouble(int index, double element) {
+	public void addByte(int index, byte element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfDouble(double o) {
+	public int lastIndexOfByte(byte o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public DoubleList subList(int fromIndex, int toIndex) {
+	public ByteList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public DoubleListIterator listIterator(int index) {
-		ListIterator<Double> it = l.listIterator(index);
-		return new DoubleListIterator() {
+	public ByteListIterator listIterator(int index) {
+		ListIterator<Byte> it = l.listIterator(index);
+		return new ByteListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleDoubleList extends AbstractDoubleList {
 			}
 			
 			@Override
-			public void setDouble(double e) {
+			public void setByte(byte e) {
 				it.set(e);
 			}
 			
 			@Override
-			public double previousDouble() {
+			public byte previousByte() {
 				return it.previous();
 			}
 			
 			@Override
-			public double nextDouble() {
+			public byte nextByte() {
 				return it.next();
 			}
 			
 			@Override
-			public void addDouble(double e) {
+			public void addByte(byte e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfDouble(double e) {
+	public int indexOfByte(byte e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<DoublePointer> primitiveIterable(int index) {
-		ListIterator<Double> it = l.listIterator(index);
-		return new Iterable<DoublePointer>() {
-			public Iterator<DoublePointer> iterator() {
-				return new Iterator<DoublePointer>() {
+	public Iterable<BytePointer> primitiveIterable(int index) {
+		ListIterator<Byte> it = l.listIterator(index);
+		return new Iterable<BytePointer>() {
+			public Iterator<BytePointer> iterator() {
+				return new Iterator<BytePointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleDoubleList extends AbstractDoubleList {
 					}
 					
 					@Override
-					public DoublePointer next() {
-						return new DoublePointer() {
-							public double get() {
+					public BytePointer next() {
+						return new BytePointer() {
+							public byte get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public double removeAt(int index) {
+	public byte removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public DoubleBuffer asBuffer() {
+	public ByteBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -167,12 +167,12 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Double> c) {
+	public boolean addAll(Collection<? extends Byte> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Double> c) {
+	public boolean addAll(int index, Collection<? extends Byte> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public boolean containsDouble(double o) {
+	public boolean containsByte(byte o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public double[] toDoubleArray() {
+	public byte[] toByteArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addDouble(double e) {
+	public boolean addByte(byte e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeDouble(double o) {
-		return l.remove((Double)o);
+	public boolean removeByte(byte o) {
+		return l.remove((Byte)o);
 	}
 
 	@Override
-	public boolean addAllDoubles(DoubleCollection c) {
+	public boolean addAllBytes(ByteCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

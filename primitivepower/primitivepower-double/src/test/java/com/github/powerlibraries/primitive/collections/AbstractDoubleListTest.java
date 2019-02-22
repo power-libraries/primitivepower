@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,11 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class AbstractObjectListTest<E> {
+public class AbstractDoubleListTest {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleObjectList list = new SimpleObjectList();
+		SimpleDoubleList list = new SimpleDoubleList();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -30,38 +30,38 @@ public class AbstractObjectListTest<E> {
 	@Test
 	public void randomTest() {
 		Random r = new Random(7);
-		List<E> expected = new ArrayList<>();
-		SimpleObjectList list = new SimpleObjectList();
+		List<Double> expected = new ArrayList<>();
+		SimpleDoubleList list = new SimpleDoubleList();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				E v = (E)TimeUnit.values()[r.nextInt(7)];
+				double v = ((double)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				E v;
+				double v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = (E)TimeUnit.values()[r.nextInt(7)];
-						assertThat(list.remove((E)v))
-							.isEqualTo(expected.remove((E)v));
+						v = ((double)r.nextInt(9));
+						assertThat(list.remove((Double)v))
+							.isEqualTo(expected.remove((Double)v));
 						break;
 					case 1:
-						v = (E)TimeUnit.values()[r.nextInt(7)];
-						assertThat(list.indexOf((E)v))
-							.isEqualTo(expected.indexOf((E)v));
+						v = ((double)r.nextInt(9));
+						assertThat(list.indexOf((Double)v))
+							.isEqualTo(expected.indexOf((Double)v));
 						break;
 					case 2:
-						v = (E)TimeUnit.values()[r.nextInt(7)];
-						assertThat(list.lastIndexOf((E)v))
-							.isEqualTo(expected.lastIndexOf((E)v));
+						v = ((double)r.nextInt(9));
+						assertThat(list.lastIndexOf((Double)v))
+							.isEqualTo(expected.lastIndexOf((Double)v));
 						break;
 					case 3:
-						v = (E)TimeUnit.values()[r.nextInt(7)];
-						assertThat(list.contains((E)v))
-							.isEqualTo(expected.contains((E)v));
+						v = ((double)r.nextInt(9));
+						assertThat(list.contains((Double)v))
+							.isEqualTo(expected.contains((Double)v));
 						break;
 				}
 			}
@@ -70,17 +70,17 @@ public class AbstractObjectListTest<E> {
 		}
 	}
 	
-	public static <E> Stream<Arguments> generateLists() {
+	public static  Stream<Arguments> generateLists() {
 		return LongStream
 			.of(7,24829,98417242323L)
 			.mapToObj(Random::new)
 			.map(r -> {
-				List<E> expected = new ArrayList<>();
-				SimpleObjectList list = new SimpleObjectList();
+				List<Double> expected = new ArrayList<>();
+				SimpleDoubleList list = new SimpleDoubleList();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					E v = (E)TimeUnit.values()[r.nextInt(7)];
+					double v = ((double)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -90,28 +90,28 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleObjectList list, List<E> expected) {
-		list.replaceAll(v -> null);
-		expected.replaceAll(v -> null);
+	public void replaceAll(SimpleDoubleList list, List<Double> expected) {
+		list.replaceAll(v -> 0d);
+		expected.replaceAll(v -> 0d);
 
 		readOnlyTests(list, expected);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsObjectList(SimpleObjectList list, List<E> expected) {
+	public void equalsDoubleList(SimpleDoubleList list, List<Double> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleObjectList copy = new SimpleObjectList();
+		SimpleDoubleList copy = new SimpleDoubleList();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleObjectList)null)).isFalse();
-		assertThat(list.equals((List<E>)null)).isFalse();
+		assertThat(list.equals((SimpleDoubleList)null)).isFalse();
+		assertThat(list.equals((List<Double>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleObjectList list, List<E> expected) {
+	public void removeIf(SimpleDoubleList list, List<Double> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,42 +121,67 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleObjectList list, List<E> expected) {
+	public void get(SimpleDoubleList list, List<Double> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleObjectList list, List<E> expected) {
+	public void set(SimpleDoubleList list, List<Double> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			E v = (E)TimeUnit.values()[r.nextInt(7)];
+			double v = ((double)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleObjectList list, List<E> expected) {
+	public void add(SimpleDoubleList list, List<Double> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			E v = (E)TimeUnit.values()[r.nextInt(7)];
+			double v = ((double)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleObjectList list, List<E> expected) {
+	public void forEach(SimpleDoubleList list, List<Double> expected) {
 		List collected = new ArrayList();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
+		list.replaceAllDoubles(v -> 0d);
+		expected.replaceAll(v -> 0d);
+		
+		readOnlyTests(list, expected);
+	}
 	
-	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeDoubleIf(SimpleDoubleList list, List<Double> expected) {
+		Random r1 = new Random(9);
+		list.removeDoubleIf(v -> r1.nextBoolean());
+		Random r2 = new Random(9);
+		expected.removeIf(v -> r2.nextBoolean());
+
+		readOnlyTests(list, expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void forEachDouble(SimpleDoubleList list, List<Double> expected) {
+		List<Double> collected = new ArrayList<>();
+		list.forEachDouble(v->collected.add(v));
+		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	
+	private static  void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
 		List unexpected = new ArrayList(expected);
 		unexpected.add(new Object());
 	
@@ -165,7 +190,7 @@ public class AbstractObjectListTest<E> {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Object[]::new)).isEqualTo(expected.toArray(new Object[expected.size()]));
+		assertThat(list.toArray(Double[]::new)).isEqualTo(expected.toArray(new Double[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
@@ -176,6 +201,9 @@ public class AbstractObjectListTest<E> {
 		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
+		
+		assertThat(list.streamDoubles()).containsExactlyElementsOf(expected);
+		assertThat(list.parallelStreamDoubles()).containsExactlyInAnyOrderElementsOf(expected);
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
