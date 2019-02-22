@@ -1,9 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
-cache:
-  directories:
-    - '$HOME/.m2/repository'
 jobs:
   include:
     - stage: "build & test"
@@ -21,4 +18,13 @@ jobs:
         - cd primitivepower
         - mvn -B -V install -DskipTests
       script:
-        - mvn -B -V test
+        - mvn test verify -P test-coverage
+      after_success: bash <(curl -s https://codecov.io/bash)
+
+
+#remove the installed maven jars before caching
+before_cache:
+  - rm -f -r $HOME/.m2/repository/com/github/power-libraries
+cache:
+  directories:
+    - "$HOME/.m2"

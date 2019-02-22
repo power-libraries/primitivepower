@@ -106,28 +106,28 @@ public class SimpleLongList extends AbstractLongList {
 		ListIterator<Long> it = l.listIterator(index);
 		return new Iterable<LongPointer>() {
 			public Iterator<LongPointer> iterator() {
-        		return new Iterator<LongPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public LongPointer next() {
-        				return new LongPointer() {
-        					public long get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<LongPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public LongPointer next() {
+						return new LongPointer() {
+							public long get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -168,7 +168,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public boolean addAll(Collection<? extends Long> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

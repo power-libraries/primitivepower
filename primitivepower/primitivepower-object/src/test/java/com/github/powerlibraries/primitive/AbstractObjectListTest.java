@@ -98,6 +98,19 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsObjectList(SimpleObjectList list, List<E> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleObjectList copy = new SimpleObjectList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleObjectList)null)).isFalse();
+		assertThat(list.equals((List<E>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleObjectList list, List<E> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -144,6 +157,10 @@ public class AbstractObjectListTest<E> {
 	
 	
 	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
+	
+	
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
@@ -152,8 +169,11 @@ public class AbstractObjectListTest<E> {
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
+		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.containsAll(unexpected)).isFalse();
+		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		
