@@ -104,28 +104,28 @@ public class SimpleBooleanList extends AbstractBooleanList {
 		ListIterator<Boolean> it = l.listIterator(index);
 		return new Iterable<BooleanPointer>() {
 			public Iterator<BooleanPointer> iterator() {
-        		return new Iterator<BooleanPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public BooleanPointer next() {
-        				return new BooleanPointer() {
-        					public boolean get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<BooleanPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public BooleanPointer next() {
+						return new BooleanPointer() {
+							public boolean get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -161,7 +161,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public boolean addAll(Collection<? extends Boolean> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

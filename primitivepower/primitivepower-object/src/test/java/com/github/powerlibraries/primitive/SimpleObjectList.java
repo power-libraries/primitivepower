@@ -104,28 +104,28 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 		ListIterator<E> it = l.listIterator(index);
 		return new Iterable<ObjectPointer<E>>() {
 			public Iterator<ObjectPointer<E>> iterator() {
-        		return new Iterator<ObjectPointer<E>>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public ObjectPointer<E> next() {
-        				return new ObjectPointer<E>() {
-        					public E get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<ObjectPointer<E>>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public ObjectPointer<E> next() {
+						return new ObjectPointer<E>() {
+							public E get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -161,7 +161,7 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override

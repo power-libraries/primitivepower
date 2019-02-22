@@ -106,28 +106,28 @@ public class SimpleIntList extends AbstractIntList {
 		ListIterator<Integer> it = l.listIterator(index);
 		return new Iterable<IntPointer>() {
 			public Iterator<IntPointer> iterator() {
-        		return new Iterator<IntPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public IntPointer next() {
-        				return new IntPointer() {
-        					public int get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<IntPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public IntPointer next() {
+						return new IntPointer() {
+							public int get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -168,7 +168,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public boolean addAll(Collection<? extends Integer> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
