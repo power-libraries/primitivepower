@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractDoubleList;
-import com.github.powerlibraries.primitive.collections.DoubleCollection;
-import com.github.powerlibraries.primitive.collections.DoubleList;
-import com.github.powerlibraries.primitive.collections.DoubleListIterator;
-import com.github.powerlibraries.primitive.common.DoublePointer;
+import com.github.powerlibraries.primitive.collections.AbstractFloatList;
+import com.github.powerlibraries.primitive.collections.FloatCollection;
+import com.github.powerlibraries.primitive.collections.FloatList;
+import com.github.powerlibraries.primitive.collections.FloatListIterator;
+import com.github.powerlibraries.primitive.common.FloatPointer;
 
-public class SimpleDoubleList extends AbstractDoubleList {
+public class SimpleFloatList extends AbstractFloatList {
 
-	private List<Double> l = new ArrayList<>();
+	private List<Float> l = new ArrayList<>();
 
 	@Override
-	public double getDouble(int index) {
+	public float getFloat(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public double setDouble(int index, double element) {
+	public float setFloat(int index, float element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addDouble(int index, double element) {
+	public void addFloat(int index, float element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfDouble(double o) {
+	public int lastIndexOfFloat(float o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public DoubleList subList(int fromIndex, int toIndex) {
+	public FloatList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public DoubleListIterator listIterator(int index) {
-		ListIterator<Double> it = l.listIterator(index);
-		return new DoubleListIterator() {
+	public FloatListIterator listIterator(int index) {
+		ListIterator<Float> it = l.listIterator(index);
+		return new FloatListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleDoubleList extends AbstractDoubleList {
 			}
 			
 			@Override
-			public void setDouble(double e) {
+			public void setFloat(float e) {
 				it.set(e);
 			}
 			
 			@Override
-			public double previousDouble() {
+			public float previousFloat() {
 				return it.previous();
 			}
 			
 			@Override
-			public double nextDouble() {
+			public float nextFloat() {
 				return it.next();
 			}
 			
 			@Override
-			public void addDouble(double e) {
+			public void addFloat(float e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfDouble(double e) {
+	public int indexOfFloat(float e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<DoublePointer> primitiveIterable(int index) {
-		ListIterator<Double> it = l.listIterator(index);
-		return new Iterable<DoublePointer>() {
-			public Iterator<DoublePointer> iterator() {
-				return new Iterator<DoublePointer>() {
+	public Iterable<FloatPointer> primitiveIterable(int index) {
+		ListIterator<Float> it = l.listIterator(index);
+		return new Iterable<FloatPointer>() {
+			public Iterator<FloatPointer> iterator() {
+				return new Iterator<FloatPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleDoubleList extends AbstractDoubleList {
 					}
 					
 					@Override
-					public DoublePointer next() {
-						return new DoublePointer() {
-							public double get() {
+					public FloatPointer next() {
+						return new FloatPointer() {
+							public float get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public double removeAt(int index) {
+	public float removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public DoubleBuffer asBuffer() {
+	public FloatBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -153,7 +153,7 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Double> c) {
+	public boolean addAll(Collection<? extends Float> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Double> c) {
+	public boolean addAll(int index, Collection<? extends Float> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleDoubleList extends AbstractDoubleList {
 	}
 
 	@Override
-	public boolean containsDouble(double o) {
+	public boolean containsFloat(float o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public double[] toDoubleArray() {
+	public float[] toFloatArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addDouble(double e) {
+	public boolean addFloat(float e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeDouble(double o) {
-		return l.remove((Double)o);
+	public boolean removeFloat(float o) {
+		return l.remove((Float)o);
 	}
 
 	@Override
-	public boolean addAllDoubles(DoubleCollection c) {
+	public boolean addAllFloats(FloatCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

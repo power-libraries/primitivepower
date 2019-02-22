@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,11 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class AbstractCharListTest {
+public class AbstractFloatListTest {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleCharList list = new SimpleCharList();
+		SimpleFloatList list = new SimpleFloatList();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -30,38 +30,38 @@ public class AbstractCharListTest {
 	@Test
 	public void randomTest() {
 		Random r = new Random(7);
-		List<Character> expected = new ArrayList<>();
-		SimpleCharList list = new SimpleCharList();
+		List<Float> expected = new ArrayList<>();
+		SimpleFloatList list = new SimpleFloatList();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				char v = ((char)r.nextInt(9));
+				float v = ((float)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				char v;
+				float v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((char)r.nextInt(9));
-						assertThat(list.remove((Character)v))
-							.isEqualTo(expected.remove((Character)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.remove((Float)v))
+							.isEqualTo(expected.remove((Float)v));
 						break;
 					case 1:
-						v = ((char)r.nextInt(9));
-						assertThat(list.indexOf((Character)v))
-							.isEqualTo(expected.indexOf((Character)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.indexOf((Float)v))
+							.isEqualTo(expected.indexOf((Float)v));
 						break;
 					case 2:
-						v = ((char)r.nextInt(9));
-						assertThat(list.lastIndexOf((Character)v))
-							.isEqualTo(expected.lastIndexOf((Character)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.lastIndexOf((Float)v))
+							.isEqualTo(expected.lastIndexOf((Float)v));
 						break;
 					case 3:
-						v = ((char)r.nextInt(9));
-						assertThat(list.contains((Character)v))
-							.isEqualTo(expected.contains((Character)v));
+						v = ((float)r.nextInt(9));
+						assertThat(list.contains((Float)v))
+							.isEqualTo(expected.contains((Float)v));
 						break;
 				}
 			}
@@ -75,12 +75,12 @@ public class AbstractCharListTest {
 			.of(7,24829,98417242323L)
 			.mapToObj(Random::new)
 			.map(r -> {
-				List<Character> expected = new ArrayList<>();
-				SimpleCharList list = new SimpleCharList();
+				List<Float> expected = new ArrayList<>();
+				SimpleFloatList list = new SimpleFloatList();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					char v = ((char)r.nextInt(9));
+					float v = ((float)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -90,28 +90,43 @@ public class AbstractCharListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleCharList list, List<Character> expected) {
-		list.replaceAll(v -> '\u0000');
-		expected.replaceAll(v -> '\u0000');
+	public void replaceAll(SimpleFloatList list, List<Float> expected) {
+		list.replaceAll(v -> 0f);
+		expected.replaceAll(v -> 0f);
 
 		readOnlyTests(list, expected);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsCharList(SimpleCharList list, List<Character> expected) {
+	public void equalsFloatList(SimpleFloatList list, List<Float> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleCharList copy = new SimpleCharList();
+		SimpleFloatList copy = new SimpleFloatList();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleCharList)null)).isFalse();
-		assertThat(list.equals((List<Character>)null)).isFalse();
+		assertThat(list.equals((SimpleFloatList)null)).isFalse();
+		assertThat(list.equals((List<Float>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleCharList list, List<Character> expected) {
+	public void testFloatCollectionFunctions(SimpleFloatList list, List<Float> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleFloatList copy = new SimpleFloatList();
+		copy.addAll(list);
+		copy.removeAllFloats(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleFloatList();
+		copy.addAll(list);
+		copy.retainAllFloats(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleFloatList list, List<Float> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,43 +136,43 @@ public class AbstractCharListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleCharList list, List<Character> expected) {
+	public void get(SimpleFloatList list, List<Float> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleCharList list, List<Character> expected) {
+	public void set(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			char v = ((char)r.nextInt(9));
+			float v = ((float)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleCharList list, List<Character> expected) {
+	public void add(SimpleFloatList list, List<Float> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			char v = ((char)r.nextInt(9));
+			float v = ((float)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleCharList list, List<Character> expected) {
-		List collected = new ArrayList();
+	public void forEach(SimpleFloatList list, List<Float> expected) {
+		List<Float> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
 	
-	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
-		List unexpected = new ArrayList(expected);
+	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,7 +180,8 @@ public class AbstractCharListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Character[]::new)).isEqualTo(expected.toArray(new Character[expected.size()]));
+		
+		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		

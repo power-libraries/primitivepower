@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,11 +15,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class AbstractFloatListTest {
+public class AbstractByteListTest {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleFloatList list = new SimpleFloatList();
+		SimpleByteList list = new SimpleByteList();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -30,38 +30,38 @@ public class AbstractFloatListTest {
 	@Test
 	public void randomTest() {
 		Random r = new Random(7);
-		List<Float> expected = new ArrayList<>();
-		SimpleFloatList list = new SimpleFloatList();
+		List<Byte> expected = new ArrayList<>();
+		SimpleByteList list = new SimpleByteList();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
-				float v = ((float)r.nextInt(9));
+				byte v = ((byte)r.nextInt(9));
 				assertThat(list.add(v))
 						.isEqualTo(expected.add(v));
 			}
 			else {
-				float v;
+				byte v;
 				switch(r.nextInt(4)) {
 					case 0:
-						v = ((float)r.nextInt(9));
-						assertThat(list.remove((Float)v))
-							.isEqualTo(expected.remove((Float)v));
+						v = ((byte)r.nextInt(9));
+						assertThat(list.remove((Byte)v))
+							.isEqualTo(expected.remove((Byte)v));
 						break;
 					case 1:
-						v = ((float)r.nextInt(9));
-						assertThat(list.indexOf((Float)v))
-							.isEqualTo(expected.indexOf((Float)v));
+						v = ((byte)r.nextInt(9));
+						assertThat(list.indexOf((Byte)v))
+							.isEqualTo(expected.indexOf((Byte)v));
 						break;
 					case 2:
-						v = ((float)r.nextInt(9));
-						assertThat(list.lastIndexOf((Float)v))
-							.isEqualTo(expected.lastIndexOf((Float)v));
+						v = ((byte)r.nextInt(9));
+						assertThat(list.lastIndexOf((Byte)v))
+							.isEqualTo(expected.lastIndexOf((Byte)v));
 						break;
 					case 3:
-						v = ((float)r.nextInt(9));
-						assertThat(list.contains((Float)v))
-							.isEqualTo(expected.contains((Float)v));
+						v = ((byte)r.nextInt(9));
+						assertThat(list.contains((Byte)v))
+							.isEqualTo(expected.contains((Byte)v));
 						break;
 				}
 			}
@@ -75,12 +75,12 @@ public class AbstractFloatListTest {
 			.of(7,24829,98417242323L)
 			.mapToObj(Random::new)
 			.map(r -> {
-				List<Float> expected = new ArrayList<>();
-				SimpleFloatList list = new SimpleFloatList();
+				List<Byte> expected = new ArrayList<>();
+				SimpleByteList list = new SimpleByteList();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
-					float v = ((float)r.nextInt(9));
+					byte v = ((byte)r.nextInt(9));
 					list.add(v);
 					expected.add(v);
 				}
@@ -90,28 +90,43 @@ public class AbstractFloatListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleFloatList list, List<Float> expected) {
-		list.replaceAll(v -> 0f);
-		expected.replaceAll(v -> 0f);
+	public void replaceAll(SimpleByteList list, List<Byte> expected) {
+		list.replaceAll(v -> ((byte)0));
+		expected.replaceAll(v -> ((byte)0));
 
 		readOnlyTests(list, expected);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsFloatList(SimpleFloatList list, List<Float> expected) {
+	public void equalsByteList(SimpleByteList list, List<Byte> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleFloatList copy = new SimpleFloatList();
+		SimpleByteList copy = new SimpleByteList();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleFloatList)null)).isFalse();
-		assertThat(list.equals((List<Float>)null)).isFalse();
+		assertThat(list.equals((SimpleByteList)null)).isFalse();
+		assertThat(list.equals((List<Byte>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleFloatList list, List<Float> expected) {
+	public void testByteCollectionFunctions(SimpleByteList list, List<Byte> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleByteList copy = new SimpleByteList();
+		copy.addAll(list);
+		copy.removeAllBytes(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleByteList();
+		copy.addAll(list);
+		copy.retainAllBytes(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleByteList list, List<Byte> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,43 +136,43 @@ public class AbstractFloatListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleFloatList list, List<Float> expected) {
+	public void get(SimpleByteList list, List<Byte> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleFloatList list, List<Float> expected) {
+	public void set(SimpleByteList list, List<Byte> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
-			float v = ((float)r.nextInt(9));
+			byte v = ((byte)r.nextInt(9));
 			assertThat(list.set(i, v)).isEqualTo(expected.set(i, v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleFloatList list, List<Float> expected) {
+	public void add(SimpleByteList list, List<Byte> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
-			float v = ((float)r.nextInt(9));
+			byte v = ((byte)r.nextInt(9));
 			assertThat(list.add(v)).isEqualTo(expected.add(v));
 			readOnlyTests(list, expected);
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleFloatList list, List<Float> expected) {
-		List collected = new ArrayList();
+	public void forEach(SimpleByteList list, List<Byte> expected) {
+		List<Byte> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
 	
-	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
-		List unexpected = new ArrayList(expected);
+	private static  void readOnlyTests(SimpleByteList list, List<Byte> expected) {
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,7 +180,8 @@ public class AbstractFloatListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
+		
+		assertThat(list.toArray(Byte[]::new)).isEqualTo(expected.toArray(new Byte[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		

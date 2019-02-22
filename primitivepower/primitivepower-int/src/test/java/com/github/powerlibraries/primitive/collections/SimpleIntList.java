@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.LongBuffer;
+import java.nio.IntBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractLongList;
-import com.github.powerlibraries.primitive.collections.LongCollection;
-import com.github.powerlibraries.primitive.collections.LongList;
-import com.github.powerlibraries.primitive.collections.LongListIterator;
-import com.github.powerlibraries.primitive.common.LongPointer;
+import com.github.powerlibraries.primitive.collections.AbstractIntList;
+import com.github.powerlibraries.primitive.collections.IntCollection;
+import com.github.powerlibraries.primitive.collections.IntList;
+import com.github.powerlibraries.primitive.collections.IntListIterator;
+import com.github.powerlibraries.primitive.common.IntPointer;
 
-public class SimpleLongList extends AbstractLongList {
+public class SimpleIntList extends AbstractIntList {
 
-	private List<Long> l = new ArrayList<>();
+	private List<Integer> l = new ArrayList<>();
 
 	@Override
-	public long getLong(int index) {
+	public int getInt(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public long setLong(int index, long element) {
+	public int setInt(int index, int element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addLong(int index, long element) {
+	public void addInt(int index, int element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfLong(long o) {
+	public int lastIndexOfInt(int o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public LongList subList(int fromIndex, int toIndex) {
+	public IntList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public LongListIterator listIterator(int index) {
-		ListIterator<Long> it = l.listIterator(index);
-		return new LongListIterator() {
+	public IntListIterator listIterator(int index) {
+		ListIterator<Integer> it = l.listIterator(index);
+		return new IntListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleLongList extends AbstractLongList {
 			}
 			
 			@Override
-			public void setLong(long e) {
+			public void setInt(int e) {
 				it.set(e);
 			}
 			
 			@Override
-			public long previousLong() {
+			public int previousInt() {
 				return it.previous();
 			}
 			
 			@Override
-			public long nextLong() {
+			public int nextInt() {
 				return it.next();
 			}
 			
 			@Override
-			public void addLong(long e) {
+			public void addInt(int e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfLong(long e) {
+	public int indexOfInt(int e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<LongPointer> primitiveIterable(int index) {
-		ListIterator<Long> it = l.listIterator(index);
-		return new Iterable<LongPointer>() {
-			public Iterator<LongPointer> iterator() {
-				return new Iterator<LongPointer>() {
+	public Iterable<IntPointer> primitiveIterable(int index) {
+		ListIterator<Integer> it = l.listIterator(index);
+		return new Iterable<IntPointer>() {
+			public Iterator<IntPointer> iterator() {
+				return new Iterator<IntPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleLongList extends AbstractLongList {
 					}
 					
 					@Override
-					public LongPointer next() {
-						return new LongPointer() {
-							public long get() {
+					public IntPointer next() {
+						return new IntPointer() {
+							public int get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleLongList extends AbstractLongList {
 	}
 
 	@Override
-	public long removeAt(int index) {
+	public int removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public LongBuffer asBuffer() {
+	public IntBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -153,7 +153,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleLongList extends AbstractLongList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Long> c) {
+	public boolean addAll(Collection<? extends Integer> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Long> c) {
+	public boolean addAll(int index, Collection<? extends Integer> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleLongList extends AbstractLongList {
 	}
 
 	@Override
-	public boolean containsLong(long o) {
+	public boolean containsInt(int o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public long[] toLongArray() {
+	public int[] toIntArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addLong(long e) {
+	public boolean addInt(int e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeLong(long o) {
-		return l.remove((Long)o);
+	public boolean removeInt(int o) {
+		return l.remove((Integer)o);
 	}
 
 	@Override
-	public boolean addAllLongs(LongCollection c) {
+	public boolean addAllInts(IntCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

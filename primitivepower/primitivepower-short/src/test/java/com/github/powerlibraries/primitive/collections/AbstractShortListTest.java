@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -111,6 +111,21 @@ public class AbstractShortListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testShortCollectionFunctions(SimpleShortList list, List<Short> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleShortList copy = new SimpleShortList();
+		copy.addAll(list);
+		copy.removeAllShorts(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleShortList();
+		copy.addAll(list);
+		copy.retainAllShorts(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleShortList list, List<Short> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractShortListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleShortList list, List<Short> expected) {
-		List collected = new ArrayList();
+		List<Short> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -157,7 +172,7 @@ public class AbstractShortListTest {
 	
 	
 	private static  void readOnlyTests(SimpleShortList list, List<Short> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,6 +180,7 @@ public class AbstractShortListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Short[]::new)).isEqualTo(expected.toArray(new Short[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

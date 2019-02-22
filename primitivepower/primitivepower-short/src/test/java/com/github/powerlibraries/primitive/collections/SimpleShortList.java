@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractByteList;
-import com.github.powerlibraries.primitive.collections.ByteCollection;
-import com.github.powerlibraries.primitive.collections.ByteList;
-import com.github.powerlibraries.primitive.collections.ByteListIterator;
-import com.github.powerlibraries.primitive.common.BytePointer;
+import com.github.powerlibraries.primitive.collections.AbstractShortList;
+import com.github.powerlibraries.primitive.collections.ShortCollection;
+import com.github.powerlibraries.primitive.collections.ShortList;
+import com.github.powerlibraries.primitive.collections.ShortListIterator;
+import com.github.powerlibraries.primitive.common.ShortPointer;
 
-public class SimpleByteList extends AbstractByteList {
+public class SimpleShortList extends AbstractShortList {
 
-	private List<Byte> l = new ArrayList<>();
+	private List<Short> l = new ArrayList<>();
 
 	@Override
-	public byte getByte(int index) {
+	public short getShort(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public byte setByte(int index, byte element) {
+	public short setShort(int index, short element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addByte(int index, byte element) {
+	public void addShort(int index, short element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfByte(byte o) {
+	public int lastIndexOfShort(short o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ByteList subList(int fromIndex, int toIndex) {
+	public ShortList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ByteListIterator listIterator(int index) {
-		ListIterator<Byte> it = l.listIterator(index);
-		return new ByteListIterator() {
+	public ShortListIterator listIterator(int index) {
+		ListIterator<Short> it = l.listIterator(index);
+		return new ShortListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleByteList extends AbstractByteList {
 			}
 			
 			@Override
-			public void setByte(byte e) {
+			public void setShort(short e) {
 				it.set(e);
 			}
 			
 			@Override
-			public byte previousByte() {
+			public short previousShort() {
 				return it.previous();
 			}
 			
 			@Override
-			public byte nextByte() {
+			public short nextShort() {
 				return it.next();
 			}
 			
 			@Override
-			public void addByte(byte e) {
+			public void addShort(short e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfByte(byte e) {
+	public int indexOfShort(short e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<BytePointer> primitiveIterable(int index) {
-		ListIterator<Byte> it = l.listIterator(index);
-		return new Iterable<BytePointer>() {
-			public Iterator<BytePointer> iterator() {
-				return new Iterator<BytePointer>() {
+	public Iterable<ShortPointer> primitiveIterable(int index) {
+		ListIterator<Short> it = l.listIterator(index);
+		return new Iterable<ShortPointer>() {
+			public Iterator<ShortPointer> iterator() {
+				return new Iterator<ShortPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleByteList extends AbstractByteList {
 					}
 					
 					@Override
-					public BytePointer next() {
-						return new BytePointer() {
-							public byte get() {
+					public ShortPointer next() {
+						return new ShortPointer() {
+							public short get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public byte removeAt(int index) {
+	public short removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public ByteBuffer asBuffer() {
+	public ShortBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -153,7 +153,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Byte> c) {
+	public boolean addAll(Collection<? extends Short> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Byte> c) {
+	public boolean addAll(int index, Collection<? extends Short> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleByteList extends AbstractByteList {
 	}
 
 	@Override
-	public boolean containsByte(byte o) {
+	public boolean containsShort(short o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public byte[] toByteArray() {
+	public short[] toShortArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addByte(byte e) {
+	public boolean addShort(short e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeByte(byte o) {
-		return l.remove((Byte)o);
+	public boolean removeShort(short o) {
+		return l.remove((Short)o);
 	}
 
 	@Override
-	public boolean addAllBytes(ByteCollection c) {
+	public boolean addAllShorts(ShortCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

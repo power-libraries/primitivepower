@@ -1,5 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
+
+import java.nio.DoubleBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractObjectList;
-import com.github.powerlibraries.primitive.collections.ObjectCollection;
-import com.github.powerlibraries.primitive.collections.ObjectList;
-import com.github.powerlibraries.primitive.collections.ObjectListIterator;
-import com.github.powerlibraries.primitive.common.ObjectPointer;
+import com.github.powerlibraries.primitive.collections.AbstractDoubleList;
+import com.github.powerlibraries.primitive.collections.DoubleCollection;
+import com.github.powerlibraries.primitive.collections.DoubleList;
+import com.github.powerlibraries.primitive.collections.DoubleListIterator;
+import com.github.powerlibraries.primitive.common.DoublePointer;
 
-public class SimpleObjectList<E> extends AbstractObjectList<E> {
+public class SimpleDoubleList extends AbstractDoubleList {
 
-	private List<E> l = new ArrayList<>();
+	private List<Double> l = new ArrayList<>();
 
 	@Override
-	public E getObject(int index) {
+	public double getDouble(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public E setObject(int index, E element) {
+	public double setDouble(int index, double element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addObject(int index, E element) {
+	public void addDouble(int index, double element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfObject(E o) {
+	public int lastIndexOfDouble(double o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ObjectList subList(int fromIndex, int toIndex) {
+	public DoubleList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ObjectListIterator<E> listIterator(int index) {
-		ListIterator<E> it = l.listIterator(index);
-		return new ObjectListIterator<E>() {
+	public DoubleListIterator listIterator(int index) {
+		ListIterator<Double> it = l.listIterator(index);
+		return new DoubleListIterator() {
 			
 			@Override
 			public void remove() {
@@ -73,38 +75,38 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 			}
 			
 			@Override
-			public void setObject(E e) {
+			public void setDouble(double e) {
 				it.set(e);
 			}
 			
 			@Override
-			public E previousObject() {
+			public double previousDouble() {
 				return it.previous();
 			}
 			
 			@Override
-			public E nextObject() {
+			public double nextDouble() {
 				return it.next();
 			}
 			
 			@Override
-			public void addObject(E e) {
+			public void addDouble(double e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfObject(E e) {
+	public int indexOfDouble(double e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<ObjectPointer<E>> primitiveIterable(int index) {
-		ListIterator<E> it = l.listIterator(index);
-		return new Iterable<ObjectPointer<E>>() {
-			public Iterator<ObjectPointer<E>> iterator() {
-				return new Iterator<ObjectPointer<E>>() {
+	public Iterable<DoublePointer> primitiveIterable(int index) {
+		ListIterator<Double> it = l.listIterator(index);
+		return new Iterable<DoublePointer>() {
+			public Iterator<DoublePointer> iterator() {
+				return new Iterator<DoublePointer>() {
 					
 					@Override
 					public void remove() {
@@ -117,9 +119,9 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 					}
 					
 					@Override
-					public ObjectPointer<E> next() {
-						return new ObjectPointer<E>() {
-							public E get() {
+					public DoublePointer next() {
+						return new DoublePointer() {
+							public double get() {
 								return it.next();
 							}
 						};
@@ -135,7 +137,12 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public E removeAt(int index) {
+	public double removeAt(int index) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public DoubleBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -146,7 +153,7 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -160,12 +167,12 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends E> c) {
+	public boolean addAll(Collection<? extends Double> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends E> c) {
+	public boolean addAll(int index, Collection<? extends Double> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -185,29 +192,39 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 	}
 
 	@Override
-	public boolean containsObject(E o) {
+	public boolean containsDouble(double o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public E[] toObjectArray() {
+	public double[] toDoubleArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addObject(E e) {
+	public boolean addDouble(double e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeObject(E o) {
-		return l.remove((E)o);
+	public boolean removeDouble(double o) {
+		return l.remove((Double)o);
 	}
 
 	@Override
-	public boolean addAllObjects(ObjectCollection c) {
+	public boolean addAllDoubles(DoubleCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	
+	
+	@Override
+	public void sort() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void parallelSort() {
+		throw new UnsupportedOperationException();
+	}
 	
 }

@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.ShortBuffer;
+import java.nio.CharBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractShortList;
-import com.github.powerlibraries.primitive.collections.ShortCollection;
-import com.github.powerlibraries.primitive.collections.ShortList;
-import com.github.powerlibraries.primitive.collections.ShortListIterator;
-import com.github.powerlibraries.primitive.common.ShortPointer;
+import com.github.powerlibraries.primitive.collections.AbstractCharList;
+import com.github.powerlibraries.primitive.collections.CharCollection;
+import com.github.powerlibraries.primitive.collections.CharList;
+import com.github.powerlibraries.primitive.collections.CharListIterator;
+import com.github.powerlibraries.primitive.common.CharPointer;
 
-public class SimpleShortList extends AbstractShortList {
+public class SimpleCharList extends AbstractCharList {
 
-	private List<Short> l = new ArrayList<>();
+	private List<Character> l = new ArrayList<>();
 
 	@Override
-	public short getShort(int index) {
+	public char getChar(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public short setShort(int index, short element) {
+	public char setChar(int index, char element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addShort(int index, short element) {
+	public void addChar(int index, char element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfShort(short o) {
+	public int lastIndexOfChar(char o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public ShortList subList(int fromIndex, int toIndex) {
+	public CharList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public ShortListIterator listIterator(int index) {
-		ListIterator<Short> it = l.listIterator(index);
-		return new ShortListIterator() {
+	public CharListIterator listIterator(int index) {
+		ListIterator<Character> it = l.listIterator(index);
+		return new CharListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleShortList extends AbstractShortList {
 			}
 			
 			@Override
-			public void setShort(short e) {
+			public void setChar(char e) {
 				it.set(e);
 			}
 			
 			@Override
-			public short previousShort() {
+			public char previousChar() {
 				return it.previous();
 			}
 			
 			@Override
-			public short nextShort() {
+			public char nextChar() {
 				return it.next();
 			}
 			
 			@Override
-			public void addShort(short e) {
+			public void addChar(char e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfShort(short e) {
+	public int indexOfChar(char e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<ShortPointer> primitiveIterable(int index) {
-		ListIterator<Short> it = l.listIterator(index);
-		return new Iterable<ShortPointer>() {
-			public Iterator<ShortPointer> iterator() {
-				return new Iterator<ShortPointer>() {
+	public Iterable<CharPointer> primitiveIterable(int index) {
+		ListIterator<Character> it = l.listIterator(index);
+		return new Iterable<CharPointer>() {
+			public Iterator<CharPointer> iterator() {
+				return new Iterator<CharPointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleShortList extends AbstractShortList {
 					}
 					
 					@Override
-					public ShortPointer next() {
-						return new ShortPointer() {
-							public short get() {
+					public CharPointer next() {
+						return new CharPointer() {
+							public char get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public short removeAt(int index) {
+	public char removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public ShortBuffer asBuffer() {
+	public CharBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -153,7 +153,7 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Short> c) {
+	public boolean addAll(Collection<? extends Character> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Short> c) {
+	public boolean addAll(int index, Collection<? extends Character> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleShortList extends AbstractShortList {
 	}
 
 	@Override
-	public boolean containsShort(short o) {
+	public boolean containsChar(char o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public short[] toShortArray() {
+	public char[] toCharArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addShort(short e) {
+	public boolean addChar(char e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeShort(short o) {
-		return l.remove((Short)o);
+	public boolean removeChar(char o) {
+		return l.remove((Character)o);
 	}
 
 	@Override
-	public boolean addAllShorts(ShortCollection c) {
+	public boolean addAllChars(CharCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	

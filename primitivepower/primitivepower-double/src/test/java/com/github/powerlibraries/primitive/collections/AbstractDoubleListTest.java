@@ -1,4 +1,4 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -111,6 +111,21 @@ public class AbstractDoubleListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testDoubleCollectionFunctions(SimpleDoubleList list, List<Double> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleDoubleList copy = new SimpleDoubleList();
+		copy.addAll(list);
+		copy.removeAllDoubles(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleDoubleList();
+		copy.addAll(list);
+		copy.retainAllDoubles(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleDoubleList list, List<Double> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractDoubleListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleDoubleList list, List<Double> expected) {
-		List collected = new ArrayList();
+		List<Double> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -182,7 +197,7 @@ public class AbstractDoubleListTest {
 	
 	
 	private static  void readOnlyTests(SimpleDoubleList list, List<Double> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -190,6 +205,7 @@ public class AbstractDoubleListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Double[]::new)).isEqualTo(expected.toArray(new Double[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

@@ -1,7 +1,7 @@
-package com.github.powerlibraries.primitive;
+package com.github.powerlibraries.primitive.collections;
 
 
-import java.nio.CharBuffer;
+import java.nio.ByteBuffer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,45 +9,45 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.github.powerlibraries.primitive.collections.AbstractCharList;
-import com.github.powerlibraries.primitive.collections.CharCollection;
-import com.github.powerlibraries.primitive.collections.CharList;
-import com.github.powerlibraries.primitive.collections.CharListIterator;
-import com.github.powerlibraries.primitive.common.CharPointer;
+import com.github.powerlibraries.primitive.collections.AbstractByteList;
+import com.github.powerlibraries.primitive.collections.ByteCollection;
+import com.github.powerlibraries.primitive.collections.ByteList;
+import com.github.powerlibraries.primitive.collections.ByteListIterator;
+import com.github.powerlibraries.primitive.common.BytePointer;
 
-public class SimpleCharList extends AbstractCharList {
+public class SimpleByteList extends AbstractByteList {
 
-	private List<Character> l = new ArrayList<>();
+	private List<Byte> l = new ArrayList<>();
 
 	@Override
-	public char getChar(int index) {
+	public byte getByte(int index) {
 		return l.get(index);
 	}
 
 	@Override
-	public char setChar(int index, char element) {
+	public byte setByte(int index, byte element) {
 		return l.set(index, element);
 	}
 
 	@Override
-	public void addChar(int index, char element) {
+	public void addByte(int index, byte element) {
 		l.add(index, element);
 	}
 
 	@Override
-	public int lastIndexOfChar(char o) {
+	public int lastIndexOfByte(byte o) {
 		return l.lastIndexOf(o);
 	}
 
 	@Override
-	public CharList subList(int fromIndex, int toIndex) {
+	public ByteList subList(int fromIndex, int toIndex) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public CharListIterator listIterator(int index) {
-		ListIterator<Character> it = l.listIterator(index);
-		return new CharListIterator() {
+	public ByteListIterator listIterator(int index) {
+		ListIterator<Byte> it = l.listIterator(index);
+		return new ByteListIterator() {
 			
 			@Override
 			public void remove() {
@@ -75,38 +75,38 @@ public class SimpleCharList extends AbstractCharList {
 			}
 			
 			@Override
-			public void setChar(char e) {
+			public void setByte(byte e) {
 				it.set(e);
 			}
 			
 			@Override
-			public char previousChar() {
+			public byte previousByte() {
 				return it.previous();
 			}
 			
 			@Override
-			public char nextChar() {
+			public byte nextByte() {
 				return it.next();
 			}
 			
 			@Override
-			public void addChar(char e) {
+			public void addByte(byte e) {
 				it.add(e);
 			}
 		};
 	}
 	
 	@Override
-	public int indexOfChar(char e) {
+	public int indexOfByte(byte e) {
 		return l.indexOf(e);
 	}
 
 	@Override
-	public Iterable<CharPointer> primitiveIterable(int index) {
-		ListIterator<Character> it = l.listIterator(index);
-		return new Iterable<CharPointer>() {
-			public Iterator<CharPointer> iterator() {
-				return new Iterator<CharPointer>() {
+	public Iterable<BytePointer> primitiveIterable(int index) {
+		ListIterator<Byte> it = l.listIterator(index);
+		return new Iterable<BytePointer>() {
+			public Iterator<BytePointer> iterator() {
+				return new Iterator<BytePointer>() {
 					
 					@Override
 					public void remove() {
@@ -119,9 +119,9 @@ public class SimpleCharList extends AbstractCharList {
 					}
 					
 					@Override
-					public CharPointer next() {
-						return new CharPointer() {
-							public char get() {
+					public BytePointer next() {
+						return new BytePointer() {
+							public byte get() {
 								return it.next();
 							}
 						};
@@ -137,12 +137,12 @@ public class SimpleCharList extends AbstractCharList {
 	}
 
 	@Override
-	public char removeAt(int index) {
+	public byte removeAt(int index) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public CharBuffer asBuffer() {
+	public ByteBuffer asBuffer() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -153,7 +153,7 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
@@ -167,12 +167,12 @@ public class SimpleCharList extends AbstractCharList {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Character> c) {
+	public boolean addAll(Collection<? extends Byte> c) {
 		return l.addAll(c);
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Character> c) {
+	public boolean addAll(int index, Collection<? extends Byte> c) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -192,27 +192,27 @@ public class SimpleCharList extends AbstractCharList {
 	}
 
 	@Override
-	public boolean containsChar(char o) {
+	public boolean containsByte(byte o) {
 		return l.contains(o);
 	}
 
 	@Override
-	public char[] toCharArray() {
+	public byte[] toByteArray() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public boolean addChar(char e) {
+	public boolean addByte(byte e) {
 		return l.add(e);
 	}
 
 	@Override
-	public boolean removeChar(char o) {
-		return l.remove((Character)o);
+	public boolean removeByte(byte o) {
+		return l.remove((Byte)o);
 	}
 
 	@Override
-	public boolean addAllChars(CharCollection c) {
+	public boolean addAllBytes(ByteCollection c) {
 		throw new UnsupportedOperationException();
 	}
 	
