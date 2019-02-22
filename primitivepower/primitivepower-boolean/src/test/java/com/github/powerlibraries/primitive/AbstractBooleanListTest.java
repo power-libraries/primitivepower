@@ -98,6 +98,19 @@ public class AbstractBooleanListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsBooleanList(SimpleBooleanList list, List<Boolean> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleBooleanList copy = new SimpleBooleanList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleBooleanList)null)).isFalse();
+		assertThat(list.equals((List<Boolean>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleBooleanList list, List<Boolean> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -144,6 +157,10 @@ public class AbstractBooleanListTest {
 	
 	
 	private static  void readOnlyTests(SimpleBooleanList list, List<Boolean> expected) {
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
+	
+	
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
@@ -152,8 +169,11 @@ public class AbstractBooleanListTest {
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
+		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.containsAll(unexpected)).isFalse();
+		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		

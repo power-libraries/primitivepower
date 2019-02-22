@@ -91,7 +91,7 @@ public abstract class AbstractByteList extends AbstractByteCollection implements
 			if(!(o2 instanceof Byte)) {
 				return false;
 			}
-			if (o2!=null || e1.nextByte() != (Byte)o2) {
+			if (o2==null || e1.nextByte() != (Byte)o2) {
 				return false;
 			}
 		}

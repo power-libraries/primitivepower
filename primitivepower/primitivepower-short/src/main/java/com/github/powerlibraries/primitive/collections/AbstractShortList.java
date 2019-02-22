@@ -91,7 +91,7 @@ public abstract class AbstractShortList extends AbstractShortCollection implemen
 			if(!(o2 instanceof Short)) {
 				return false;
 			}
-			if (o2!=null || e1.nextShort() != (Short)o2) {
+			if (o2==null || e1.nextShort() != (Short)o2) {
 				return false;
 			}
 		}
