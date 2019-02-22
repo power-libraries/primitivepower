@@ -91,7 +91,7 @@ public abstract class AbstractCharList extends AbstractCharCollection implements
 			if(!(o2 instanceof Character)) {
 				return false;
 			}
-			if (o2!=null || e1.nextChar() != (Character)o2) {
+			if (o2==null || e1.nextChar() != (Character)o2) {
 				return false;
 			}
 		}

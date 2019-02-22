@@ -45,6 +45,11 @@ public enum Type {
 		public String randomValue(String random) {
 			return "(E)TimeUnit.values()["+random+".nextInt(7)]";
 		}
+		
+		@Override
+		public String unbox(String boxedValue) {
+			return boxedValue;
+		}
 	},
 	INT(true, true,		"Int",		"",		"int",		"Integer",		"0"),
 	LONG(true, true,		"Long",		"",		"long",		"Long",			"0L"),
@@ -100,6 +105,10 @@ public enum Type {
 	
 	public boolean isNumeric() {
 		return isPrimitive() && this!=BOOLEAN;
+	}
+	
+	public String unbox(String boxedValue) {
+		return boxed+".valueOf("+boxedValue+")";
 	}
 	
 	public String getExtendedGeneric() {

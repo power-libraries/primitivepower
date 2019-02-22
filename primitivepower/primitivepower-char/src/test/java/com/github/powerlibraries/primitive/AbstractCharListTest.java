@@ -98,6 +98,19 @@ public class AbstractCharListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void equalsCharList(SimpleCharList list, List<Character> expected) {
+		assertThat(list).isEqualTo(list);
+		assertThat(list.equals(list)).isTrue();
+		
+		SimpleCharList copy = new SimpleCharList();
+		copy.addAll(list);
+		assertThat(copy).isEqualTo(list);
+		
+		assertThat(list.equals((SimpleCharList)null)).isFalse();
+		assertThat(list.equals((List<Character>)null)).isFalse();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleCharList list, List<Character> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -144,6 +157,10 @@ public class AbstractCharListTest {
 	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
+		List unexpected = new ArrayList(expected);
+		unexpected.add(new Object());
+	
+	
 		assertThat(list.size()).isEqualTo(expected.size());
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
@@ -152,8 +169,11 @@ public class AbstractCharListTest {
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		
+		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
+		assertThat(list.containsAll(unexpected)).isFalse();
+		
 		assertThat(list.stream()).containsExactlyElementsOf(expected);
 		assertThat(list.parallelStream()).containsExactlyInAnyOrderElementsOf(expected);
 		

@@ -106,28 +106,28 @@ public class SimpleFloatList extends AbstractFloatList {
 		ListIterator<Float> it = l.listIterator(index);
 		return new Iterable<FloatPointer>() {
 			public Iterator<FloatPointer> iterator() {
-        		return new Iterator<FloatPointer>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public FloatPointer next() {
-        				return new FloatPointer() {
-        					public float get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<FloatPointer>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public FloatPointer next() {
+						return new FloatPointer() {
+							public float get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -168,7 +168,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public boolean addAll(Collection<? extends Float> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
