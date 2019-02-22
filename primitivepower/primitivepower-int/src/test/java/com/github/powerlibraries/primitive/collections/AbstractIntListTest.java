@@ -111,6 +111,21 @@ public class AbstractIntListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testIntCollectionFunctions(SimpleIntList list, List<Integer> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleIntList copy = new SimpleIntList();
+		copy.addAll(list);
+		copy.removeAllInts(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleIntList();
+		copy.addAll(list);
+		copy.retainAllInts(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleIntList list, List<Integer> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractIntListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleIntList list, List<Integer> expected) {
-		List collected = new ArrayList();
+		List<Integer> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -182,7 +197,7 @@ public class AbstractIntListTest {
 	
 	
 	private static  void readOnlyTests(SimpleIntList list, List<Integer> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -190,6 +205,7 @@ public class AbstractIntListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Integer[]::new)).isEqualTo(expected.toArray(new Integer[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

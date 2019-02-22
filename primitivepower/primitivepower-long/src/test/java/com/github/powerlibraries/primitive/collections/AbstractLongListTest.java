@@ -111,6 +111,21 @@ public class AbstractLongListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testLongCollectionFunctions(SimpleLongList list, List<Long> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleLongList copy = new SimpleLongList();
+		copy.addAll(list);
+		copy.removeAllLongs(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleLongList();
+		copy.addAll(list);
+		copy.retainAllLongs(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleLongList list, List<Long> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractLongListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleLongList list, List<Long> expected) {
-		List collected = new ArrayList();
+		List<Long> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -182,7 +197,7 @@ public class AbstractLongListTest {
 	
 	
 	private static  void readOnlyTests(SimpleLongList list, List<Long> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -190,6 +205,7 @@ public class AbstractLongListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Long[]::new)).isEqualTo(expected.toArray(new Long[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

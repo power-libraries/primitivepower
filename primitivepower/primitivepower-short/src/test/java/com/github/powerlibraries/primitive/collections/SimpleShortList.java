@@ -153,7 +153,7 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

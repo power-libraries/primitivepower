@@ -111,6 +111,21 @@ public class AbstractByteListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testByteCollectionFunctions(SimpleByteList list, List<Byte> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleByteList copy = new SimpleByteList();
+		copy.addAll(list);
+		copy.removeAllBytes(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleByteList();
+		copy.addAll(list);
+		copy.retainAllBytes(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleByteList list, List<Byte> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractByteListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleByteList list, List<Byte> expected) {
-		List collected = new ArrayList();
+		List<Byte> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -157,7 +172,7 @@ public class AbstractByteListTest {
 	
 	
 	private static  void readOnlyTests(SimpleByteList list, List<Byte> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,6 +180,7 @@ public class AbstractByteListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Byte[]::new)).isEqualTo(expected.toArray(new Byte[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

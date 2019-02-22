@@ -111,6 +111,21 @@ public class AbstractCharListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testCharCollectionFunctions(SimpleCharList list, List<Character> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleCharList copy = new SimpleCharList();
+		copy.addAll(list);
+		copy.removeAllChars(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleCharList();
+		copy.addAll(list);
+		copy.retainAllChars(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleCharList list, List<Character> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractCharListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleCharList list, List<Character> expected) {
-		List collected = new ArrayList();
+		List<Character> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -157,7 +172,7 @@ public class AbstractCharListTest {
 	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,6 +180,7 @@ public class AbstractCharListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Character[]::new)).isEqualTo(expected.toArray(new Character[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

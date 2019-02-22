@@ -153,7 +153,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

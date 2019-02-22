@@ -146,7 +146,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

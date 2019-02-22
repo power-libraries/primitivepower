@@ -153,7 +153,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

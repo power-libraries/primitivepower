@@ -153,7 +153,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

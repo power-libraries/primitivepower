@@ -111,6 +111,21 @@ public class AbstractFloatListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testFloatCollectionFunctions(SimpleFloatList list, List<Float> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleFloatList copy = new SimpleFloatList();
+		copy.addAll(list);
+		copy.removeAllFloats(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleFloatList();
+		copy.addAll(list);
+		copy.retainAllFloats(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleFloatList list, List<Float> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractFloatListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleFloatList list, List<Float> expected) {
-		List collected = new ArrayList();
+		List<Float> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -157,7 +172,7 @@ public class AbstractFloatListTest {
 	
 	
 	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,6 +180,7 @@ public class AbstractFloatListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Float[]::new)).isEqualTo(expected.toArray(new Float[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

@@ -19,7 +19,7 @@ public class AbstractObjectListTest<E> {
 
 	@Test
 	public void guardConditionsTest() {
-		SimpleObjectList list = new SimpleObjectList();
+		SimpleObjectList<E> list = new SimpleObjectList<E>();
 		
 		assertThat(list.contains(null)).isFalse();
 		assertThat(list.remove(null)).isFalse();
@@ -31,7 +31,7 @@ public class AbstractObjectListTest<E> {
 	public void randomTest() {
 		Random r = new Random(7);
 		List<E> expected = new ArrayList<>();
-		SimpleObjectList list = new SimpleObjectList();
+		SimpleObjectList<E> list = new SimpleObjectList<E>();
 		
 		for(int i=0; i<2000; i++) {
 			//adding a value
@@ -76,7 +76,7 @@ public class AbstractObjectListTest<E> {
 			.mapToObj(Random::new)
 			.map(r -> {
 				List<E> expected = new ArrayList<>();
-				SimpleObjectList list = new SimpleObjectList();
+				SimpleObjectList<E> list = new SimpleObjectList<E>();
 				
 				for(int i=0; i<100; i++) {
 					//adding a value
@@ -90,7 +90,7 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void replaceAll(SimpleObjectList list, List<E> expected) {
+	public void replaceAll(SimpleObjectList<E> list, List<E> expected) {
 		list.replaceAll(v -> null);
 		expected.replaceAll(v -> null);
 
@@ -98,20 +98,35 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void equalsObjectList(SimpleObjectList list, List<E> expected) {
+	public void equalsObjectList(SimpleObjectList<E> list, List<E> expected) {
 		assertThat(list).isEqualTo(list);
 		assertThat(list.equals(list)).isTrue();
 		
-		SimpleObjectList copy = new SimpleObjectList();
+		SimpleObjectList<E> copy = new SimpleObjectList<E>();
 		copy.addAll(list);
 		assertThat(copy).isEqualTo(list);
 		
-		assertThat(list.equals((SimpleObjectList)null)).isFalse();
+		assertThat(list.equals((SimpleObjectList<E>)null)).isFalse();
 		assertThat(list.equals((List<E>)null)).isFalse();
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void removeIf(SimpleObjectList list, List<E> expected) {
+	public void testObjectCollectionFunctions(SimpleObjectList<E> list, List<E> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleObjectList<E> copy = new SimpleObjectList<E>();
+		copy.addAll(list);
+		copy.removeAllObjects(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleObjectList<E>();
+		copy.addAll(list);
+		copy.retainAllObjects(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void removeIf(SimpleObjectList<E> list, List<E> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
 		Random r2 = new Random(9);
@@ -121,14 +136,14 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void get(SimpleObjectList list, List<E> expected) {
+	public void get(SimpleObjectList<E> list, List<E> expected) {
 		for(int i = 0; i < expected.size(); i++) {
 			assertThat(list.get(i)).isEqualTo(expected.get(i));
 		}
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void set(SimpleObjectList list, List<E> expected) {
+	public void set(SimpleObjectList<E> list, List<E> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < expected.size(); i++) {
 			E v = (E)TimeUnit.values()[r.nextInt(7)];
@@ -138,7 +153,7 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void add(SimpleObjectList list, List<E> expected) {
+	public void add(SimpleObjectList<E> list, List<E> expected) {
 		Random r = new Random(9);
 		for(int i = 0; i < 50; i++) {
 			E v = (E)TimeUnit.values()[r.nextInt(7)];
@@ -148,16 +163,16 @@ public class AbstractObjectListTest<E> {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
-	public void forEach(SimpleObjectList list, List<E> expected) {
-		List collected = new ArrayList();
+	public void forEach(SimpleObjectList<E> list, List<E> expected) {
+		List<E> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
 	
 	
-	private static <E> void readOnlyTests(SimpleObjectList list, List<E> expected) {
-		List unexpected = new ArrayList(expected);
+	private static <E> void readOnlyTests(SimpleObjectList<E> list, List<E> expected) {
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,7 +180,6 @@ public class AbstractObjectListTest<E> {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
-		assertThat(list.toArray(Object[]::new)).isEqualTo(expected.toArray(new Object[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);
 		

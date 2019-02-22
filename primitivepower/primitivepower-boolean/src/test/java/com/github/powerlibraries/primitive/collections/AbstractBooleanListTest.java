@@ -111,6 +111,21 @@ public class AbstractBooleanListTest {
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void testBooleanCollectionFunctions(SimpleBooleanList list, List<Boolean> expected) {
+		assertThat(list.containsAll(list)).isTrue();
+		
+		SimpleBooleanList copy = new SimpleBooleanList();
+		copy.addAll(list);
+		copy.removeAllBooleans(list);
+		assertThat(copy).isEmpty();
+		
+		copy = new SimpleBooleanList();
+		copy.addAll(list);
+		copy.retainAllBooleans(list);
+		assertThat(copy.containsAll(list)).isTrue();
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void removeIf(SimpleBooleanList list, List<Boolean> expected) {
 		Random r1 = new Random(9);
 		list.removeIf(v -> r1.nextBoolean());
@@ -149,7 +164,7 @@ public class AbstractBooleanListTest {
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void forEach(SimpleBooleanList list, List<Boolean> expected) {
-		List collected = new ArrayList();
+		List<Boolean> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
@@ -157,7 +172,7 @@ public class AbstractBooleanListTest {
 	
 	
 	private static  void readOnlyTests(SimpleBooleanList list, List<Boolean> expected) {
-		List unexpected = new ArrayList(expected);
+		List<Object> unexpected = new ArrayList<>(expected);
 		unexpected.add(new Object());
 	
 	
@@ -165,6 +180,7 @@ public class AbstractBooleanListTest {
 		assertThat(list.toString()).isEqualTo(expected.toString());
 		
 		assertThat(list.toArray()).isEqualTo(expected.toArray());
+		
 		assertThat(list.toArray(Boolean[]::new)).isEqualTo(expected.toArray(new Boolean[expected.size()]));
 		
 		assertThat(list).containsExactlyElementsOf(expected);

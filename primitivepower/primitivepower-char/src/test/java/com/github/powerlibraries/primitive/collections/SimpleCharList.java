@@ -153,7 +153,7 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override

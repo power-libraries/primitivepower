@@ -153,7 +153,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return l.isEmpty();
 	}
 
 	@Override
