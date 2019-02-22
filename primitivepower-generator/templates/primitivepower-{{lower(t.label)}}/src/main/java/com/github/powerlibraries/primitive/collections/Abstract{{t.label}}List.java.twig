@@ -85,7 +85,7 @@ public abstract class Abstract{{t.label}}List{{t.generic}} extends Abstract{{t.l
 		while (e1.hasNext() && e2.hasNext()) {
 			Object o2 = e2.next();
 			{{t.returnOnInvalidValue('o2','false',3)}}
-			if (o2!=null || {{t.unequal('e1.next'~t.label~'()', '('~t.boxed~')o2')}}) {
+			if (o2==null || {{t.unequal('e1.next'~t.label~'()', '('~t.boxed~')o2')}}) {
 				return false;
 			}
 		}

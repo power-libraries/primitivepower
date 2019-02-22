@@ -106,28 +106,28 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 		ListIterator<{{t.boxed}}> it = l.listIterator(index);
 		return new Iterable<{{t.label}}Pointer{{t.generic}}>() {
 			public Iterator<{{t.label}}Pointer{{t.generic}}> iterator() {
-        		return new Iterator<{{t.label}}Pointer{{t.generic}}>() {
-        			
-        			@Override
-        			public void remove() {
-        				it.remove();
-        			}
-        			
-        			@Override
-        			public boolean hasNext() {
-        				return it.hasNext();
-        			}
-        			
-        			@Override
-        			public {{t.label}}Pointer{{t.generic}} next() {
-        				return new {{t.label}}Pointer{{t.generic}}() {
-        					public {{t.type}} get() {
-        						return it.next();
-        					}
-        				};
-        			}
-        		};
-        	}
+				return new Iterator<{{t.label}}Pointer{{t.generic}}>() {
+					
+					@Override
+					public void remove() {
+						it.remove();
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return it.hasNext();
+					}
+					
+					@Override
+					public {{t.label}}Pointer{{t.generic}} next() {
+						return new {{t.label}}Pointer{{t.generic}}() {
+							public {{t.type}} get() {
+								return it.next();
+							}
+						};
+					}
+				};
+			}
 		};
 	}
 
@@ -168,7 +168,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public boolean addAll(Collection<? extends {{t.boxed}}> c) {
-		throw new UnsupportedOperationException();
+		return l.addAll(c);
 	}
 
 	@Override
