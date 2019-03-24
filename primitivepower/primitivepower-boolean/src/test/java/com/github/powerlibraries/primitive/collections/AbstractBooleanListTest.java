@@ -195,7 +195,7 @@ public class AbstractBooleanListTest {
 		
 		
 		assertThat(list.spliterator().characteristics()).isEqualTo(expected.spliterator().characteristics());
-		assertThat(Spliterators.iterator(list.spliterator())).containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
+		assertThat(Spliterators.iterator(list.spliterator())).toIterable().containsExactlyElementsOf(()->Spliterators.iterator(expected.spliterator()));
 		
 		assertThat(list.hashCode()).isEqualTo(expected.hashCode());
 		assertThat(list.equals(expected));
