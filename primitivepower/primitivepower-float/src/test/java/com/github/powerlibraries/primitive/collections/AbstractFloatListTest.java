@@ -33,7 +33,7 @@ public class AbstractFloatListTest {
 		List<Float> expected = new ArrayList<>();
 		SimpleFloatList list = new SimpleFloatList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				float v = ((float)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractFloatListTest {
 		copy.addAll(list);
 		copy.retainAllFloats(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllFloats(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractFloatListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleFloatList list, List<Float> expected) {
+		SimpleFloatList copy = new SimpleFloatList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		float v = ((float)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	
 	private static  void readOnlyTests(SimpleFloatList list, List<Float> expected) {
@@ -187,6 +201,7 @@ public class AbstractFloatListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllFloats(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

@@ -41,7 +41,9 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public {{t.label}}List subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		Simple{{t.label}}List{{t.generic}} result = new Simple{{t.label}}List{{t.generic}}();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class Simple{{t.label}}List{{t.generic}} extends Abstract{{t.label}}List{
 
 	@Override
 	public {{t.type}} removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	{% if t.bufferSupport %}
 	@Override

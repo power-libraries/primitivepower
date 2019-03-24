@@ -33,7 +33,7 @@ public class AbstractCharListTest {
 		List<Character> expected = new ArrayList<>();
 		SimpleCharList list = new SimpleCharList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				char v = ((char)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractCharListTest {
 		copy.addAll(list);
 		copy.retainAllChars(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllChars(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractCharListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleCharList list, List<Character> expected) {
+		SimpleCharList copy = new SimpleCharList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		char v = ((char)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	
 	private static  void readOnlyTests(SimpleCharList list, List<Character> expected) {
@@ -187,6 +201,7 @@ public class AbstractCharListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllChars(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

@@ -39,7 +39,9 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public ObjectList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleObjectList<E> result = new SimpleObjectList<E>();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -136,7 +138,7 @@ public class SimpleObjectList<E> extends AbstractObjectList<E> {
 
 	@Override
 	public E removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

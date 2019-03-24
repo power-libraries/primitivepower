@@ -33,7 +33,7 @@ public class AbstractLongListTest {
 		List<Long> expected = new ArrayList<>();
 		SimpleLongList list = new SimpleLongList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				long v = ((long)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractLongListTest {
 		copy.addAll(list);
 		copy.retainAllLongs(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllLongs(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractLongListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleLongList list, List<Long> expected) {
+		SimpleLongList copy = new SimpleLongList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		long v = ((long)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllLongs(SimpleLongList list, List<Long> expected) {
@@ -212,6 +226,7 @@ public class AbstractLongListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllLongs(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

@@ -33,7 +33,7 @@ public class AbstractObjectListTest<E> {
 		List<E> expected = new ArrayList<>();
 		SimpleObjectList<E> list = new SimpleObjectList<E>();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				E v = (E)TimeUnit.values()[r.nextInt(7)];
@@ -123,6 +123,9 @@ public class AbstractObjectListTest<E> {
 		copy.addAll(list);
 		copy.retainAllObjects(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllObjects(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractObjectListTest<E> {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleObjectList<E> list, List<E> expected) {
+		SimpleObjectList<E> copy = new SimpleObjectList<E>();
+		copy.addAll(list);
+		Random r = new Random(9);
+		E v = (E)TimeUnit.values()[r.nextInt(7)];
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	
 	private static <E> void readOnlyTests(SimpleObjectList<E> list, List<E> expected) {
@@ -185,6 +199,7 @@ public class AbstractObjectListTest<E> {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllObjects(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

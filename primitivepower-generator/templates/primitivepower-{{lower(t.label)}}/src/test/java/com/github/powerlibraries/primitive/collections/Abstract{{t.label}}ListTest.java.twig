@@ -33,7 +33,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		List<{{t.boxed}}> expected = new ArrayList<>();
 		Simple{{t.label}}List{{t.generic}} list = new Simple{{t.label}}List{{t.generic}}();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				{{t.type}} v = {{t.randomValue('r')}};
@@ -123,6 +123,9 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		copy.addAll(list);
 		copy.retainAll{{t.label}}s(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAll{{t.label}}s(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(Simple{{t.label}}List{{t.generic}} list, List<{{t.boxed}}> expected) {
+		Simple{{t.label}}List{{t.generic}} copy = new Simple{{t.label}}List{{t.generic}}();
+		copy.addAll(list);
+		Random r = new Random(9);
+		{{t.type}} v = {{t.randomValue('r')}};
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	{% if t.streamSupport %}
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAll{{t.label}}s(Simple{{t.label}}List{{t.generic}} list, List<{{t.boxed}}> expected) {
@@ -212,6 +226,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAll{{t.label}}s(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

@@ -41,7 +41,9 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public FloatList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleFloatList result = new SimpleFloatList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleFloatList extends AbstractFloatList {
 
 	@Override
 	public float removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class AbstractShortListTest {
 		List<Short> expected = new ArrayList<>();
 		SimpleShortList list = new SimpleShortList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				short v = ((short)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractShortListTest {
 		copy.addAll(list);
 		copy.retainAllShorts(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllShorts(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractShortListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleShortList list, List<Short> expected) {
+		SimpleShortList copy = new SimpleShortList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		short v = ((short)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	
 	private static  void readOnlyTests(SimpleShortList list, List<Short> expected) {
@@ -187,6 +201,7 @@ public class AbstractShortListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllShorts(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

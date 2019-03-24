@@ -41,7 +41,9 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public ShortList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleShortList result = new SimpleShortList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleShortList extends AbstractShortList {
 
 	@Override
 	public short removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class AbstractIntListTest {
 		List<Integer> expected = new ArrayList<>();
 		SimpleIntList list = new SimpleIntList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				int v = ((int)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractIntListTest {
 		copy.addAll(list);
 		copy.retainAllInts(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllInts(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractIntListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleIntList list, List<Integer> expected) {
+		SimpleIntList copy = new SimpleIntList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		int v = ((int)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllInts(SimpleIntList list, List<Integer> expected) {
@@ -212,6 +226,7 @@ public class AbstractIntListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllInts(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

@@ -41,7 +41,9 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public ByteList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleByteList result = new SimpleByteList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleByteList extends AbstractByteList {
 
 	@Override
 	public byte removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ public class AbstractDoubleListTest {
 		List<Double> expected = new ArrayList<>();
 		SimpleDoubleList list = new SimpleDoubleList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				double v = ((double)r.nextInt(9));
@@ -123,6 +123,9 @@ public class AbstractDoubleListTest {
 		copy.addAll(list);
 		copy.retainAllDoubles(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllDoubles(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractDoubleListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleDoubleList list, List<Double> expected) {
+		SimpleDoubleList copy = new SimpleDoubleList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		double v = ((double)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
 	public void replaceAllDoubles(SimpleDoubleList list, List<Double> expected) {
@@ -212,6 +226,7 @@ public class AbstractDoubleListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllDoubles(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

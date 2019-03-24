@@ -33,7 +33,7 @@ public class AbstractBooleanListTest {
 		List<Boolean> expected = new ArrayList<>();
 		SimpleBooleanList list = new SimpleBooleanList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				boolean v = r.nextBoolean();
@@ -123,6 +123,9 @@ public class AbstractBooleanListTest {
 		copy.addAll(list);
 		copy.retainAllBooleans(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllBooleans(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -169,6 +172,17 @@ public class AbstractBooleanListTest {
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
 	}
 	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleBooleanList list, List<Boolean> expected) {
+		SimpleBooleanList copy = new SimpleBooleanList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		boolean v = r.nextBoolean();
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
+	}
+	
 	
 	
 	private static  void readOnlyTests(SimpleBooleanList list, List<Boolean> expected) {
@@ -187,6 +201,7 @@ public class AbstractBooleanListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllBooleans(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		
