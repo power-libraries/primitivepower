@@ -33,7 +33,7 @@ public class AbstractFloatListTest {
 		List<Float> expected = new ArrayList<>();
 		SimpleFloatList list = new SimpleFloatList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				float v = ((float)r.nextInt(9));

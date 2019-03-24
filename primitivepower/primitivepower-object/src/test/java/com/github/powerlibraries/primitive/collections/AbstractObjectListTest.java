@@ -33,7 +33,7 @@ public class AbstractObjectListTest<E> {
 		List<E> expected = new ArrayList<>();
 		SimpleObjectList<E> list = new SimpleObjectList<E>();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				E v = (E)TimeUnit.values()[r.nextInt(7)];

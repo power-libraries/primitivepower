@@ -33,7 +33,7 @@ public class AbstractDoubleListTest {
 		List<Double> expected = new ArrayList<>();
 		SimpleDoubleList list = new SimpleDoubleList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				double v = ((double)r.nextInt(9));

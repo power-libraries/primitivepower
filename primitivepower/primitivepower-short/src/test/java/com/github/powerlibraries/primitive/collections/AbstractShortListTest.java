@@ -33,7 +33,7 @@ public class AbstractShortListTest {
 		List<Short> expected = new ArrayList<>();
 		SimpleShortList list = new SimpleShortList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				short v = ((short)r.nextInt(9));

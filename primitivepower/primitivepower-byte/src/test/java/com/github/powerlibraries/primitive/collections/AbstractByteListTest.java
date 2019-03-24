@@ -33,7 +33,7 @@ public class AbstractByteListTest {
 		List<Byte> expected = new ArrayList<>();
 		SimpleByteList list = new SimpleByteList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				byte v = ((byte)r.nextInt(9));

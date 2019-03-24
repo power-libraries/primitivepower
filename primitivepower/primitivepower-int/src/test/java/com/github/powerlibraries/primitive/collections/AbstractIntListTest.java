@@ -33,7 +33,7 @@ public class AbstractIntListTest {
 		List<Integer> expected = new ArrayList<>();
 		SimpleIntList list = new SimpleIntList();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				int v = ((int)r.nextInt(9));

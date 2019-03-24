@@ -33,7 +33,7 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		List<{{t.boxed}}> expected = new ArrayList<>();
 		Simple{{t.label}}List{{t.generic}} list = new Simple{{t.label}}List{{t.generic}}();
 		
-		for(int i=0; i<2000; i++) {
+		for(int i=0; i<200; i++) {
 			//adding a value
 			if(r.nextFloat()<0.7) {
 				{{t.type}} v = {{t.randomValue('r')}};
