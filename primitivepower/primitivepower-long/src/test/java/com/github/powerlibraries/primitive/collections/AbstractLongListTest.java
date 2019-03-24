@@ -126,7 +126,6 @@ public class AbstractLongListTest {
 		
 		list.removeAt(0);
 		copy.retainAllLongs(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractLongListTest {
 		List<Long> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleLongList list, List<Long> expected) {
+		SimpleLongList copy = new SimpleLongList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		long v = ((long)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

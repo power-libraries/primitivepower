@@ -41,7 +41,9 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public LongList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleLongList result = new SimpleLongList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleLongList extends AbstractLongList {
 
 	@Override
 	public long removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

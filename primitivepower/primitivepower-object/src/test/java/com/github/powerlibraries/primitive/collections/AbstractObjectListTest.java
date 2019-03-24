@@ -126,7 +126,6 @@ public class AbstractObjectListTest<E> {
 		
 		list.removeAt(0);
 		copy.retainAllObjects(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractObjectListTest<E> {
 		List<E> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleObjectList<E> list, List<E> expected) {
+		SimpleObjectList<E> copy = new SimpleObjectList<E>();
+		copy.addAll(list);
+		Random r = new Random(9);
+		E v = (E)TimeUnit.values()[r.nextInt(7)];
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

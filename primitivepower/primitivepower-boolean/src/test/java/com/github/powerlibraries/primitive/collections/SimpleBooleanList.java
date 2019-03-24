@@ -39,7 +39,9 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public BooleanList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleBooleanList result = new SimpleBooleanList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -136,7 +138,7 @@ public class SimpleBooleanList extends AbstractBooleanList {
 
 	@Override
 	public boolean removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

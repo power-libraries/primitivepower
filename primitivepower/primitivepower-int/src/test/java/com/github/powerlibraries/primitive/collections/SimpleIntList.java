@@ -41,7 +41,9 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public IntList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleIntList result = new SimpleIntList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleIntList extends AbstractIntList {
 
 	@Override
 	public int removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

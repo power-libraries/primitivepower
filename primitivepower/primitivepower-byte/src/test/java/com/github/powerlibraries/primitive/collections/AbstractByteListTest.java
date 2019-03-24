@@ -126,7 +126,6 @@ public class AbstractByteListTest {
 		
 		list.removeAt(0);
 		copy.retainAllBytes(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractByteListTest {
 		List<Byte> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleByteList list, List<Byte> expected) {
+		SimpleByteList copy = new SimpleByteList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		byte v = ((byte)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

@@ -126,7 +126,6 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		
 		list.removeAt(0);
 		copy.retainAll{{t.label}}s(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		List<{{t.boxed}}> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(Simple{{t.label}}List{{t.generic}} list, List<{{t.boxed}}> expected) {
+		Simple{{t.label}}List{{t.generic}} copy = new Simple{{t.label}}List{{t.generic}}();
+		copy.addAll(list);
+		Random r = new Random(9);
+		{{t.type}} v = {{t.randomValue('r')}};
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	{% if t.streamSupport %}

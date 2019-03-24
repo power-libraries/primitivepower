@@ -41,7 +41,9 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public CharList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleCharList result = new SimpleCharList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleCharList extends AbstractCharList {
 
 	@Override
 	public char removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

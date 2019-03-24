@@ -41,7 +41,9 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public DoubleList subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException();
+		SimpleDoubleList result = new SimpleDoubleList();
+		result.l = l.subList(fromIndex, toIndex);
+		return result;
 	}
 
 	@Override
@@ -138,7 +140,7 @@ public class SimpleDoubleList extends AbstractDoubleList {
 
 	@Override
 	public double removeAt(int index) {
-		throw new UnsupportedOperationException();
+		return l.remove(index);
 	}
 	
 	@Override

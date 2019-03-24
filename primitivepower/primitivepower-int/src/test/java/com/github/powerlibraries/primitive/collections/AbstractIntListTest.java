@@ -126,7 +126,6 @@ public class AbstractIntListTest {
 		
 		list.removeAt(0);
 		copy.retainAllInts(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractIntListTest {
 		List<Integer> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleIntList list, List<Integer> expected) {
+		SimpleIntList copy = new SimpleIntList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		int v = ((int)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

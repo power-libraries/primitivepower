@@ -126,7 +126,6 @@ public class AbstractDoubleListTest {
 		
 		list.removeAt(0);
 		copy.retainAllDoubles(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractDoubleListTest {
 		List<Double> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleDoubleList list, List<Double> expected) {
+		SimpleDoubleList copy = new SimpleDoubleList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		double v = ((double)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

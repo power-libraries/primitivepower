@@ -126,7 +126,6 @@ public class AbstractCharListTest {
 		
 		list.removeAt(0);
 		copy.retainAllChars(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractCharListTest {
 		List<Character> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleCharList list, List<Character> expected) {
+		SimpleCharList copy = new SimpleCharList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		char v = ((char)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

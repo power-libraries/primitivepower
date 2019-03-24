@@ -126,7 +126,6 @@ public class AbstractFloatListTest {
 		
 		list.removeAt(0);
 		copy.retainAllFloats(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractFloatListTest {
 		List<Float> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleFloatList list, List<Float> expected) {
+		SimpleFloatList copy = new SimpleFloatList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		float v = ((float)r.nextInt(9));
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	

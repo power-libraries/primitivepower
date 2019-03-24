@@ -126,7 +126,6 @@ public class AbstractBooleanListTest {
 		
 		list.removeAt(0);
 		copy.retainAllBooleans(list);
-		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
@@ -171,6 +170,17 @@ public class AbstractBooleanListTest {
 		List<Boolean> collected = new ArrayList<>();
 		list.forEach(v->collected.add(v));
 		assertThat(collected).containsExactlyInAnyOrderElementsOf(expected);
+	}
+	
+	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
+	public void listIterator(SimpleBooleanList list, List<Boolean> expected) {
+		SimpleBooleanList copy = new SimpleBooleanList();
+		copy.addAll(list);
+		Random r = new Random(9);
+		boolean v = r.nextBoolean();
+		list.listIterator().add(v);
+		assertThat(list.get(0)).isEqualTo(v);
+		assertThat(list.subList(1, list.size())).containsExactlyInAnyOrderElementsOf(copy);
 	}
 	
 	
