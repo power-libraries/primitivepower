@@ -123,6 +123,10 @@ public class AbstractByteListTest {
 		copy.addAll(list);
 		copy.retainAllBytes(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllBytes(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

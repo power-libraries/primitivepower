@@ -123,6 +123,10 @@ public class AbstractFloatListTest {
 		copy.addAll(list);
 		copy.retainAllFloats(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllFloats(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

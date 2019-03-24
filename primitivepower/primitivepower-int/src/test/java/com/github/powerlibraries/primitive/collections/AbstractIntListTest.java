@@ -123,6 +123,10 @@ public class AbstractIntListTest {
 		copy.addAll(list);
 		copy.retainAllInts(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllInts(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

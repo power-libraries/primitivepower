@@ -123,6 +123,10 @@ public class AbstractDoubleListTest {
 		copy.addAll(list);
 		copy.retainAllDoubles(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllDoubles(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

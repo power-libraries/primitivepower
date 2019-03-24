@@ -123,6 +123,10 @@ public class Abstract{{t.label}}ListTest{{t.generic}} {
 		copy.addAll(list);
 		copy.retainAll{{t.label}}s(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAll{{t.label}}s(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

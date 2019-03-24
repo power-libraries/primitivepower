@@ -123,6 +123,10 @@ public class AbstractObjectListTest<E> {
 		copy.addAll(list);
 		copy.retainAllObjects(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllObjects(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")

@@ -123,6 +123,10 @@ public class AbstractBooleanListTest {
 		copy.addAll(list);
 		copy.retainAllBooleans(list);
 		assertThat(copy.containsAll(list)).isTrue();
+		
+		list.removeAt(0);
+		copy.retainAllBooleans(list);
+		assertThat(copy).containsExactlyElementsOf(list);
 	}
 	
 	@ParameterizedTest(name="{index}") @MethodSource("generateLists")
