@@ -18,7 +18,7 @@ jobs:
         - cd primitivepower
         - mvn -B -V install -DskipTests
       script:
-        - mvn test verify -P test-coverage
+        - mvn -B -V -T 1C test verify -P test-coverage
       after_script: bash <(curl -s https://codecov.io/bash)
 
 
