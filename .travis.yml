@@ -19,7 +19,7 @@ jobs:
         - mvn -B -V install -DskipTests
       script:
         - mvn test verify -P test-coverage
-      after_success: bash <(curl -s https://codecov.io/bash)
+      after_script: bash <(curl -s https://codecov.io/bash)
 
 
 #remove the installed maven jars before caching
