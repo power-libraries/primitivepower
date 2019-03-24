@@ -185,6 +185,7 @@ public class AbstractObjectListTest<E> {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllObjects(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

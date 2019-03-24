@@ -187,6 +187,7 @@ public class AbstractCharListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllChars(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		

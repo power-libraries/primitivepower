@@ -187,6 +187,7 @@ public class AbstractShortListTest {
 		
 		//contains all and negative test
 		assertThat(expected.containsAll(list)).isTrue();
+		assertThat(list.containsAllShorts(list)).isTrue();
 		assertThat(list.containsAll(expected)).isTrue();
 		assertThat(list.containsAll(unexpected)).isFalse();
 		
