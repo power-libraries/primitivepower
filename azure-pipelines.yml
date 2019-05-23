@@ -3,7 +3,7 @@ pool:
 
 steps:
 - task: Bash@3
-  displayName: Test if generated code matches templates
+  displayName: test if generated code matches templates
   inputs:
     targetType: inline
     script: |
@@ -16,7 +16,7 @@ steps:
       diff -qrN -x '*.class' tmp/ primitivepower/
 
 - task: Maven@3
-  displayName: Tests
+  displayName: tests
   inputs:
     mavenPomFile: 'primitivepower/pom.xml'
     goals: test verify
@@ -26,7 +26,7 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
 - task: Bash@3
-  displayName: Upload coverage
+  displayName: upload coverage
   env:
       CODECOV_TOKEN: $(CODECOV_TOKEN)
   inputs:
