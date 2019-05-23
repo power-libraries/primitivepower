@@ -30,6 +30,8 @@ steps:
 
 - task: Bash@3
   displayName: Upload coverage
+  env:
+      CODECOV_TOKEN: $(CODECOV_TOKEN)
   inputs:
     targetType: inline
     script: bash <(curl -s https://codecov.io/bash)
