@@ -9,14 +9,14 @@ steps:
   displayName: Test if generated code matches templates
   inputs:
     targetType: inline
-    script:
-       mkdir tmp
-       cd primitivepower-generator
-       mvn -B -V install -DskipTests
-       mvn -B -V test
-       mvn exec:java -DskipTests -Dexec.args="../tmp/"
-       cd ..
-       diff -qrN -x '*.class' tmp/ primitivepower/
+    script: |
+      mkdir tmp
+      cd primitivepower-generator
+      mvn -B -V install -DskipTests
+      mvn -B -V test
+      mvn exec:java -DskipTests -Dexec.args="../tmp/"
+      cd ..
+      diff -qrN -x '*.class' tmp/ primitivepower/
 
 - task: Maven@3
   displayName: Tests
