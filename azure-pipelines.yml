@@ -23,11 +23,9 @@ steps:
   inputs:
     mavenPomFile: 'primitivepower/pom.xml'
     goals: test verify
-    options:  -T 1C -P test-coverage
-    javaHomeOption: 'JDKVersion'
+    options: -B -T 1C -P test-coverage
     jdkVersionOption: '1.8'
-    jdkArchitectureOption: x64
-    publishJUnitResults: false
+    publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     codeCoverageToolOption: jaCoCo
     codeCoverageClassFilesDirectories: primitivepower/*/target/classes
