@@ -1,0 +1,34 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Bash@3
+  displayName: Test if generated code matches templates
+  inputs:
+    script:
+       mkdir tmp
+       cd primitivepower-generator
+       mvn -B -V install -DskipTests
+       mvn -B -V test
+       mvn exec:java -DskipTests -Dexec.args="../tmp/"
+       cd ..
+       diff -qrN -x '*.class' tmp/ primitivepower/
+
+- task: Maven@3
+  displayName: Tests
+  inputs:
+    mavenPomFile: 'primitivepower/pom.xml'
+    goals: test verify
+    mavenOptions: '-Xmx3072m -T 1C -P test-coverage'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'jaCoCo'
+    codeCoverageClassFilesDirectories: primitivepower/*/target/classes
+    codeCoverageSourceDirectories: primitivepower/*/src/main/java
+    codeCoverageFailIfEmpty: true
