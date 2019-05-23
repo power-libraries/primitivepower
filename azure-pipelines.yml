@@ -27,5 +27,9 @@ steps:
     jdkVersionOption: '1.8'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    codeCoverageToolOption: JaCoCo
-    codeCoverageFailIfEmpty: true
+
+- task: Bash@3
+  displayName: Upload coverage
+  inputs:
+    targetType: inline
+    script: bash <(curl -s https://codecov.io/bash)
