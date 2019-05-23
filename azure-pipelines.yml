@@ -27,7 +27,5 @@ steps:
     jdkVersionOption: '1.8'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    codeCoverageToolOption: jaCoCo
-    codeCoverageClassFilesDirectories: primitivepower/*/target/classes
-    codeCoverageSourceDirectories: primitivepower/*/src/main/java
+    codeCoverageToolOption: JaCoCo
     codeCoverageFailIfEmpty: true
