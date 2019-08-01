@@ -1,0 +1,34 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Bash@3
+  displayName: test if generated code matches templates
+  inputs:
+    targetType: inline
+    script: |
+      mkdir tmp
+      cd primitivepower-generator
+      mvn -B -V install -DskipTests
+      mvn -B -V test
+      mvn exec:java -DskipTests -Dexec.args="../tmp/"
+      cd ..
+      diff -qrN -x '*.class' tmp/ primitivepower/
+
+- task: Maven@3
+  displayName: tests
+  inputs:
+    mavenPomFile: 'primitivepower/pom.xml'
+    goals: test verify
+    options: -B -T 1C -P test-coverage
+    jdkVersionOption: '1.8'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+
+- task: Bash@3
+  displayName: upload coverage
+  env:
+      CODECOV_TOKEN: $(CODECOV_TOKEN)
+  inputs:
+    targetType: inline
+    script: bash <(curl -s https://codecov.io/bash)
