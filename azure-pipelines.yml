@@ -6,10 +6,10 @@ steps:
     cd primitivepower-generator
     mvn -B -V install -DskipTests
     mvn -B -V test
-    mvn exec:java -DskipTests -Dexec.args="../primitivepower/"
+    mvn -B -V exec:java -DskipTests -Dexec.args="../primitivepower/"
     cd ..
     git add *
-    git diff-index --name-only HEAD ||
+    git diff --name-only HEAD || \
     {
       git config user.email "50981256+power-libraries-bot@users.noreply.github.com"
       git config user.name "power-libraries-bot"
