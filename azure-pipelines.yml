@@ -14,7 +14,7 @@ steps:
       git config user.email "50981256+power-libraries-bot@users.noreply.github.com"
       git config user.name "power-libraries-bot"
       git commit --message "regenerated derived code"
-      git push
+      git push origin HEAD:${Build.SourceBranch}
       exit -1
     }
   displayName: regenerate code
