@@ -3,13 +3,13 @@ pool:
 
 steps:
 - bash: |
-      mkdir tmp
-      cd primitivepower-generator
-      mvn -B -V install -DskipTests
-      mvn -B -V test
-      mvn exec:java -DskipTests -Dexec.args="../tmp/"
-      cd ..
-      diff -qrN -x '*.class' tmp/ primitivepower/
+    mkdir tmp
+    cd primitivepower-generator
+    mvn -B -V install -DskipTests
+    mvn -B -V test
+    mvn exec:java -DskipTests -Dexec.args="../tmp/"
+    cd ..
+    diff -qrN -x '*.class' tmp/ primitivepower/
   displayName: test if generated code matches templates
 
 - task: Maven@3
