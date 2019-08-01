@@ -2,18 +2,22 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Bash@3
-  displayName: test if generated code matches templates
-  inputs:
-    targetType: inline
-    script: |
-      mkdir tmp
-      cd primitivepower-generator
-      mvn -B -V install -DskipTests
-      mvn -B -V test
-      mvn exec:java -DskipTests -Dexec.args="../tmp/"
-      cd ..
-      diff -qrN -x '*.class' tmp/ primitivepower/
+- bash: |
+    cd primitivepower-generator
+    mvn -B -V install -DskipTests
+    mvn -B -V test
+    mvn exec:java -DskipTests -Dexec.args="../primitivepower/"
+    cd ..
+    git add *
+    git diff-index --name-only HEAD ||
+    {
+      git config user.email "50981256+power-libraries-bot@users.noreply.github.com"
+      git config user.name "power-libraries-bot"
+      git commit --message "regenerated derived code"
+      git push
+      exit -1
+    }
+  displayName: regenerate code
 
 - task: Maven@3
   displayName: tests
@@ -25,10 +29,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
-- task: Bash@3
+- bash: bash <(curl -s https://codecov.io/bash)
   displayName: upload coverage
   env:
-      CODECOV_TOKEN: $(CODECOV_TOKEN)
-  inputs:
-    targetType: inline
-    script: bash <(curl -s https://codecov.io/bash)
+    CODECOV_TOKEN: $(CODECOV_TOKEN)
