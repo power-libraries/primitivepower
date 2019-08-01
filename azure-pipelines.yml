@@ -3,14 +3,21 @@ pool:
 
 steps:
 - bash: |
-    mkdir tmp
     cd primitivepower-generator
     mvn -B -V install -DskipTests
     mvn -B -V test
-    mvn exec:java -DskipTests -Dexec.args="../tmp/"
+    mvn exec:java -DskipTests -Dexec.args="../primitivepower/"
     cd ..
-    diff -qrN -x '*.class' tmp/ primitivepower/
-  displayName: test if generated code matches templates
+    git add *
+    git diff-index --name-only HEAD ||
+    {
+      git config user.email "50981256+power-libraries-bot@users.noreply.github.com"
+      git config user.name "power-libraries-bot"
+      git commit --message "regenerated derived code"
+      git push
+      exit -1
+    }
+  displayName: regenerate code
 
 - task: Maven@3
   displayName: tests
