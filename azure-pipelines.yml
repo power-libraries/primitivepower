@@ -9,7 +9,7 @@ steps:
     mvn -B -V exec:java -DskipTests -Dexec.args="../primitivepower/"
     cd ..
     git add *
-    git diff --name-only HEAD || \
+    git diff --quiet HEAD || \
     {
       git config user.email "50981256+power-libraries-bot@users.noreply.github.com"
       git config user.name "power-libraries-bot"
