@@ -2,11 +2,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Bash@3
-  displayName: test if generated code matches templates
-  inputs:
-    targetType: inline
-    script: |
+- bash: |
       mkdir tmp
       cd primitivepower-generator
       mvn -B -V install -DskipTests
@@ -14,6 +10,7 @@ steps:
       mvn exec:java -DskipTests -Dexec.args="../tmp/"
       cd ..
       diff -qrN -x '*.class' tmp/ primitivepower/
+  displayName: test if generated code matches templates
 
 - task: Maven@3
   displayName: tests
@@ -25,10 +22,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
-- task: Bash@3
+- bash: bash <(curl -s https://codecov.io/bash)
   displayName: upload coverage
   env:
-      CODECOV_TOKEN: $(CODECOV_TOKEN)
-  inputs:
-    targetType: inline
-    script: bash <(curl -s https://codecov.io/bash)
+    CODECOV_TOKEN: $(CODECOV_TOKEN)
